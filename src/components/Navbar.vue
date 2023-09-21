@@ -17,6 +17,15 @@
         <router-link to="/about" class="links">Contacts</router-link>
       </li>
     </ul>
+    <div class="cart-container">
+      <router-link to="/cart" class="links">
+        <font-awesome-icon
+          icon="fa-solid fa-bag-shopping"
+          class="shopping-bag"
+        />
+      </router-link>
+      <p>3</p>
+    </div>
   </nav>
 </template>
  <script>
@@ -41,8 +50,6 @@ export default {
   display: flex;
   width: 100%;
   height: 60px;
-
-  gap: 5rem;
   justify-items: space-between;
   align-items: center;
 }
@@ -58,11 +65,42 @@ export default {
   gap: 3rem;
   margin: 0 1rem;
   font-family: "Caveat", cursive;
-
 }
 .links {
   color: white;
   text-decoration: none;
+  z-index: 3;
+}
+.cart-container {
+  /* background-color: red; */
+  width: 40px;
+  height: 20px;
+  position: relative;
+  margin: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shopping-bag {
+  color: white;
+  font-size: 1.5rem;
+  margin-top: -0.9rem;
+  cursor: pointer;
+}
+.cart-container p {
+  position: absolute;
+  background-color: black;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  color: white;
+  top: -14px;
+  left: 20px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
 }
 </style>
  

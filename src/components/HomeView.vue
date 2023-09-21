@@ -102,6 +102,7 @@ export default {
   object-fit: cover;
   margin-top: -3rem;
   margin-right: -4rem;
+  z-index: 0;
 }
 .upper-text-container {
   width: 100%;
@@ -123,11 +124,20 @@ export default {
   color: black;
   background-color: #90cbc9;
   font-family: "Dosis", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+.buy-now-btn:hover {
+  /* background-color: transparent; */
+  color: white;
 }
 .empty-btn {
   background-color: transparent;
   color: #90cbc9;
   border: 1px solid #90cbc9;
+}
+.empty-btn:hover {
+  background-color: #90cbc9;
+  color: white;
 }
 .fashion {
   font-size: 5rem;
