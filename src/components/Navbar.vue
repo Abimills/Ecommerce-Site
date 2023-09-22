@@ -64,7 +64,8 @@ export default {
   align-items: center;
   gap: 3rem;
   margin: 0 1rem;
-  font-family: "Caveat", cursive;
+  font-weight: 300;
+  font-family: "Dosis", sans-serif;
 }
 .links {
   color: white;

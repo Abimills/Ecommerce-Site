@@ -12,7 +12,9 @@ import {  faTruck} from '@fortawesome/free-solid-svg-icons'
 import {  faHeadphones} from '@fortawesome/free-solid-svg-icons'
 import {  faMoneyCheckDollar} from '@fortawesome/free-solid-svg-icons'
 import {  faStar} from '@fortawesome/free-solid-svg-icons'
-import {  faStarHalf} from '@fortawesome/free-regular-svg-icons'
+import {  faFacebook} from '@fortawesome/free-brands-svg-icons'
+import {  faLinkedin} from '@fortawesome/free-brands-svg-icons'
+import {  faInstagram} from '@fortawesome/free-brands-svg-icons'
 
 
 
@@ -20,5 +22,5 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-library.add(faBagShopping,faTruck,faHeadphones,faMoneyCheckDollar,faStar,faStarHalf)
+library.add(faBagShopping,faTruck,faHeadphones,faMoneyCheckDollar,faStar,faFacebook,faLinkedin,faInstagram)
 createApp(App).use(store).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

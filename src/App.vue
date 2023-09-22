@@ -7,6 +7,11 @@
     <OurValue />
     <PopularProducts />
     <Review />
+    <About />
+
+    <Newsletter />
+    <Contact />
+    <Footer />
   </div>
 </template>
 <script>
@@ -17,6 +22,10 @@ import NewProductsVue from "./components/NewProducts.vue";
 import PopularProducts from "./components/PopularProducts.vue";
 import OurValue from "./components/OurValue.vue";
 import Review from "./components/Review.vue";
+import Newsletter from "./components/Newsletter.vue";
+import Footer from "./components/Footer.vue";
+import About from "./components/About.vue";
+import Contact from "./components/Contact.vue";
 export default {
   name: "App",
   components: {
@@ -27,6 +36,10 @@ export default {
     PopularProducts,
     OurValue,
     Review,
+    Newsletter,
+    Footer,
+    About,
+    Contact,
   },
   data() {
     return {};
