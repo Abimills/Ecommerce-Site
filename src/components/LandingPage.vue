@@ -14,7 +14,7 @@
           Similique, laudantium.
         </p>
         <div class="btns-container">
-          <button class="buy-now-btn empty-btn">BUY NOW</button>
+          <button class="buy-now-btn empty-btn">SHOP NOW</button>
           <button class="buy-now-btn">PRE-ORDER</button>
         </div>
       </div>
@@ -53,7 +53,7 @@
 import girlOne from "../assets/girl-two.png";
 
 export default {
-  name: "Home",
+  name: "LandingPage",
   components: {},
   data() {
     return {
@@ -76,7 +76,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #064240;
+  /* background: #064240; */
 }
 .vertical-line {
   content: none;
@@ -119,10 +119,10 @@ export default {
 }
 .buy-now-btn {
   padding: 6px 20px;
-  border: 2px solid #90cbc9;
+  border: 1px solid #90cbc9;
+  background-color: transparent;
   font-size: 0.8rem;
-  color: black;
-  background-color: #90cbc9;
+  color: #90cbc9;
   font-family: "Dosis", sans-serif;
   transition: all 0.3s ease-in-out;
 }
@@ -131,9 +131,9 @@ export default {
   color: white;
 }
 .empty-btn {
-  background-color: transparent;
-  color: #90cbc9;
-  border: 1px solid #90cbc9;
+  background-color: #90cbc9;
+  color: black;
+  border: 2px solid #90cbc9;
 }
 .empty-btn:hover {
   background-color: #90cbc9;
@@ -146,7 +146,7 @@ export default {
   /* font-family: 'Mooli', sans-serif; */
   font-family: "Outfit", sans-serif;
   /* font-family: 'Roboto', sans-serif; */
-  color: white;
+  color: rgb(228, 226, 226);;
 }
 .fashion span {
   font-family: "Caveat", cursive;

@@ -49,6 +49,7 @@ export default {
 /* font-family: 'Outfit', sans-serif; */
 /* font-family: 'Roboto', sans-serif; */
 .contact-us-page-container {
+  /* TODO: check for any errors */
   width: 100%;
   display: flex;
 }
