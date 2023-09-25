@@ -14,6 +14,9 @@
         <router-link to="/item" class="links">Items</router-link>
       </li>
       <li>
+        <router-link to="/login" class="links">Sign in</router-link>
+      </li>
+      <li>
         <router-link to="/item" class="links wishlist"
           >Wishlist
            <svg

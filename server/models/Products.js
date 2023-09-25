@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
       default: 0
 
       },
-      TimeRanges:{
+      timeRanges:{
             type: Array,
             
 
@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema({
             type: Array,   
 
       },
-      Rating:{
+      rating:{
             type: Number,
       },
       stock:{
