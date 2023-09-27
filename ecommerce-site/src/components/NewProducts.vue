@@ -6,86 +6,40 @@
       ipsa eos sunt vero, eligendi totam hic quaerat sed quis!
     </p>
     <div class="product-container">
-      <div class="product">
-        <img src="../assets/shoes.png" alt="" class="product-img" />
+      <div
+        class="product"
+        v-for="product in data?.products?.products"
+        :key="product?._id"
+      >
+        <img :src="product?.img" alt="" class="product-img" />
         <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
+          <p class="product-name">{{ product?.name }}</p>
+          <p class="product-price">{{ product?.price }}</p>
         </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
+        <p :class="show ? 'description' : 'hidden-description'">
+          {{ product?.description }}
         </p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="../assets/t-shirt.png" alt="" class="product-img" />
-        <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
-        </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
-        </p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="../assets/shoes.png" alt="" class="product-img" />
-        <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
-        </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
-        </p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="../assets/shoes.png" alt="" class="product-img" />
-        <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
-        </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
-        </p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="../assets/shoes.png" alt="" class="product-img" />
-        <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
-        </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
-        </p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-      <div class="product">
-        <img src="../assets/shoes.png" alt="" class="product-img" />
-        <div class="price-container">
-          <p class="product-name">Halico Dress</p>
-          <p class="product-price">$34</p>
-        </div>
-        <p class="description">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          impedit sint ducimus! Autem, sint ab!
-        </p>
+        <button class="read-more" @click="toggleShow">{{ show ?'read more...' : 'read less...' }}</button>
         <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "NewProducts",
-  data() {},
+<script setup>
+import { onMounted, reactive, ref } from "vue";
+import axios from "axios";
+const data = reactive({ products: [] });
+const show = ref(true);
+const toggleShow = () => {
+  show.value = !show.value;
 };
+onMounted(() => {
+  const fetch = async () => {
+    const res = await axios.get("http://localhost:4040/products/");
+    data.products = res.data;
+  };
+  fetch();
+});
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -163,6 +117,23 @@ export default {
   color: white;
   margin-bottom: 1rem;
   font-size: 0.8rem;
+  max-height: 50px;
+  overflow: hidden;
+}
+.hidden-description {
+  font-family: "Dosis", sans-serif;
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  height: max-content;
+}
+.read-more {
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: "Dosis", sans-serif;
+  color: #064240;
 }
 .add-to-cart {
   padding: 5px 15px;

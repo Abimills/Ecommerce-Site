@@ -105,8 +105,9 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+const id = $route.params.id
+
 </script>
 
 <style scoped>

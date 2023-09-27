@@ -3,10 +3,16 @@
     <h1 class="brand-header">Popular Products</h1>
 
     <div class="product-container">
-      <div class="product" v-for="product in data?.product?.products" :key="product?._id" >
+      <div
+        class="product"
+        v-for="product in data?.product?.products"
+        :key="product?._id"
+      >
         <img :src="product?.img" alt="" class="product-img" />
         <div class="price-container">
-          <p class="product-name">{{ product?.name }}</p>
+          <router-link to="'/product/' + product?._id">
+            <p class="product-name">{{ product?.name }}</p>
+          </router-link>
           <p class="product-price">${{ product?.price }}</p>
         </div>
         <p class="description">
@@ -14,11 +20,6 @@
         </p>
         <button class="add-to-cart">Add to Cart</button>
       </div>
-      
-   
-      
-      
-     
     </div>
   </div>
 </template>
@@ -26,13 +27,13 @@
 import axios from "axios";
 import { onMounted, reactive } from "vue";
 
-const data = reactive({product:[]});
+const data = reactive({ product: [] });
 
 onMounted(() => {
   const fetch = async () => {
     const res = await axios.get("http://localhost:4040/products/");
     data.product = res.data;
-    console.log(data)
+    console.log(data);
   };
   fetch();
 });

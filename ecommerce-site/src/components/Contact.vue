@@ -4,7 +4,7 @@
       <img src="../assets/person.png" alt="" class="tempo-abel-pic" />
     </div>
     <div class="all-input-contact-container">
-      <h1 class="get-in-touch">Get In Touch</h1>
+      <!-- <h1 class="get-in-touch">Get In Touch</h1> -->
       <p class="interested-para">
         Want to have a conversation? <br />
         lets make it happen!

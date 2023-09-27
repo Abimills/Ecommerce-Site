@@ -36,6 +36,11 @@ component: () => import("../components/Login.vue")
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/Cart.vue')
   },
+  {
+    path:"/product/:id",
+    name:"single-product",
+    component: () => ('../components/Item.vue')
+  }
 ]
 
 const router = createRouter({
