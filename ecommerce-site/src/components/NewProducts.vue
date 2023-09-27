@@ -50,7 +50,7 @@ onMounted(() => {
 /* font-family: 'Outfit', sans-serif; */
 /* font-family: 'Roboto', sans-serif; */
 .product-img {
-  width: 150px;
+  width: 200px;
   height: 150px;
   object-fit: contain;
 }
@@ -87,7 +87,7 @@ onMounted(() => {
   flex-wrap: wrap;
 }
 .product {
-  width: 250px;
+  width: 280px;
   padding: 10px;
   background: #709290;
   display: flex;
@@ -114,7 +114,7 @@ onMounted(() => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: white;
+  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;

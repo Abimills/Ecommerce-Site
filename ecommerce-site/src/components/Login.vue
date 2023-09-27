@@ -1,5 +1,6 @@
 <template>
   <div class="create-product-container">
+    <div class="admin-mother-container">
     <div class="admin-information-navigation">
       <div class="admin-pic-label">
         <img src="../assets/cutepie23.png" alt="" class="admin-pic" />
@@ -20,8 +21,12 @@
       <div class="user-request-container">
         <p>View User</p>
       </div>
+      <div class="log-out-request-container">
+        <button>Log out</button>
+      </div>
     </div>
-    <div class="add-products-form-container">
+    </div>
+    <!-- <div class="add-products-form-container">
       <h1 class="add-products-header">Add Products</h1>
       <div class="line"></div>
       <form class="add-product-form" @submit.prevent="onSubmit">
@@ -102,14 +107,96 @@
 
         <input type="submit" class="submit-btn" value="Add Product" />
       </form>
-    </div>
+    </div> -->
+    <!-- ========================================== end of add product -->
+    <!-- <div class="profile-all-container">
+      <div class="profile-all">
+        <div class="top-img-info-container">
+          <img
+            src="../assets/cutepie23.png"
+            alt=""
+            class="person-profile-img"
+          />
+          <div class="person-info">
+            <p>Abel Miller.</p>
+            <p>juli@gmail.com</p>
+            <p class="owner">Owner</p>
+          </div>
+        </div>
+        <div class="product-info-container">
+          <ul class="list-info">
+            <div class="li-container">
+              <li class="list">categories of products</li>
+              <p>3+</p>
+            </div>
+            <div class="li-container">
+              <li class="list">Newsletter subscribers</li>
+              <p>20+</p>
+            </div>
+            <div class="li-container">
+              <li class="list">Reviews</li>
+              <p>20+</p>
+            </div>
+            <div class="li-container">
+              <li class="list">users</li>
+              <p>20+</p>
+            </div>
+            <div class="li-container">
+              <li class="list">products</li>
+              <p>100+</p>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    <!-- =========================end of profile -->
+
+    <!-- <div class="new-products-container">
+      <h1 class="brand-header">Categories</h1>
+      <div class="category-container">
+        <p
+          class="filter"
+          :class="activeCategory == cat ? 'active-category' : ''"
+          @click="filterProducts(cat, index)"
+          v-for="cat in productCategory?.categories"
+          :key="cat.index"
+        >
+          {{ cat }}
+        </p>
+      </div>
+
+      <div class="product-container">
+        <div
+          class="product"
+          v-for="product in productsToShow?.product?.products"
+          :key="product?._id"
+        >
+          <img :src="product?.img" alt="" class="product-img" />
+          <div class="price-container">
+            <router-link to="'/product/' + product?._id">
+              <p class="product-name">{{ product?.name }}</p>
+            </router-link>
+            <p class="product-price">${{ product?.price }}</p>
+          </div>
+          <p class="description">
+            {{ product?.description }}
+          </p>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div> -->
+    <!-- ============== category page ended -->
+    <SingleUser />
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
-import { reactive, ref } from "vue";
+import SingleViewVue from "./SingleView.vue";
+import SingleUser from "./SingleUser.vue";
+import { onMounted, reactive, ref } from "vue";
 
+const activeCategory = ref("Shoes");
 const data = reactive({
   name: "",
   price: "",
@@ -120,11 +207,39 @@ const data = reactive({
   timeRanges: "",
   discount: "",
 });
+// categories set of words from data
+const productCategory = reactive({ categories: [] });
+
 const handleImage = (e) => {
   const file = e.target.files[0];
   data.img = file;
-  console.log(data.img);
 };
+const products = reactive({ product: [] });
+const productsToShow = reactive({
+  product: [],
+});
+const getCategories = (data) => {
+  const categories = data?.products?.map((pro) => pro.category);
+  const timeRangeCat = data?.products?.map((pro) => pro.timeRanges[0]);
+  productCategory.categories = [
+    "All",
+    ...new Set(categories),
+    ...new Set(timeRangeCat),
+  ];
+
+  console.log(productCategory.categories);
+};
+
+onMounted(() => {
+  const fetch = async () => {
+    const res = await axios.get("http://localhost:4040/products/");
+    // productsToShow.product = res.data;
+    products.product = res.data;
+    filterProducts("Shoes");
+    getCategories(res.data);
+  };
+  fetch();
+});
 
 const onSubmit = async () => {
   if (
@@ -151,6 +266,24 @@ const onSubmit = async () => {
     console.log(res);
   } else {
     alert("Please provide stared fields");
+  }
+};
+
+const filterProducts = (category) => {
+  if (products.product) {
+    if (category === "All") {
+      productsToShow.product.products = products.product.products;
+      activeCategory.value = category;
+    } else {
+      productsToShow.product.products = products.product.products?.filter(
+        (product) =>
+          product.category?.toLowerCase() == category?.toLowerCase() ||
+          product.timeRanges[0]?.toLowerCase() == category?.toLowerCase()
+      );
+      activeCategory.value = category;
+    }
+  } else {
+    return;
   }
 };
 
@@ -212,8 +345,8 @@ const onSubmit = async () => {
   display: flex;
   /* align-items: center; */
   justify-content: space-between;
-
   gap: 6rem;
+  position: relative;
 
   font-family: "Outfit", sans-serif;
 }
@@ -225,6 +358,22 @@ const onSubmit = async () => {
   flex-direction: column;
   gap: 1rem;
   margin-left: 14rem;
+}
+.log-out-request-container {
+  margin-top: 1rem;
+  width: 100%;
+}
+.log-out-request-container button {
+  width: 100%;
+  background: #90cbc9;
+  padding: 10px;
+  border: 1px solid #90cbc9;
+  color: white;
+  text-transform: capitalize;
+}
+.log-out-request-container button:hover {
+  background: transparent;
+  color: black;
 }
 .add-product-form {
   width: 60%;
@@ -318,15 +467,22 @@ const onSubmit = async () => {
   align-items: center;
   justify-content: center;
 }
+
+.admin-mother-container{
+  width: 25%;
+  height: 100vh;
+  position: relative;
+}
 .admin-information-navigation {
   width: 20%;
   height: 100vh;
+  left: 0;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
   background-color: white;
-  /* margin-right: 3rem; */
+  /* margin-left: 3rem; */
   border-top-right-radius: 90px;
   position: fixed;
 
@@ -368,5 +524,189 @@ const onSubmit = async () => {
   color: #064240;
   color: #90cbc9;
   cursor: pointer;
+}
+.person-profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  background: rgb(20, 20, 20);
+  border-radius: 50%;
+  padding: 10px;
+}
+.profile-all-container {
+  /* margin-left: 15rem; */
+  /* margin-left: 16rem; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+  margin-left: 4rem;
+  margin-top: 2rem;
+}
+.profile-all {
+  width: 50%;
+  border: 1px solid #90cbc9;
+  padding: 10px;
+  border-radius: 5px;
+}
+.person-info {
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.top-img-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+.product-info-container {
+  width: 100%;
+  background: white;
+  text-transform: capitalize;
+}
+.list-info {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+li {
+  list-style: none;
+}
+.li-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: aliceblue;
+  padding: 10px;
+  /* margin:.5rem; */
+  color: #064240;
+}
+.li-container p {
+  background: white;
+  padding: 5px;
+}
+.owner {
+  padding: 3px 10px;
+  background: #90cbc9;
+}
+.product-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+.new-products-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 15rem;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+.brand-header {
+  color: rgb(217, 217, 217);
+  font-family: "Dosis", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.brand-text {
+  color: rgb(159, 156, 156);
+  font-family: "Dosis", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  margin-bottom: 2rem;
+}
+.product-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.product {
+  width: 250px;
+  padding: 10px;
+  background: #709290;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.price-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.product-name {
+  font-family: "Dosis", sans-serif;
+  color: white;
+}
+.product-price {
+  font-family: "Dosis", sans-serif;
+  color: white;
+  background-color: #064240;
+  padding: 0px 8px;
+}
+.description {
+  font-family: "Dosis", sans-serif;
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+.add-to-cart {
+  padding: 5px 15px;
+  background: #064240;
+  border: 1px solid #064240;
+  color: white;
+  border-radius: 20px;
+  font-family: "Dosis", sans-serif;
+  margin: 0.5rem 0;
+  font-size: 0.7rem;
+  transition: all 0.4s ease-in;
+}
+.add-to-cart:hover {
+  background: transparent;
+}
+.category-container {
+  width: 80%;
+  margin-left: 8rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: white;
+  gap: 2rem;
+  justify-content: space-evenly;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+}
+.category-container p {
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+.active-category {
+  background: orange;
+  padding: 2px 10px;
+  color: white;
+  border-radius: 20px;
+  transition: all 0.5s ease-in-out;
 }
 </style>

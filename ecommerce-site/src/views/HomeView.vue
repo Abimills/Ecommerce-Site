@@ -1,5 +1,6 @@
 <template>
   <div class="mother-container">
+    <Navbar />
     <LandingPage />
     <NewArrivalVue />
     <NewProductsVue />
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import Navbar from "../components/Navbar.vue";
 import LandingPage from "../components/LandingPage.vue";
 import NewArrivalVue from "../components/NewArrival.vue";
 import NewProductsVue from "../components/NewProducts.vue";
@@ -27,6 +29,7 @@ export default {
   name: "HomeView",
   components: {
    LandingPage,
+   Navbar,
     NewArrivalVue,
     NewProductsVue,
     PopularProducts,

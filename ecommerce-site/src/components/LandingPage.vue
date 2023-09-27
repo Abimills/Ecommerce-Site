@@ -2,8 +2,8 @@
   <div class="home-container">
     <div class="words-btns-container">
       <div class="upper-text-container">
-        <div class="vertical-line"></div>
-        <div class="vertical-line bottom-one"></div>
+        <!-- <div class="vertical-line"></div>
+        <div class="vertical-line bottom-one"></div> -->
         <p class="fashion"><span>Big</span> Fashion Sale</p>
         <p class="description-paragraph">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur
@@ -19,14 +19,14 @@
         </div>
       </div>
 
-      <div class="shirts-container">
+      <!-- <div class="shirts-container">
         <div class="shirt-one-container">
           <img src="" alt="" />
         </div>
         <div class="shirt-two-container">
           <img src="" alt="" />
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="pic-and-style-container">
       <img :src="girlOne" alt="girl-image" class="girl-image" />
@@ -75,7 +75,7 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   /* background: #064240; */
 }
 .vertical-line {
@@ -87,6 +87,10 @@ export default {
   position: absolute;
   left: 10px;
 }
+.words-btns-container{
+  width: 100%;
+  /* background: red; */
+}
 .bottom-one {
   bottom: 90px;
 }
@@ -97,11 +101,11 @@ export default {
   font-family: "Caveat", cursive;
 }
 .girl-image {
-  width: 600px;
+  width: 100%;
   height: 100vh;
-  object-fit: cover;
+  object-fit:cover;
   margin-top: -3rem;
-  margin-right: -4rem;
+  /* margin-right: -4rem; */
   z-index: 0;
 }
 .upper-text-container {
@@ -154,7 +158,7 @@ export default {
   font-size: 7rem;
 }
 .pic-and-style-container {
-  /* width: 100%; */
+  width: 100%;
   position: relative;
 }
 .dot {
