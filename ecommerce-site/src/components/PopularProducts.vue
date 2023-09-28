@@ -26,6 +26,13 @@
     <div class="pagination-container">
       <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
       <div class="pages-container">
+        <p
+          :class="currentPage == page ?  'active-page' : 'page'"
+          v-for="(page, index) in arrayPages.array"
+          :key="index"
+        >
+         {{page}}
+        </p>
         <p class="page">...</p>
         <!-- {{ propValue }} -->
       </div>
