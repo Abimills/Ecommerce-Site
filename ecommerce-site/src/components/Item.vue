@@ -1,23 +1,31 @@
 <template>
   <div class="item-container">
     <div class="left-side">
-      <img src="../assets/t-shirt.png" alt="" class="item-image" />
+      <img
+        :src="product.singleProduct?.product?.img"
+        alt=""
+        class="item-image"
+      />
       <div class="related-items">
-            <h3 class="related-header">Related Items</h3>
-            <div class="items">
-                  <img src="../assets/t-shirt.png" alt="">
-                  <img src="../assets/shoes.png" alt="">
-                  <img src="../assets/shoes.png" alt="">
-                  <img src="../assets/t-shirt.png" alt="">
-
-            </div>
+        <h3 class="related-header">Related Items</h3>
+        <div class="items">
+          <img
+            :src="item?.img"
+            v-for="item in data.products"
+            :key="item?._id"
+            alt=""
+          />
+          <!-- <img src="../assets/shoes.png" alt="" />
+          <img src="../assets/shoes.png" alt="" />
+          <img src="../assets/t-shirt.png" alt="" /> -->
+        </div>
       </div>
     </div>
     <div class="right-side">
-      <h2 class="item-name">Short sleeve T-shirt for men</h2>
+      <h2 class="item-name">{{ product.singleProduct?.product?.name }}</h2>
       <div class="wishlist-rating-container">
         <div class="price-rating-container">
-          <p class="price">$212.99</p>
+          <p class="price">${{ product.singleProduct?.product?.price }}</p>
 
           <p class="wishlist-text">
             <svg
@@ -80,7 +88,9 @@
       </div>
       <div class="color-quantity-container">
         <div class="color-container">
-          <p class="color">Color: black</p>
+          <p class="color">
+            Color: {{ product.singleProduct?.product?.colors[0] }}
+          </p>
           <div class="color-options">
             <div class="orange-color-option"></div>
             <div class="white-color-option"></div>
@@ -96,9 +106,7 @@
       <div class="description-container">
         <p>Description</p>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero tenetur
-          natus, in beatae corporis dolor sint, numquam repellendus illum iste
-          quam? Minima, amet.
+          {{ product.singleProduct?.product?.description }}
         </p>
       </div>
     </div>
@@ -106,8 +114,40 @@
 </template>
 
 <script setup>
-const id = $route.params.id
+// const id = $route.params.id
+import axios from "axios";
+const route = useRoute();
+import { onMounted, reactive, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+const product = reactive({ singleProduct: [] });
+const data = reactive({ products: [] });
+// useRoute returns the current route
 
+// Access the 'id' parameter from the route
+const { id } = route.params;
+
+onMounted(() => {
+  const fetchProduct = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4040/products/${id}`);
+      const response = await axios.get(`http://localhost:4040/products/`);
+      product.singleProduct = res?.data;
+      data.products = response?.data.products
+        ?.filter((pro) => pro.category === res.data.product?.category)
+        ?.slice(0, 4);
+    } catch (error) {
+      console.log({ msg: "error while trying to fetch single product", error });
+    }
+  };
+  fetchProduct();
+});
+
+// .filter(
+//   (pro) => pro.category == product.singleProduct?.product?.category
+// );
+watchEffect(() => {
+  
+});
 </script>
 
 <style scoped>
@@ -122,7 +162,6 @@ const id = $route.params.id
   width: 400px;
   height: 400px;
   object-fit: contain;
- 
 }
 .item-container {
   width: 100%;
@@ -269,8 +308,7 @@ const id = $route.params.id
   padding: 3px;
   color: white;
   border-radius: 30px;
-  outline:none;
-
+  outline: none;
 }
 .quantity input::placeholder {
   color: white;
@@ -279,42 +317,43 @@ const id = $route.params.id
   color: white;
   font-family: "Dosis", sans-serif;
 }
-.add-to-cart{
-      padding: 10px 25px;
-      font-family: "Dosis", sans-serif;
-      margin: 1rem 0;
-      border: 1px solid #709290;
-      background: #709290;;
-      cursor: pointer;
-      color:white;
-      border-radius: 30px;
-      font-size: 1rem;
+.add-to-cart {
+  padding: 10px 25px;
+  font-family: "Dosis", sans-serif;
+  margin: 1rem 0;
+  border: 1px solid #709290;
+  background: #709290;
+  cursor: pointer;
+  color: white;
+  border-radius: 30px;
+  font-size: 1rem;
 }
-.description-container{
-      margin-bottom: 1rem;
-      font-family: "Dosis", sans-serif;
-      width: 440px;
-      color: white;
-
+.description-container {
+  margin-bottom: 1rem;
+  font-family: "Dosis", sans-serif;
+  width: 440px;
+  color: white;
 }
-.related-items{
-      width: 100%;
+.related-items {
+  width: 100%;
 }
-.items{
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
+.items {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
-.related-header{
-      font-family: "Dosis", sans-serif;
-      color: white;
-      margin: 1rem;
-      font-weight: 300;
+.related-header {
+  font-family: "Dosis", sans-serif;
+  color: white;
+  margin: 1rem;
+  font-weight: 300;
 }
-.items img{
-      width:90px;
-      height: 90px;
-      object-fit: cover;
+.items img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  background: black;
+  border-radius: 50%;
 }
 </style>

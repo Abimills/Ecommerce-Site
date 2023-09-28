@@ -26,7 +26,7 @@ component: () => import("../components/Login.vue")
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/Item.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/PopularProducts.vue')
   },
   {
     path: '/cart',
@@ -38,8 +38,8 @@ component: () => import("../components/Login.vue")
   },
   {
     path:"/product/:id",
-    name:"single-product",
-    component: () => ('../components/Item.vue')
+    name:"product",
+    component: () => import(/* webpackChunkName: "about" */ '../components/Item.vue')
   }
 ]
 

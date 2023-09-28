@@ -8,7 +8,7 @@
     <div class="product-container">
       <div
         class="product"
-        v-for="product in data?.products?.products"
+        v-for="product in products?.product"
         :key="product?._id"
       >
         <img :src="product?.img" alt="" class="product-img" />
@@ -19,27 +19,84 @@
         <p :class="show ? 'description' : 'hidden-description'">
           {{ product?.description }}
         </p>
-        <button class="read-more" @click="toggleShow">{{ show ?'read more...' : 'read less...' }}</button>
+        <button class="read-more" @click="toggleShow">
+          {{ show ? "read more..." : "read less..." }}
+        </button>
         <button class="add-to-cart">Add to Cart</button>
       </div>
+    </div>
+    <div class="pagination-container">
+      <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
+      <div class="pages-container">
+         <p
+          :class="currentPage == page ?  'active-page' : 'page'"
+          v-for="(page, index) in arrayPages.array"
+          :key="index"
+        >
+         {{page}}
+        </p>
+        <p class="page">...</p>
+        <!-- {{ propValue }} -->
+      </div>
+      <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
     </div>
   </div>
 </template>
 <script setup>
-import { onMounted, reactive, ref } from "vue";
 import axios from "axios";
-const data = reactive({ products: [] });
-const show = ref(true);
-const toggleShow = () => {
-  show.value = !show.value;
+import { computed, onMounted, reactive, ref, watchEffect } from "vue";
+
+const data = reactive({ product: [] });
+const products = reactive({ product: [] });
+const arrayPages = reactive({ array: [] });
+const currentPage = ref(1);
+const productsPerPage = 6;
+console.log({current:currentPage.value})
+const fetchProducts = async () => {
+  const res = await axios.get("http://localhost:4040/products/");
+  data.product = res.data;
 };
+
 onMounted(() => {
-  const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/products/");
-    data.products = res.data;
-  };
-  fetch();
+  fetchProducts();
 });
+
+// Reactive calculations inside computed
+const totalPages = computed(() => {
+  const productLength = data.product?.products?.length || 0;
+  return Math.ceil(productLength / productsPerPage);
+});
+
+const startIndex = computed(() => (currentPage.value - 1) * productsPerPage);
+const endIndex = computed(() => startIndex.value + productsPerPage);
+
+// Computed property to get sliced products
+const slicedProducts = computed(() => {
+  return data.product?.products?.slice(startIndex.value, endIndex.value) || [];
+});
+watchEffect(() => {
+  products.product = slicedProducts.value;
+});
+watchEffect(() => {
+  arrayPages.array = Array(totalPages.value)
+    .fill()
+    .map((_, index) => index + 1);
+});
+console.log(arrayPages);
+const incCurrentPage = () => {
+  if (currentPage.value < totalPages?.value) {
+    currentPage.value++;
+  } else {
+    currentPage.value = 1;
+  }
+};
+const decCurrentPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  } else {
+    currentPage.value = 1;
+  }
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -78,6 +135,48 @@ onMounted(() => {
   font-size: 0.7rem;
   margin-bottom: 2rem;
 }
+/* pagination ----- */
+
+.pagination-container {
+  width: 80%;
+  /* background: rgb(199, 195, 195); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 5px;
+  margin: 2rem 1rem;
+  border-radius: 30px;
+  font-family: "Mooli", sans-serif;
+  font-family: "Outfit", sans-serif;
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+.pages-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 0.7rem;
+}
+.pages-container p {
+  cursor: pointer;
+}
+.left-arrow,
+.right-arrow {
+  font-family: "Caveat", cursive;
+  font-family: "Croissant One", cursive;
+  font-family: "Dosis", sans-serif;
+  font-size: 3rem;
+  font-weight: 200;
+  cursor: pointer;
+}
+.active-page {
+  color: white;
+  background: orange;
+  padding: 5px;
+}
+/* pagination end  */
 .product-container {
   width: 100%;
   display: flex;
