@@ -1,33 +1,23 @@
 <template>
   <div class="home-container">
-    <div class="words-btns-container">
-      <div class="upper-text-container">
-        <!-- <div class="vertical-line"></div>
-        <div class="vertical-line bottom-one"></div> -->
-        <p class="fashion"><span>Big</span> Fashion Sale</p>
-        <p class="description-paragraph">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur
-          nam mollitia ratione, vel corrupti, aliquam fugiat expedita eaque
-          numquam in, perferendis libero excepturi voluptates quo facilis
-          incidunt! Ab, totam vel! Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Exercitationem laboriosam perferendis saepe commodi?
-          Similique, laudantium.
-        </p>
-        <div class="btns-container">
+    <div class="upper-text-container">
+      <p class="fashion"><span>Big</span> Fashion <span class="sale">Sale</span></p>
+      <p class="description-paragraph">
+        Step into a realm of curated elegance at famclog, where
+        sophistication meets convenience. Elevate your online shopping to an art
+        form, unveiling masterpieces with every click in this world where style
+        converges with substance, "famclog"
+      </p>
+      <div class="btns-container">
+        <router-link to="/item">
           <button class="buy-now-btn empty-btn">SHOP NOW</button>
+        </router-link>
+        <router-link to="/products">
           <button class="buy-now-btn">PRE-ORDER</button>
-        </div>
+        </router-link>
       </div>
-
-      <!-- <div class="shirts-container">
-        <div class="shirt-one-container">
-          <img src="" alt="" />
-        </div>
-        <div class="shirt-two-container">
-          <img src="" alt="" />
-        </div>
-      </div> -->
     </div>
+
     <div class="pic-and-style-container">
       <img :src="girlOne" alt="girl-image" class="girl-image" />
 
@@ -87,7 +77,7 @@ export default {
   position: absolute;
   left: 10px;
 }
-.words-btns-container{
+.words-btns-container {
   width: 100%;
   /* background: red; */
 }
@@ -99,24 +89,32 @@ export default {
   max-width: 450px;
   margin-bottom: 3rem;
   font-family: "Caveat", cursive;
+  text-align: center;
+  font-family: "Dosis", sans-serif;
+  /* font-family: 'Mooli', sans-serif; */
 }
 .girl-image {
   width: 100%;
   height: 100vh;
-  object-fit:cover;
+  object-fit: cover;
   margin-top: -3rem;
   /* margin-right: -4rem; */
   z-index: 0;
 }
+
 .upper-text-container {
   width: 100%;
   margin-left: 1rem;
   margin-bottom: -6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .btns-container {
   width: 80%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 2rem;
   align-items: center;
   /* margin-left: -3rem; */
@@ -135,14 +133,15 @@ export default {
   color: white;
 }
 .empty-btn {
-  background-color: #90cbc9;
-  color: black;
-  border: 2px solid #90cbc9;
+  background-color:rgb(172, 156, 127);
+  color: white;
+  border: 2px solid rgb(172, 156, 127);
 }
 .empty-btn:hover {
-  background-color: #90cbc9;
-  color: white;
+  background-color: rgb(172, 156, 127);
+  color: black;
 }
+
 .fashion {
   font-size: 5rem;
   font-family: "Croissant One", cursive;
@@ -150,12 +149,16 @@ export default {
   /* font-family: 'Mooli', sans-serif; */
   font-family: "Outfit", sans-serif;
   /* font-family: 'Roboto', sans-serif; */
-  color: rgb(228, 226, 226);;
+  color: rgb(228, 226, 226);
 }
+
 .fashion span {
   font-family: "Caveat", cursive;
   color: #90cbc9;
   font-size: 7rem;
+}
+ .fashion .sale {
+  color: rgb(172, 156, 127);
 }
 .pic-and-style-container {
   width: 100%;

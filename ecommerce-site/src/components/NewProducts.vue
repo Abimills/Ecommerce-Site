@@ -2,8 +2,8 @@
   <div class="new-products-container">
     <h1 class="brand-header">Brand New Products</h1>
     <p class="brand-text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat pariatur
-      ipsa eos sunt vero, eligendi totam hic quaerat sed quis!
+      Elevate Your Style, Redefine Your Confidence with famclog's Exquisite
+      Collection of Brand New Clothes!
     </p>
     <div class="product-container">
       <div
@@ -11,10 +11,17 @@
         v-for="product in products?.product"
         :key="product?._id"
       >
-        <img :src="product?.img" alt="" class="product-img" />
+        <img
+          :src="product?.img"
+          alt=""
+          class="product-img"
+          @click="navigateToProduct(product?._id)"
+        />
         <div class="price-container">
-          <p class="product-name">{{ product?.name }}</p>
-          <p class="product-price">{{ product?.price }}</p>
+          <p class="product-name" @click="navigateToProduct(product?._id)">
+            {{ product?.name }}
+          </p>
+          <p class="product-price">${{ product?.price }}</p>
         </div>
         <p :class="show ? 'description' : 'hidden-description'">
           {{ product?.description }}
@@ -28,12 +35,12 @@
     <div class="pagination-container">
       <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
       <div class="pages-container">
-         <p
-          :class="currentPage == page ?  'active-page' : 'page'"
+        <p
+          :class="currentPage == page ? 'active-page' : 'page'"
           v-for="(page, index) in arrayPages.array"
           :key="index"
         >
-         {{page}}
+          {{ page }}
         </p>
         <p class="page">...</p>
         <!-- {{ propValue }} -->
@@ -45,13 +52,15 @@
 <script setup>
 import axios from "axios";
 import { computed, onMounted, reactive, ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 
 const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
+const show = ref(true);
 const productsPerPage = 6;
-console.log({current:currentPage.value})
+console.log({ current: currentPage.value });
 const fetchProducts = async () => {
   const res = await axios.get("http://localhost:4040/products/");
   data.product = res.data;
@@ -60,6 +69,14 @@ const fetchProducts = async () => {
 onMounted(() => {
   fetchProducts();
 });
+const toggleShow = () => {
+  show.value = !show.value;
+};
+const router = useRouter();
+
+const navigateToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
 
 // Reactive calculations inside computed
 const totalPages = computed(() => {
@@ -110,6 +127,8 @@ const decCurrentPage = () => {
   width: 200px;
   height: 150px;
   object-fit: contain;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 .new-products-container {
   width: 100%;
@@ -128,12 +147,13 @@ const decCurrentPage = () => {
   margin-bottom: 2rem;
 }
 .brand-text {
-  color: rgb(159, 156, 156);
+  color: rgb(175, 159, 130);
   font-family: "Dosis", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   font-size: 0.7rem;
   margin-bottom: 2rem;
+  letter-spacing: 2px;
 }
 /* pagination ----- */
 
@@ -188,7 +208,7 @@ const decCurrentPage = () => {
 .product {
   width: 280px;
   padding: 10px;
-  background: #709290;
+  background: rgb(197, 179, 145);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -204,6 +224,8 @@ const decCurrentPage = () => {
 .product-name {
   font-family: "Dosis", sans-serif;
   color: white;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 .product-price {
   font-family: "Dosis", sans-serif;
@@ -213,7 +235,7 @@ const decCurrentPage = () => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: #064240;
+  color: rgb(240, 238, 238);
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
@@ -221,18 +243,20 @@ const decCurrentPage = () => {
 }
 .hidden-description {
   font-family: "Dosis", sans-serif;
-  color: white;
+  color: rgb(240, 238, 238);
   margin-bottom: 1rem;
   font-size: 0.8rem;
   height: max-content;
 }
 .read-more {
   background: transparent;
+  display: inline;
   border: none;
   text-align: left;
   width: 100%;
   font-family: "Dosis", sans-serif;
   color: #064240;
+  cursor: pointer;
 }
 .add-to-cart {
   padding: 5px 15px;

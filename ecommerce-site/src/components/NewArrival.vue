@@ -4,16 +4,14 @@
       <div class="left-side-arrival">
         <h1>New Arrivals</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, ex
-          recusandae? Adipisci quam consequuntur similique vero quae ad nam
-          voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Eligendi, ex recusandae? Adipisci quam consequuntur similique vero
-          quae ad nam voluptatum. voluptatum. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Eligendi, ex recusandae? Adipisci quam
-          consequuntur similique vero quae ad nam voluptatum.
+          Explore the essence of modern style with our latest arrivals at
+          famclog. Each piece is a testament to timeless allure and unparalleled
+          craftsmanship, curated to elevate your wardrobe with sophistication.
         </p>
         <div class="btn-container">
-          <button class="shop-now">Shop Now &#8594;</button>
+          <router-link to="/products">
+            <button class="shop-now">Shop Now &#8594;</button>
+          </router-link>
         </div>
       </div>
       <!-- <div class="img-container">
@@ -23,19 +21,26 @@
         <div class="product">
           <img :src="shoes" alt="" class="product-img" />
           <p class="discount">25% OFF</p>
-          <button class="shop-btn">Buy now</button>
+          <router-link to="/item">
+            <button class="shop-btn shop-color">Buy now</button>
+          </router-link>
         </div>
-        <div class="product">
-          <img :src="women" alt="" class="product-img" />
-          <p class="discount">35% OFF</p>
-          <button class="shop-btn">Buy now</button>
-        </div>
+        
         <div class="check-div">
           <h2>New arrivals</h2>
           <p class="discover-paragraph">
             Discover all of our discounted prices and donot miss a cheap price
           </p>
-          <button class="shop-btn">check all</button>
+          <router-link to="/products">
+            <button class="shop-btn ">check all</button>
+          </router-link>
+        </div>
+        <div class="product">
+          <img :src="women" alt="" class="product-img" />
+          <p class="discount">35% OFF</p>
+          <router-link to="/item">
+            <button class="shop-btn shop-color">Buy now</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -76,7 +81,7 @@ export default {
 .top-container {
   width: 100%;
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   justify-content: space-around;
   flex-direction: row-reverse;
 }
@@ -90,23 +95,23 @@ export default {
   width: 30%;
   height: 200px;
   background: #709290;
+  background: rgb(172, 156, 127);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 1rem;
 }
-.check-div{
-      width: 300px;
-      height: 200px;
-      background: #709290;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* margin: 1rem; */
-      padding: 10px;
-
+.check-div {
+  width: 300px;
+  height: 200px;
+  background: #709290;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin: 1rem; */
+  padding: 10px;
 }
 .discount {
   font-family: "Outfit", sans-serif;
@@ -128,8 +133,7 @@ export default {
   font-family: "Outfit", sans-serif;
   font-weight: 300;
   font-size: 0.8rem;
-  margin-bottom: 2rem;;
-
+  margin-bottom: 2rem;
 }
 .shop-btn {
   padding: 8px 16px;
@@ -141,9 +145,20 @@ export default {
   border-radius: 30px;
   text-transform: capitalize;
 }
+.shop-color{
+  background:white ;
+}
+.shop-btn:hover{
+  background: white;;
+  color:#064240 ;
+}
 .left-side-arrival {
   width: 50%;
   height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .left-side-arrival h1 {
   color: white;
@@ -158,10 +173,14 @@ export default {
 .left-side-arrival p {
   color: #fff;
   font-family: "Caveat", cursive;
+  font-family: 'Croissant One', cursive;
+/* font-family: 'Dosis', sans-serif; */
+/* font-family: 'Mooli', sans-serif; */
   color: #90cbc9;
-  font-size: 1.2rem;
+  font-size: .8rem;
   margin-bottom: 1rem;
   margin-left: 2rem;
+  width: 350px;
 }
 .btn-container {
   width: 100%;
@@ -174,9 +193,14 @@ export default {
   text-align: center;
   margin-left: -2rem;
   font-family: "Dosis", sans-serif;
-  background-color: #3c7270;
   border: 1px solid #3c7270;
-  color: white;
+    background: wheat;;
+  color:rgb(180, 180, 180);
   border-radius: 4px;
+}
+.shop-now:hover{
+  background-color: #3c7270;
+  color: white;
+  
 }
 </style>

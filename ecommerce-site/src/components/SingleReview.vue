@@ -4,13 +4,12 @@
       <img src="../assets/cutepie23.png" alt="" class="review-image" />
     </div>
     <div class="writen-container">
-      <h1>''</h1>
+      <!-- <h1>''</h1> -->
       <p class="review-para">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum
-        voluptatibus suscipit natus sint? Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Eum voluptatibus suscipit natus sint? Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Eum voluptatibus suscipit
-        natus sint?
+        Shopping on Famclog has been an absolute delight! The user-friendly
+        interface, swift delivery, and exceptional customer service have made my
+        experience seamless, leaving me not just satisfied, but eagerly
+        anticipating my next purchase.
       </p>
       <div class="underline"></div>
       <p class="reviewer-name">Alex Jackson</p>
@@ -61,10 +60,11 @@ export default {
 </script>
 <style scoped>
 .img-container {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-color: rgb(115, 143, 167);
+  background-color: #0c3837;;
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +79,7 @@ export default {
   padding: 10px;
   border-bottom: 1px solid black;
   margin: 0 auto;
-
+  margin-bottom: 1rem;
 }
 .review-image {
   width: 150px;
@@ -99,19 +99,19 @@ export default {
   font-style: italic;
   color: rgb(189, 196, 202);
   font-family: "Caveat", cursive;
-  font-size: .8rem;
+  font-size: 0.8rem;
   max-width: 400px;
   margin-bottom: 1rem;
 }
 .reviewer-name {
   color: aliceblue;
   font-family: "Dosis", sans-serif;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 .place {
   color: aliceblue;
   font-family: "Dosis", sans-serif;
-  font-size:.9rem;
+  font-size: 0.9rem;
 }
 .review-stars {
   width: 130px;
@@ -123,7 +123,7 @@ export default {
 }
 .star-icons {
   color: orange;
-  font-size:.8rem;
+  font-size: 0.8rem;
 }
 .empty-icon {
   color: white;
@@ -131,8 +131,7 @@ export default {
   height: 20px;
   border-radius: 50%;
 }
-.empty-icon:hover{
+.empty-icon:hover {
   fill: orange;
 }
-
 </style>

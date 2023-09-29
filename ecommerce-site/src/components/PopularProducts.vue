@@ -8,18 +8,21 @@
         v-for="product in products?.product"
         :key="product?._id"
       >
-        <img :src="product?.img" alt="" class="product-img" />
+        <img :src="product?.img" alt="" class="product-img" @click="navigateToProduct(product?._id)"/>
         <div class="price-container">
           <!-- <router-link :to="'/product/' + product?._id"> -->
-            <p class="product-name" @click="navigateToProduct(product?._id)">
-              {{ product?.name }}
-            </p>
+          <p class="product-name" @click="navigateToProduct(product?._id)">
+            {{ product?.name }}
+          </p>
           <!-- </router-link> -->
           <p class="product-price">${{ product?.price }}</p>
         </div>
-        <p class="description">
+        <p :class="show ? 'description' : 'hidden-description'">
           {{ product?.description }}
         </p>
+        <button class="read-more" @click="toggleShow">
+          {{ show ? "read more..." : "read less..." }}
+        </button>
         <button class="add-to-cart">Add to Cart</button>
       </div>
     </div>
@@ -27,11 +30,11 @@
       <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
       <div class="pages-container">
         <p
-          :class="currentPage == page ?  'active-page' : 'page'"
+          :class="currentPage == page ? 'active-page' : 'page'"
           v-for="(page, index) in arrayPages.array"
           :key="index"
         >
-         {{page}}
+          {{ page }}
         </p>
         <p class="page">...</p>
         <!-- {{ propValue }} -->
@@ -49,6 +52,7 @@ const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
+const show = ref(true);
 const productsPerPage = 6;
 console.log({ current: currentPage.value });
 const fetchProducts = async () => {
@@ -75,7 +79,9 @@ const totalPages = computed(() => {
 
 const startIndex = computed(() => (currentPage.value - 1) * productsPerPage);
 const endIndex = computed(() => startIndex.value + productsPerPage);
-
+const toggleShow = () => {
+  show.value = !show.value;
+};
 // Computed property to get sliced products
 const slicedProducts = computed(() => {
   return data.product?.products?.slice(startIndex.value, endIndex.value) || [];
@@ -112,9 +118,11 @@ const decCurrentPage = () => {
 /* font-family: 'Outfit', sans-serif; */
 /* font-family: 'Roboto', sans-serif; */
 .product-img {
-  width: 150px;
+  width: 200px;
   height: 150px;
   object-fit: contain;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
 .new-products-container {
   width: 100%;
@@ -191,14 +199,15 @@ const decCurrentPage = () => {
 }
 /* pagination end  */
 .product {
-  width: 250px;
+  width: 280px;
   padding: 10px;
-  background: #709290;
+  background: aliceblue;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 }
+
 .price-container {
   width: 100%;
   display: flex;
@@ -208,7 +217,10 @@ const decCurrentPage = () => {
 }
 .product-name {
   font-family: "Dosis", sans-serif;
-  color: white;
+ color: #064240;
+ font-weight: 500;
+ text-transform: uppercase;
+ cursor: pointer;
 }
 .product-price {
   font-family: "Dosis", sans-serif;
@@ -218,9 +230,36 @@ const decCurrentPage = () => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: white;
+  color:#064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
+}
+.description {
+  font-family: "Dosis", sans-serif;
+  color: rgb(240, 238, 238);
+  color:#064240;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  max-height: 50px;
+  overflow: hidden;
+}
+.hidden-description {
+  font-family: "Dosis", sans-serif;
+  color: rgb(240, 238, 238);
+  color:#064240;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  height: max-content;
+}
+.read-more {
+  background: transparent;
+  display: inline;
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: "Dosis", sans-serif;
+  color: #064240;
+  cursor: pointer;
 }
 .add-to-cart {
   padding: 5px 15px;

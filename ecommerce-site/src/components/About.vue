@@ -18,9 +18,11 @@
         ></path>
       </svg>
       <p class="description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime enim ea
-        repudiandae et sapiente nihil, natus deleniti doloremque iste dolorum.
-        Corporis numquam eum aperiam. Aliquid!
+        At Famclog, our story is one of passion and innovation, beginning in
+        2015 with a commitment to revolutionize the online shopping experience.
+        Over the years, we've grown into a trusted destination, weaving a
+        narrative of customer-centric values, cutting-edge technology, and a
+        relentless pursuit of excellence that continues to define our journey
       </p>
       <button class="discover-more">Discover More</button>
     </div>
@@ -45,11 +47,13 @@
         ></path>
       </svg>
       <p class="description">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At
-        consectetur, sapiente quos, cupiditate architecto aperiam vitae, minima
-        ipsam dolore labore magni error dolorum quod nesciunt.
+        Founded in 2015, Famclog emerged as a trailblazer in the e-commerce
+        landscape, driven by a vision to redefine online shopping. Over the
+        years, it has evolved into a digital marketplace synonymous with
+        quality, convenience, and a rich history of connecting customers with
+        curated products that stand the test of time.
       </p>
-      
+
       <button class="discover-more">Know More</button>
     </div>
   </div>
@@ -73,16 +77,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-
+ 
+  margin-top: 3rem;
+  margin-bottom: -4.3rem;
 }
-.left-header{
-      text-align: right;
+.left-header {
+  text-align: right;
 }
-.left-side{
-      display :flex ;
-      justify-content: space-between;
-      flex-direction: column;
-      align-items: center;
+.left-side {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
 }
 .news-icon {
   width: 30px;
@@ -91,7 +97,6 @@ export default {
   fill: #709290;
   color: black;
   margin-bottom: 1rem;
-  
 }
 .middle-img {
   width: 300px;
@@ -105,11 +110,12 @@ export default {
   color: #b0cdcb;
 }
 .description {
-      font-family: "Caveat", cursive;
-      font-family: "Dosis", sans-serif;
+  font-family: "Caveat", cursive;
+  font-family: "Dosis", sans-serif;
+  color:#b0cdcb;
   font-weight: 500;
-  font-size: .8rem;
-  width: 400px;
+  font-size: 0.8rem;
+  max-width: 350px;
   /* font-family: 'Mooli', sans-serif; */
   margin-bottom: 1rem;
 }

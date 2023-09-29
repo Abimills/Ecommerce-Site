@@ -4,7 +4,7 @@
       <img src="../assets/person.png" alt="" class="tempo-abel-pic" />
     </div>
     <div class="all-input-contact-container">
-      <!-- <h1 class="get-in-touch">Get In Touch</h1> -->
+      <h1 class="get-in-touch">Contact us</h1>
       <p class="interested-para">
         Want to have a conversation? <br />
         lets make it happen!
@@ -75,7 +75,11 @@ export default {
   font-size: 3rem;
   text-transform: uppercase;
   font-family: "Croissant One", cursive;
+  /* font-family: 'Dosis', sans-serif; */
+/* font-family: 'Mooli', sans-serif; */
+font-family: 'Outfit', sans-serif;
   font-weight: 100;
+  color:#709290;
 }
 .interested-para {
   font-family: "Dosis", sans-serif;

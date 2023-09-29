@@ -7,15 +7,18 @@
     <OurValue />
     <PopularProducts />
     <Review />
-    <About />
+    <AboutNewsContainer />
 
-    <Newsletter />
+    
     <Contact />
+    <Footer />
   </div>
 </template>
 
-<script>
+<script setup>
 import Navbar from "../components/Navbar.vue";
+import AboutNewsContainer from "../components/AboutNewsContainer.vue";
+import Footer from "../components/Footer.vue";
 import LandingPage from "../components/LandingPage.vue";
 import NewArrivalVue from "../components/NewArrival.vue";
 import NewProductsVue from "../components/NewProducts.vue";
@@ -25,21 +28,7 @@ import Review from "../components/Review.vue";
 import Newsletter from "../components/Newsletter.vue";
 import About from "../components/About.vue";
 import Contact from "../components/Contact.vue";
-export default {
-  name: "HomeView",
-  components: {
-   LandingPage,
-   Navbar,
-    NewArrivalVue,
-    NewProductsVue,
-    PopularProducts,
-    OurValue,
-    Review,
-    Newsletter,
-    About,
-    Contact,
-  },
-};
+
 </script>
 
 <style scoped>

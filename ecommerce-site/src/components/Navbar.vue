@@ -17,7 +17,7 @@
         <router-link to="/login" class="links">Sign in</router-link>
       </li>
       <li>
-        <router-link to="/item" class="links wishlist"
+        <router-link to="/wishlist" class="links wishlist"
           >Wishlist
            <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -90,8 +90,8 @@ export default {
 .heart-icon{
   width: 20px;
   height: 15px;
-  fill: orange;
-  color:orange;
+  fill:wheat;
+  color:wheat;
   margin-top: .2rem;
 
 }
@@ -107,6 +107,7 @@ export default {
 }
 .links {
   color: white;
+  
   text-decoration: none;
   z-index: 3;
 }
@@ -122,13 +123,14 @@ export default {
 }
 .shopping-bag {
   color: white;
+    color: wheat;
   font-size: 1.5rem;
   margin-top: -0.9rem;
   cursor: pointer;
 }
 .cart-container p {
   position: absolute;
-  background-color: black;
+  background-color:    black;
   width: 21px;
   height: 21px;
   border-radius: 50%;
@@ -139,6 +141,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-family: "Roboto", sans-serif;
 }
 </style>

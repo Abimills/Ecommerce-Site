@@ -53,7 +53,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  background: wheat;
 }
 .contact-us {
   font-family: "Dosis", sans-serif;

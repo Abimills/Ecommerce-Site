@@ -58,12 +58,14 @@ export default {
   font-family: "Mooli", sans-serif;
 }
 .miss {
-  color: white;
+  color: rgb(238, 237, 237);
   margin-bottom: 1rem;
   font-size: 0.8rem;
 
   font-family: "Dosis", sans-serif;
-  font-family: "Caveat", cursive;
+  font-weight: 300;
+  
+  /* font-family: "Caveat", cursive; */
 }
 .sub-form {
   width: 100%;
