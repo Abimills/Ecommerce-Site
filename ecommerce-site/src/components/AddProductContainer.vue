@@ -4,29 +4,41 @@
       <div class="admin-information-navigation">
         <div class="admin-pic-label">
           <img src="../assets/cutepie23.png" alt="" class="admin-pic" />
-          <p>Admin</p>
+          <router-link to="/">
+            <p>Admin</p>
+          </router-link>
         </div>
         <div class="profile-container">
-          <p>Profile</p>
+          <router-link to="/admin/profile" class="link-profile">
+            <p>Profile</p>
+          </router-link>
         </div>
         <div class="categories-container">
-          <p>Categories</p>
+          <router-link to="/admin/category" class="link-profile">
+            <p>Categories</p>
+          </router-link>
         </div>
         <div class="Add-product-container">
-          <p>Add Products</p>
+          <router-link to="/admin/add-products" class="link-profile">
+            <p>Add Products</p>
+          </router-link>
         </div>
         <div class="view-products-container">
-          <p>View Products</p>
+          <router-link to="/admin/view-products" class="link-profile">
+            <p>View Products</p>
+          </router-link>
         </div>
         <div class="user-request-container">
-          <p>View User</p>
+          <router-link to="/admin/view-users" class="link-profile">
+            <p>View User</p>
+          </router-link>
         </div>
         <div class="log-out-request-container">
           <button>Log out</button>
         </div>
       </div>
     </div>
-    <!-- <div class="add-products-form-container">
+    <div class="add-products-form-container">
       <h1 class="add-products-header">Add Products</h1>
       <div class="line"></div>
       <form class="add-product-form" @submit.prevent="onSubmit">
@@ -107,96 +119,15 @@
 
         <input type="submit" class="submit-btn" value="Add Product" />
       </form>
-    </div> -->
-    <!-- ========================================== end of add product -->
-    <!-- <div class="profile-all-container">
-      <div class="profile-all">
-        <div class="top-img-info-container">
-          <img
-            src="../assets/cutepie23.png"
-            alt=""
-            class="person-profile-img"
-          />
-          <div class="person-info">
-            <p>Abel Miller.</p>
-            <p>juli@gmail.com</p>
-            <p class="owner">Owner</p>
-          </div>
-        </div>
-        <div class="product-info-container">
-          <ul class="list-info">
-            <div class="li-container">
-              <li class="list">categories of products</li>
-              <p>3+</p>
-            </div>
-            <div class="li-container">
-              <li class="list">Newsletter subscribers</li>
-              <p>20+</p>
-            </div>
-            <div class="li-container">
-              <li class="list">Reviews</li>
-              <p>20+</p>
-            </div>
-            <div class="li-container">
-              <li class="list">users</li>
-              <p>20+</p>
-            </div>
-            <div class="li-container">
-              <li class="list">products</li>
-              <p>100+</p>
-            </div>
-          </ul>
-        </div>
-      </div>
-    </div> -->
-    <!-- =========================end of profile -->
-
-    <!-- <div class="new-products-container">
-      <h1 class="brand-header">Categories</h1>
-      <div class="category-container">
-        <p
-          class="filter"
-          :class="activeCategory == cat ? 'active-category' : ''"
-          @click="filterProducts(cat, index)"
-          v-for="cat in productCategory?.categories"
-          :key="cat.index"
-        >
-          {{ cat }}
-        </p>
-      </div>
-
-      <div class="product-container">
-        <div
-          class="product"
-          v-for="product in productsToShow?.product?.products"
-          :key="product?._id"
-        >
-          <img :src="product?.img" alt="" class="product-img" />
-          <div class="price-container">
-            <router-link to="'/product/' + product?._id">
-              <p class="product-name">{{ product?.name }}</p>
-            </router-link>
-            <p class="product-price">${{ product?.price }}</p>
-          </div>
-          <p class="description">
-            {{ product?.description }}
-          </p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-    </div> -->
-    <!-- ============== category page ended -->
-    <SingleUser />
+    </div>
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
-import SingleViewVue from "./SingleView.vue";
-import SingleUser from "./SingleUser.vue";
-import { onMounted, reactive, ref } from "vue";
-const showPage = ref("singleUser");
-const activeCategory = ref("Shoes");
+
+import { reactive } from "vue";
+
 const data = reactive({
   name: "",
   price: "",
@@ -207,39 +138,11 @@ const data = reactive({
   timeRanges: "",
   discount: "",
 });
-// categories set of words from data
-const productCategory = reactive({ categories: [] });
 
 const handleImage = (e) => {
   const file = e.target.files[0];
   data.img = file;
 };
-const products = reactive({ product: [] });
-const productsToShow = reactive({
-  product: [],
-});
-const getCategories = (data) => {
-  const categories = data?.products?.map((pro) => pro.category);
-  const timeRangeCat = data?.products?.map((pro) => pro.timeRanges[0]);
-  productCategory.categories = [
-    "All",
-    ...new Set(categories),
-    ...new Set(timeRangeCat),
-  ];
-
-  console.log(productCategory.categories);
-};
-
-onMounted(() => {
-  const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/products/");
-    // productsToShow.product = res.data;
-    products.product = res.data;
-    filterProducts("Shoes");
-    getCategories(res.data);
-  };
-  fetch();
-});
 
 const onSubmit = async () => {
   if (
@@ -268,78 +171,11 @@ const onSubmit = async () => {
     alert("Please provide stared fields");
   }
 };
-
-const filterProducts = (category) => {
-  if (products.product) {
-    if (category === "All") {
-      productsToShow.product.products = products.product.products;
-      activeCategory.value = category;
-    } else {
-      productsToShow.product.products = products.product.products?.filter(
-        (product) =>
-          product.category?.toLowerCase() == category?.toLowerCase() ||
-          product.timeRanges[0]?.toLowerCase() == category?.toLowerCase()
-      );
-      activeCategory.value = category;
-    }
-  } else {
-    return;
-  }
-};
-
-// export default {
-//   name: "Login",
-
-//   setup() {
-//     const data = ref("abel");
-
-//     return {
-//       data,
-//       productName: "",
-//       price: "",
-//       description: "",
-//       category: "",
-//       img: "",
-//       colors: "",
-//       timeRanges: "",
-//       discount: "",
-//     };
-//   },
-//   methods: {
-//     async submitProduct() {
-//       console.log(this.data.value);
-//       // if (
-//       //   this.productName == ""
-//       // ) {
-//       //   alert("please provide with all required fields");
-//       //   return;
-//       // } else {
-//       //   const data = {
-//       // //     name: this.productName,
-//       //     price: this.price,
-//       //     category: this.category,
-//       //     description: this.description,
-//       //     discount: this.discount,
-//       //     img: this.img,
-//       //     colors: this.colors,
-//       //     timeRanges: this.timeRanges,
-//       //   };
-//       //   const res = await axios.post(`http://localhost:4040/products/`, data);
-//       //   console.log(res);
-//       // }
-//     },
-//   },
-// };
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-/* font-family: 'Caveat', cursive; */
-/* font-family: 'Croissant One', cursive; */
-/* font-family: 'Dosis', sans-serif; */
-/* font-family: 'Mooli', sans-serif; */
-/* font-family: 'Outfit', sans-serif; */
-/* font-family: 'Roboto', sans-serif; */
+
 .create-product-container {
   width: 100%;
   display: flex;
@@ -353,6 +189,10 @@ const filterProducts = (category) => {
 .right-side-container {
   width: 100%;
 }
+.link-profile {
+  list-style: none;
+  text-decoration: none;
+}
 .add-products-form-container {
   width: 70%;
   display: flex;
@@ -360,7 +200,7 @@ const filterProducts = (category) => {
   justify-content: space-evenly;
   flex-direction: column;
   gap: 1rem;
-  margin-left: 14rem;
+  margin-top: 2rem;
 }
 .log-out-request-container {
   margin-top: 1rem;
@@ -544,7 +384,7 @@ const filterProducts = (category) => {
   align-items: center;
   justify-content: center;
   /* flex-direction: column; */
-  margin-left: 4rem;
+  /* margin-left: 4rem; */
   margin-top: 2rem;
 }
 .profile-all {
@@ -650,13 +490,7 @@ li {
   flex-direction: column;
   justify-content: center;
 }
-.price-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
+
 .product-name {
   font-family: "Dosis", sans-serif;
   color: white;
@@ -687,24 +521,7 @@ li {
 .add-to-cart:hover {
   background: transparent;
 }
-.category-container {
-  width: 80%;
-  margin-left: 8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background: white;
-  gap: 2rem;
-  justify-content: space-evenly;
-  padding: 10px;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-}
-.category-container p {
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-}
+
 .active-category {
   background: orange;
   padding: 2px 10px;

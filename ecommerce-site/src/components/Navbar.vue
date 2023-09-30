@@ -11,10 +11,10 @@
         <router-link to="/about" class="links">About</router-link>
       </li>
       <li>
-        <router-link to="/item" class="links">Items</router-link>
+        <router-link to="/products" class="links">Products</router-link>
       </li>
       <li>
-        <router-link to="/login" class="links">Sign in</router-link>
+        <router-link to="/admin/profile" class="links">Sign in</router-link>
       </li>
       <li>
         <router-link to="/wishlist" class="links wishlist"

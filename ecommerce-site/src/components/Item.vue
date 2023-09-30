@@ -23,6 +23,7 @@
     </div>
     <div class="right-side">
       <h2 class="item-name">{{ product.singleProduct?.product?.name }}</h2>
+      <p class="item-category">{{ product.singleProduct?.product?.category }}</p>
       <div class="wishlist-rating-container">
         <div class="price-rating-container">
           <p class="price">${{ product.singleProduct?.product?.price }}</p>
@@ -188,11 +189,17 @@ watchEffect(() => {
 .item-name {
   font-size: 2.5rem;
   color: white;
-  text-transform: capitalize;
-  font-family: "Caveat", cursive;
-  font-family: "Croissant One", cursive;
+  text-transform: uppercase;
   font-family: "Dosis", sans-serif;
   font-family: "Mooli", sans-serif;
+}
+.item-category{
+  color:rgb(192, 189, 189);
+  color:#709290;
+  text-transform: uppercase;
+  font-size:.7rem;
+  font-family: "Mooli", sans-serif;
+
 }
 .price-rating-container {
   width: 100%;

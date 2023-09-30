@@ -8,7 +8,12 @@
         v-for="product in products?.product"
         :key="product?._id"
       >
-        <img :src="product?.img" alt="" class="product-img" @click="navigateToProduct(product?._id)"/>
+        <img
+          :src="product?.img"
+          alt=""
+          class="product-img"
+          @click="navigateToProduct(product?._id)"
+        />
         <div class="price-container">
           <!-- <router-link :to="'/product/' + product?._id"> -->
           <p class="product-name" @click="navigateToProduct(product?._id)">
@@ -23,7 +28,9 @@
         <button class="read-more" @click="toggleShow">
           {{ show ? "read more..." : "read less..." }}
         </button>
-        <button class="add-to-cart">Add to Cart</button>
+        <button class="add-to-cart" @click="addToCart(product?._id)">
+          Add to Cart
+        </button>
       </div>
     </div>
     <div class="pagination-container">
@@ -45,8 +52,11 @@
 </template>
 <script setup>
 import axios from "axios";
-import { computed, onMounted, reactive, ref, watchEffect } from "vue";
+import { computed, onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+const router = useRouter();
+const store = useStore();
 
 const data = reactive({ product: [] });
 const products = reactive({ product: [] });
@@ -54,18 +64,29 @@ const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
 const show = ref(true);
 const productsPerPage = 6;
-console.log({ current: currentPage.value });
 const fetchProducts = async () => {
   const res = await axios.get("http://localhost:4040/products/");
   data.product = res.data;
 };
-
+const addToCart = (id) => {
+  const item = {
+    id: id,
+    quantity: 1,
+  };
+  store.commit("addToCart", item);
+  console.log(store.getters.cartItems);
+};
 onMounted(() => {
   fetchProducts();
 });
+watch(
+  () => store.state,
+  (newState, oldState) => {
+    console.log(newState);
+  }
+);
 
 // useRouter returns the router instance
-const router = useRouter();
 
 const navigateToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
@@ -217,10 +238,10 @@ const decCurrentPage = () => {
 }
 .product-name {
   font-family: "Dosis", sans-serif;
- color: #064240;
- font-weight: 500;
- text-transform: uppercase;
- cursor: pointer;
+  color: #064240;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 .product-price {
   font-family: "Dosis", sans-serif;
@@ -230,14 +251,14 @@ const decCurrentPage = () => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color:#064240;
+  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
 }
 .description {
   font-family: "Dosis", sans-serif;
   color: rgb(240, 238, 238);
-  color:#064240;
+  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
@@ -246,7 +267,7 @@ const decCurrentPage = () => {
 .hidden-description {
   font-family: "Dosis", sans-serif;
   color: rgb(240, 238, 238);
-  color:#064240;
+  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   height: max-content;

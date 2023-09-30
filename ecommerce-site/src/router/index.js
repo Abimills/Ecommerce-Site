@@ -29,12 +29,29 @@ name: "login",
 component: () => import("../components/Login.vue")
   },
   {
-    path: '/item',
-    name: 'item',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/PopularProducts.vue')
+    path: '/admin/add-products',
+    name: 'addProduct',
+    component: () => import('../components/AddProductContainer.vue')
+  },
+  {
+    path: '/admin/profile',
+    name: 'profile',
+    component: () => import('../components/AdminProfile.vue')
+  },
+  {
+    path: '/admin/view-products',
+    name: 'view-products',
+    component: () => import('../components/ViewProducts.vue')
+  },
+  {
+    path: '/admin/view-users',
+    name: 'view-users',
+    component: () => import('../components/ViewUser.vue')
+  },
+  {
+    path: '/admin/category',
+    name: 'category',
+    component: () => import('../components/Categories.vue')
   },
   {
     path: '/products',
@@ -42,8 +59,9 @@ component: () => import("../components/Login.vue")
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/NewProducts.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/SingleCategory.vue')
   },
+ 
   {
     path: '/wishlist',
     name: 'wishlist',

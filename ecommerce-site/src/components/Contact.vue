@@ -25,7 +25,7 @@
             type="text"
             placeholder="Write your comment here"
             class="comment"
-          />
+          ></textarea>
         </div>
         <div class="send-btn-container">
           <button class="send-contact-comments" type="submit">Send</button>
@@ -52,6 +52,8 @@ export default {
   /* TODO: check for any errors */
   width: 100%;
   display: flex;
+  margin-bottom: -1.7rem;
+  margin-top: 3rem;
 }
 .my-logo-with-pic-contact-container {
   width: 100%;
@@ -70,6 +72,7 @@ export default {
 .all-input-contact-container {
   width: 80%;
   margin: 0 auto;
+  margin-top: 3rem;
 }
 .get-in-touch {
   font-size: 3rem;

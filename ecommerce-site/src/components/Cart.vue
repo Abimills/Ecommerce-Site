@@ -44,7 +44,7 @@
         <div class="additional-container">
           <img src="../assets/t-shirt.png" alt="" class="cart-image" />
           <div class="item-info-container">
-            <h3 class="item-name">Long Sleeve  American Shirt</h3>
+            <h3 class="item-name">Long Sleeve American Shirt</h3>
             <p class="color">Color : Black</p>
             <p class="item-size">Size : S</p>
             <p class="stock">In Stock</p>
@@ -113,13 +113,20 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Cart",
-  data() {
-    return {};
-  },
-};
+<script setup>
+import { computed, reactive, watch } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+const cartItems = reactive({ cart: [] });
+
+watch(
+  () => store.state.cart,
+  (newValue, oldValue) => {
+    cartItems.cart = newValue;
+  }
+  );
+  const items = computed(() => store?.state?.cart)
+  console.log(items?.value)
 </script>
 
 <style scoped>
@@ -139,9 +146,9 @@ export default {
   font-family: "Mooli", sans-serif;
   font-family: "Outfit", sans-serif;
   display: flex;
- flex-direction: column;
- gap: 2rem;
- margin-bottom: 2rem;;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 .lock {
   width: 20px;
@@ -186,21 +193,19 @@ export default {
   flex-direction: column;
   margin-top: 1rem;
   /* border-top: 1px solid #90cbc9; ; */
- 
+
   margin: -5rem 1.2rem 0;
 }
-.real-price-items{
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: .4rem;
+.real-price-items {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.4rem;
 }
-.real-price-items p{
-
+.real-price-items p {
   font-family: "Dosis", sans-serif;
   font-weight: 700;
-
 }
 .additional-container {
   width: 100%;
