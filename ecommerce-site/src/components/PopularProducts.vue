@@ -74,7 +74,6 @@ const addToCart = (id) => {
     quantity: 1,
   };
   store.commit("addToCart", item);
-  console.log(store.getters.cartItems);
 };
 onMounted(() => {
   fetchProducts();

@@ -20,17 +20,21 @@
     </h1>
     <div class="cart-items-payment-container">
       <div class="cart-items-container">
-        <div class="additional-container">
-          <img src="../assets/shoes.png" alt="" class="cart-image" />
+        <div
+          class="additional-container"
+          v-for="product in cartItems?.cart"
+          :key="product?._id"
+        >
+          <img :src="product?.img" alt="" class="cart-image" />
           <div class="item-info-container">
-            <h3 class="item-name">Old timey put Shoes</h3>
-            <p class="color">Color : Orange</p>
+            <h3 class="item-name">{{ product?.name }}</h3>
+            <p class="color">Color : {{ product?.colors[0] }}</p>
             <p class="item-size">Size : S</p>
             <p class="stock">In Stock</p>
           </div>
           <div class="each-price-container">
             <p>Each</p>
-            <h5 class="item-price">$56.34</h5>
+            <h5 class="item-price">${{ product?.price }}</h5>
           </div>
           <div class="quantity-container">
             <p>Quantity</p>
@@ -38,30 +42,10 @@
           </div>
           <div class="total-item-price">
             <p>Total</p>
-            <p class="total-price-info">$323.32</p>
+            <p class="total-price-info">${{ product?.price }}</p>
           </div>
         </div>
-        <div class="additional-container">
-          <img src="../assets/t-shirt.png" alt="" class="cart-image" />
-          <div class="item-info-container">
-            <h3 class="item-name">Long Sleeve American Shirt</h3>
-            <p class="color">Color : Black</p>
-            <p class="item-size">Size : S</p>
-            <p class="stock">In Stock</p>
-          </div>
-          <div class="each-price-container">
-            <p>Each</p>
-            <h5 class="item-price">$56.34</h5>
-          </div>
-          <div class="quantity-container">
-            <p>Quantity</p>
-            <input type="number" placeholder="1" />
-          </div>
-          <div class="total-item-price">
-            <p>Total</p>
-            <p class="total-price-info">$323.32</p>
-          </div>
-        </div>
+
         <div class="real-price-items">
           <p>2 items</p>
           <p>$326.32</p>
@@ -114,19 +98,31 @@
 </template>
 
 <script setup>
-import { computed, reactive, watch } from "vue";
+import axios from "axios";
+import { computed, onMounted, reactive, watch } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 const cartItems = reactive({ cart: [] });
 
-watch(
-  () => store.state.cart,
-  (newValue, oldValue) => {
-    cartItems.cart = newValue;
-  }
+const fetchProducts = async () => {
+  const res = await Promise.all(
+    store.state.cart?.map((item) =>
+      axios.get(`http://localhost:4040/products/${item?.id}`)
+    )
   );
-  const items = computed(() => store?.state?.cart)
-  console.log(items?.value)
+  const cartProducts = res.map((product) => product?.data?.product);
+  cartItems.cart = cartProducts;
+  // console.log(cartProducts);
+  console.log(cartItems.cart);
+};
+onMounted(() => {});
+fetchProducts();
+watch(
+  () => cartItems.cart,
+  (newValue, oldValue) => {
+    // console.log(newValue);
+  }
+);
 </script>
 
 <style scoped>
