@@ -1,90 +1,79 @@
 <template>
-  <div class="new-products-container">
-    <h1 class="brand-header">Popular Products</h1>
-
-    <div class="product-container">
-      <SingleProduct
-        v-for="product in products?.product"
-        :key="product?._id"
-        :product="product"
-      />
+  <div class="product">
+    <p class="wish">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        @click="handleWish"
+        viewBox="0 0 24 24"
+        :class="isInWishlist ? 'full-icon' : 'heart-icon'"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+        />
+      </svg>
+    </p>
+    <img
+      :src="product?.img"
+      alt=""
+      class="product-img"
+      @click="navigateToProduct(product?._id)"
+    />
+    <div class="price-container">
+      <!-- <router-link :to="'/product/' + product?._id"> -->
+      <p class="product-name" @click="navigateToProduct(product?._id)">
+        {{ product?.name }}
+      </p>
+      <!-- </router-link> -->
+      <p class="product-price">${{ product?.price }}</p>
     </div>
-    <div class="pagination-container">
-      <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
-      <div class="pages-container">
-        <p
-          :class="currentPage == page ? 'active-page' : 'page'"
-          v-for="(page, index) in arrayPages.array"
-          :key="index"
-        >
-          {{ page }}
-        </p>
-        <p class="page">...</p>
-        <!-- {{ propValue }} -->
-      </div>
-      <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
-    </div>
+    <p :class="show ? 'description' : 'hidden-description'">
+      {{ product?.description }}
+    </p>
+    <p class="read-more" @click="toggleShow">
+      {{ show ? "read more..." : "read less..." }}
+    </p>
+    <button class="add-to-cart" @click="addToCart(product?._id)">
+      Add to Cart
+    </button>
   </div>
 </template>
+
 <script setup>
-import axios from "axios";
-import SingleProduct from "./SingleProduct.vue";
+const props = defineProps(["product"]);
 import { computed, onMounted, reactive, ref, watch, watchEffect } from "vue";
-
-const data = reactive({ product: [] });
-const products = reactive({ product: [] });
-const arrayPages = reactive({ array: [] });
-const currentPage = ref(1);
-// const isInWishlist = ref(store.state.wishlist?.some(wish => wish ===));
-
-const productsPerPage = 6;
-const fetchProducts = async () => {
-  const res = await axios.get("http://localhost:4040/products/");
-  data.product = res.data;
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+const store = useStore();
+const router = useRouter();
+const show = ref(true);
+const isInWishlist = ref(
+  store.state.wishlist.some((wish) => wish === props.product?._id)
+);
+const navigateToProduct = (id) => {
+  router.push({ name: "product", params: { id: id } });
 };
-
-onMounted(() => {
-  fetchProducts();
-});
-
-// useRouter returns the router instance
-
-// Reactive calculations inside computed
-const totalPages = computed(() => {
-  const productLength = data.product?.products?.length || 0;
-  return Math.ceil(productLength / productsPerPage);
-});
-
-const startIndex = computed(() => (currentPage.value - 1) * productsPerPage);
-const endIndex = computed(() => startIndex.value + productsPerPage);
-
-// Computed property to get sliced products
-const slicedProducts = computed(() => {
-  return data.product?.products?.slice(startIndex.value, endIndex.value) || [];
-});
-watchEffect(() => {
-  products.product = slicedProducts.value;
-});
-watchEffect(() => {
-  arrayPages.array = Array(totalPages.value)
-    .fill()
-    .map((_, index) => index + 1);
-});
-const incCurrentPage = () => {
-  if (currentPage.value < totalPages?.value) {
-    currentPage.value++;
-  } else {
-    currentPage.value = 1;
-  }
+const addToCart = (id) => {
+  const item = {
+    id: id,
+    quantity: 1,
+  };
+  store.commit("addToCart", item);
 };
-const decCurrentPage = () => {
-  if (currentPage.value > 1) {
-    currentPage.value--;
-  } else {
-    currentPage.value = 1;
-  }
+const toggleShow = () => {
+  show.value = !show.value;
+};
+const handleWish = () => {
+  store.commit("addToWishlist", props.product?._id);
+  isInWishlist.value = store.state.wishlist.some((item) => item === props.product?._id);
 };
 </script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 /* font-family: 'Caveat', cursive; */
@@ -203,6 +192,7 @@ const decCurrentPage = () => {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  transition: all 0.5s ease-in-out;
 }
 
 .price-container {
@@ -211,6 +201,7 @@ const decCurrentPage = () => {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+  transition: all 0.5s ease-in-out;
 }
 .product-name {
   font-family: "Dosis", sans-serif;
@@ -230,6 +221,7 @@ const decCurrentPage = () => {
   color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
+  transition: all 0.5s ease-in-out;
 }
 .description {
   font-family: "Dosis", sans-serif;
@@ -239,6 +231,7 @@ const decCurrentPage = () => {
   font-size: 0.8rem;
   max-height: 50px;
   overflow: hidden;
+  transition: all 0.5s ease-in-out;
 }
 .hidden-description {
   font-family: "Dosis", sans-serif;
@@ -257,6 +250,8 @@ const decCurrentPage = () => {
   font-family: "Dosis", sans-serif;
   color: #064240;
   cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.5s ease-in-out;
 }
 .add-to-cart {
   padding: 5px 15px;

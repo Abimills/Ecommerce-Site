@@ -23,17 +23,20 @@
     </div>
     <div class="right-side">
       <h2 class="item-name">{{ product.singleProduct?.product?.name }}</h2>
-      <p class="item-category">{{ product.singleProduct?.product?.category }}</p>
+      <p class="item-category">
+        {{ product.singleProduct?.product?.category }}
+      </p>
       <div class="wishlist-rating-container">
         <div class="price-rating-container">
           <p class="price">${{ product.singleProduct?.product?.price }}</p>
 
-          <p class="wishlist-text">
+          <p class="wishlist-text" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
+              @click="handleWish"
               viewBox="0 0 24 24"
-              class="heart-icon"
+              :class="isInWishlist ? 'fill-heart' : 'heart-icon'"
               strokeWidth="{1.5}"
               stroke="currentColor"
               className="w-6 h-6"
@@ -118,16 +121,36 @@
 // const id = $route.params.id
 import axios from "axios";
 const route = useRoute();
-import { onMounted, reactive, watch, watchEffect } from "vue";
+
+import { onMounted, reactive, watch, watchEffect, ref } from "vue";
 import { useRoute } from "vue-router";
+const { id } = route.params;
+import { useStore } from "vuex";
+const store = useStore();
 const product = reactive({ singleProduct: [] });
 const data = reactive({ products: [] });
+const isInWishlist = ref(store.state.wishlist?.some((wish) => wish === id));
 // useRoute returns the current route
+console.log(store.state.wishlist?.some((wish) => wish === id));
+// Access the 'id' parameter fr om the route
 
-// Access the 'id' parameter from the route
-const { id } = route.params;
+const handleWish = () => {
+  store.commit("addToWishlist", id);
+  isInWishlist.value =store.state.wishlist.some((item) => item === id);
 
+};
+watch(store.state.wishlist, (newValue, oldValue) => {
+  const itemExist = newValue.some((item) => item === id);
+
+  isInWishlist.value = itemExist;
+});
 onMounted(() => {
+  // const itemExist = store.state.wishlist.find((item) => item === id);
+  // if (itemExist) {
+  //   isInWishlist.value = true;
+  // } else {
+  //   isInWishlist.value = false;
+  // }
   const fetchProduct = async () => {
     try {
       const res = await axios.get(`http://localhost:4040/products/${id}`);
@@ -146,9 +169,7 @@ onMounted(() => {
 // .filter(
 //   (pro) => pro.category == product.singleProduct?.product?.category
 // );
-watchEffect(() => {
-  
-});
+watchEffect(() => {});
 </script>
 
 <style scoped>
@@ -172,6 +193,7 @@ watchEffect(() => {
   gap: 1rem;
   margin-bottom: 3rem;
 }
+
 .left-side {
   width: 50%;
   display: flex;
@@ -193,13 +215,12 @@ watchEffect(() => {
   font-family: "Dosis", sans-serif;
   font-family: "Mooli", sans-serif;
 }
-.item-category{
-  color:rgb(192, 189, 189);
-  color:#709290;
+.item-category {
+  color: rgb(192, 189, 189);
+  color: #709290;
   text-transform: uppercase;
-  font-size:.7rem;
+  font-size: 0.7rem;
   font-family: "Mooli", sans-serif;
-
 }
 .price-rating-container {
   width: 100%;
@@ -362,5 +383,11 @@ watchEffect(() => {
   object-fit: contain;
   background: black;
   border-radius: 50%;
+}
+.fill-heart {
+  width: 20px;
+  height: 20px;
+  fill: orange;
+  color: orange;
 }
 </style>

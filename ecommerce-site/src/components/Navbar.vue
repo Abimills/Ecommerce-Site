@@ -19,24 +19,24 @@
       <li>
         <router-link to="/wishlist" class="links wishlist"
           >Wishlist
-           <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              class="heart-icon"
-              strokeWidth="{1.5}"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="heart-icon"
+            strokeWidth="{1.5}"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            />
+          </svg>
         </router-link>
       </li>
-      
+
       <li>
         <router-link to="/contact" class="links">Contacts</router-link>
       </li>
@@ -48,17 +48,22 @@
           class="shopping-bag"
         />
       </router-link>
-      <p>3</p>
+      <p>{{ totalItems }}</p>
     </div>
   </nav>
 </template>
- <script>
-export default {
-  name: "NavbarVue",
-  data() {
-    return {};
-  },
-};
+ <script setup>
+import { watch, ref, onMounted } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+const totalItems = ref(0);
+watch(store.state, (newValue, oldValue) => {
+  totalItems.value = newValue.cart?.length;
+});
+onMounted(() => {
+  totalItems.value = store.state.cart.length;
+});
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -81,19 +86,18 @@ export default {
   text-decoration: none;
   list-style: none;
 }
-.wishlist{
+.wishlist {
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   gap: 0rem;
 }
-.heart-icon{
+.heart-icon {
   width: 20px;
   height: 15px;
-  fill:wheat;
-  color:wheat;
-  margin-top: .2rem;
-
+  fill: wheat;
+  color: wheat;
+  margin-top: 0.2rem;
 }
 .list-nav-container {
   width: 100%;
@@ -107,7 +111,7 @@ export default {
 }
 .links {
   color: white;
-  
+
   text-decoration: none;
   z-index: 3;
 }
@@ -123,14 +127,14 @@ export default {
 }
 .shopping-bag {
   color: white;
-    color: wheat;
+  color: wheat;
   font-size: 1.5rem;
   margin-top: -0.9rem;
   cursor: pointer;
 }
 .cart-container p {
   position: absolute;
-  background-color:    black;
+  background-color: black;
   width: 21px;
   height: 21px;
   border-radius: 50%;

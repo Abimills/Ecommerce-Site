@@ -2,9 +2,21 @@
   <div class="favorite-container">
     <div class="top-header-container">
       <div class="nav-header-container">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="return-arrow" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-</svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="return-arrow"
+          strokeWidth="{1.5}"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+          />
+        </svg>
 
         <h1 class="header">Favorite Products</h1>
       </div>
@@ -14,26 +26,48 @@
       </div>
     </div>
     <div class="products-container-favorite">
-      <div class="favorite-product">
-        <img src="../assets/shoes.png" alt="" class="fav-img" />
-        <p class="name">Slopy disky Shoes</p>
-        <p class="brand">Brand</p>
-        <p class="price">$23</p>
-        <button class="close">X</button>
+      <div
+        class="favorite-product"
+        v-for="product in wishlist"
+        :key="product?._id"
+      >
+        <img :src="product?.img" alt="" class="fav-img" />
+        <p class="name">{{ product?.name }}</p>
+        <p class="brand">{{ product?.timeRanges[0] }} Product</p>
+        <p class="price">${{ product?.price }}</p>
+        <button class="close" @click="handleWish(product?._id)">X</button>
       </div>
-      <div class="favorite-product">
-        <img src="../assets/shoes.png" alt="" class="fav-img" />
-        <p class="name">Slopy disky Shoes</p>
-        <p class="brand">Brand</p>
-        <p class="price">$23</p>
-        <button class="close">X</button>
-      </div>
-     
     </div>
   </div>
 </template>
 
 <script setup>
+import axios from "axios";
+import { onMounted, ref, watch } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+const wishlist = ref([]);
+
+const fetchData = async (store) => {
+  const res = await Promise.all(
+    store.state.wishlist?.map((item) =>
+      axios.get(`http://localhost:4040/products/${item}`)
+    )
+  );
+  const cartProducts = res.map((product) => product.data.product);
+  wishlist.value = cartProducts;
+};
+const handleWish = (id) => {
+  store.commit("addToWishlist",id);
+  fetchData(store);
+};
+watch(wishlist, (newValue, oldValue) => {
+  console.log(wishlist.value);
+});
+onMounted(() => {
+  fetchData(store);
+});
 </script>
 
 <style scoped>
@@ -120,6 +154,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+  flex-wrap: wrap;
   padding: 10px;
   justify-content: center;
 }
@@ -135,44 +170,55 @@
   box-shadow: rgba(187, 15, 15, 0.15) 1.95px 1.95px 2.6px;
   position: relative;
 }
-.name,.price ,.brand {
+.name,
+.price,
+.brand {
   color: black;
   text-transform: uppercase;
   font-family: "Dosis", sans-serif;
   font-family: "Roboto", sans-serif;
   /* font-weight: 700; */
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: left;
   width: 100%;
 }
-.brand ,.price{
-  color:rgb(146, 145, 145);
-  font-size: .7rem;
+.brand,
+.price {
+  color: rgb(146, 145, 145);
+  font-size: 0.6rem;
 }
-.return-arrow{
-  color:white;
-  font-size:.8rem;
+.price {
+  font-size: 0.8rem;
+  background: orange;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: black;
+  cursor: pointer;
+  padding: 4px;
+}
+.return-arrow {
+  color: white;
+  font-size: 0.8rem;
   width: 20px;
   height: 20px;
 }
-.close{
-  color:white;
+.close {
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  position : absolute ;
-  top:10px;
+  position: absolute;
+  top: 10px;
   width: 20px;
   border-radius: 50%;
   height: 20px;
-  right:10px;
-  font-size: .8rem;
+  right: 10px;
+  font-size: 0.8rem;
   background: black;
-  border:none;
-  
-  font-weight: 600;
-   font-family: "Dosis", sans-serif;
-  /* font-family: "Roboto", sans-serif; */
-}
+  border: none;
 
+  font-weight: 400;
+  font-family: "Dosis", sans-serif;
+  font-family: "Roboto", sans-serif;
+}
 </style>

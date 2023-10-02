@@ -1,161 +1,55 @@
 <template>
-  <div class="cart-container">
-    <h1 class="cart-header">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="{1.5}"
-        stroke="currentColor"
-        className="w-6 h-6"
-        class="cart-icon"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-        />
-      </svg>
-      My Cart
-    </h1>
-    <div class="cart-items-payment-container">
-      <div class="cart-items-container">
-        <SingleCartItem
-          v-for="product in cartItems?.cart"
-          :key="product?._id"
-          :product="product"
-        />
+  <div class="additional-container">
+    <img :src="product?.img" alt="" class="cart-image" />
+    <div class="item-info-container">
+      <h3 class="item-name">{{ product?.name }}</h3>
+      <p class="color">Color : {{ product?.colors[0] }}</p>
+      <p class="item-size">Discount : {{ ( product?.discount / product?.price) *100 + '% '||0 }}</p>
+      <p class="stock">In Stock</p>
+    </div>
+    <div class="each-price-container">
+      <p>Each</p>
+      <h5 class="item-price">${{ product?.price }}</h5>
+    </div>
+    <div class="quantity-container">
+      <p>Quantity</p>
 
-        <div class="real-price-items">
-          <p>{{ totalItems }} items</p>
-          <p>${{ totalPrice }}</p>
-        </div>
-      </div>
-      <div class="payment-container">
-        <h4 class="enter-code-header">ENTER PROMO CODE</h4>
-        <div class="promo-container">
-          <input type="text" placeholder="Promo Code" />
-          <button>Submit</button>
-        </div>
-        <div class="shipping-cost-container">
-          <p class="shipping-cost">Shipping cost</p>
-          <p>TBD</p>
-        </div>
-        <div class="discount-cost-container">
-          <p class="discount-cost">Discount</p>
-          <p>-${{ discount }}</p>
-        </div>
-        <div class="tax-container">
-          <p class="shipping-cost">Tax</p>
-          <p>TBD</p>
-        </div>
-        <div class="esteemed-price-container">
-          <p class="esteemed-price-cost">Estimated Total</p>
-          <p>${{ totalPrice }}</p>
-        </div>
-        <div class="esteemed-price-container">
-          <p class="esteemed-price-cost">Discount Applied</p>
-          <p>${{ totalPrice - discount }}</p>
-        </div>
-        <p class="free-shipping">
-          {{
-            totalPrice < 20
-              ? `You are $${20 - totalPrice} away from having a free shiping`
-              : "Your Products will be delivered free if greater than $20"
-          }}
-        </p>
-        <button class="checkout">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="lock"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="{1.5}"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
-            />
-          </svg>
-          <span> Checkout </span>
-        </button>
-      </div>
+      <input type="number" placeholder="1" v-model="quantity" />
+    </div>
+    <div class="total-item-price">
+      <p>Total</p>
+      <p class="total-price-info">${{ product?.price * quantity }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import axios from "axios";
-import SingleCartItem from "./SingleCartItem.vue";
-import { computed, onMounted, reactive, watch, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
+
+const props = defineProps(["product"]);
 const store = useStore();
-const cartItems = reactive({ cart: [] });
-const totalItems = ref(0);
-const totalPrice = ref(0);
-const discount = ref(0);
-const priceAfterDiscount = ref(totalPrice - discount || 0);
-const fetchProducts = async () => {
-  const res = await Promise.all(
-    store.state.cart?.map((item) =>
-      axios.get(`http://localhost:4040/products/${item?.id}`)
-    )
-  );
-  const cartProducts = res.map((product) => {
-    const matchingCartItem = store.state.cart.find(
-      (item) => item.id === product?.data?.product?._id
-    );
-    if (matchingCartItem) {
-      return { ...product?.data?.product, quantity: matchingCartItem.quantity };
-    } else {
-      return product?.data?.product;
-    }
+const quantity = ref(1);
+watch(quantity, (newValue, oldValue) => {
+  if (newValue === 0) {
+    quantity.value = 1;
+  } else {
+    quantity.value = newValue;
+  }
+  store.dispatch("updateCartItemQuantity", {
+    id: props.product?._id,
+    quantity: newValue,
   });
-  cartItems.cart = cartProducts;
-};
-watch(cartItems, (newValue, oldValue) => {
-  totalPrice.value = newValue.cart?.reduce((total, item) => {
-    return total + item?.price * item.quantity;
-  }, 0);
-  discount.value = newValue.cart?.reduce((total, item) => {
-    return total + item.discount * item.quantity;
-  }, 0);
 });
 
-watch(store.state.cart, (newValue, oldValue) => {
-  const cartProducts = cartItems.cart.map((product) => {
-    const matchingCartItem = newValue.find((item) => item.id === product?._id);
-    if (matchingCartItem) {
-      return { ...product, quantity: matchingCartItem.quantity };
-    } else {
-      return product?.data?.product;
-    }
-  });
-
-  cartItems.cart = cartProducts;
-  totalPrice.value = cartProducts?.reduce((total, item) => {
-    return total + item?.price * item.quantity;
-  }, 0);
-  discount.value = cartProducts?.reduce((total, item) => {
-    if (!item.discount) {
-      return;
-    } else if (item.discount) {
-      return total + item?.discount * item.quantity;
-    }
-  }, 0);
-});
-onMounted(() => {});
-fetchProducts();
 onMounted(() => {
-  totalItems.value = store.state.cart.length;
-  // totalPrice.value = store.state.cart.reduce((total,item) => {
-  //   return total + item
-  // })
+      const item = store.state.cart.find((item => item.id === props.product?._id));
+    if (item) {
+      quantity.value = item.quantity;
+    }
 });
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -211,7 +105,7 @@ onMounted(() => {
   width: 95%;
   padding: 10px;
   display: flex;
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
 }
 .cart-items-container {
@@ -306,6 +200,7 @@ onMounted(() => {
   border: 1px solid white;
   border-radius: 40px;
   outline: none;
+  color: white;
 }
 
 .quantity-container input::placeholder {
