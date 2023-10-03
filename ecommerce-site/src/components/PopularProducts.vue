@@ -16,10 +16,11 @@
           :class="currentPage == page ? 'active-page' : 'page'"
           v-for="(page, index) in arrayPages.array"
           :key="index"
+          @click="setPagination(page)"
         >
           {{ page }}
         </p>
-        <p class="page">...</p>
+        <p class="page" @click="setPagination(page)">...</p>
         <!-- {{ propValue }} -->
       </div>
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
@@ -83,6 +84,9 @@ const decCurrentPage = () => {
   } else {
     currentPage.value = 1;
   }
+};
+const setPagination = (value) => {
+  currentPage.value = value;
 };
 </script>
 <style scoped>

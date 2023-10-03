@@ -14,7 +14,7 @@
         <router-link to="/products" class="links">Products</router-link>
       </li>
       <li>
-        <router-link to="/admin/profile" class="links">Sign in</router-link>
+        <router-link to="/login" class="links">Sign in</router-link>
       </li>
       <li>
         <router-link to="/wishlist" class="links wishlist"
@@ -75,6 +75,7 @@ onMounted(() => {
 /* font-family: 'Roboto', sans-serif; */
 .nav-container {
   background: #064240;
+  /* background: #3d4935; */
 
   display: flex;
   width: 100%;

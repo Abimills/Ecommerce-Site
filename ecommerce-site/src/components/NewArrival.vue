@@ -21,7 +21,7 @@
         <div class="product">
           <img :src="shoes" alt="" class="product-img" />
           <p class="discount">25% OFF</p>
-          <router-link to="/item">
+          <router-link to="/brand-products">
             <button class="shop-btn shop-color">Buy now</button>
           </router-link>
         </div>
@@ -38,7 +38,7 @@
         <div class="product">
           <img :src="women" alt="" class="product-img" />
           <p class="discount">35% OFF</p>
-          <router-link to="/item">
+          <router-link to="/brand-products">
             <button class="shop-btn shop-color">Buy now</button>
           </router-link>
         </div>

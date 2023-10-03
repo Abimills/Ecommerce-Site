@@ -28,7 +28,9 @@ export default {
 }
 body {
   width: 100%;
-  background: #064240;
+   background: #064240;
+    /* background: linear-gradient(to bottom,#010a0a,#064240 ); */
+  /* background: #3d4935; */
 }
 </style>
 

@@ -23,15 +23,21 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/ContactSection.vue')
   },
-  {
-path:"/login",
-name: "login",
-component: () => import("../components/Login.vue")
-  },
+
   {
     path: '/admin/add-products',
     name: 'addProduct',
     component: () => import('../components/AddProductContainer.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../components/LoginPage.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../components/RegisterPage.vue')
   },
   {
     path: '/admin/profile',
@@ -42,6 +48,11 @@ component: () => import("../components/Login.vue")
     path: '/admin/view-products',
     name: 'view-products',
     component: () => import('../components/ViewProducts.vue')
+  },
+  {
+    path: '/brand-products',
+    name: 'brand-products',
+    component: () => import('../components/NewProducts.vue')
   },
   {
     path: '/admin/view-users',

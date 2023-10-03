@@ -9,7 +9,7 @@
         converges with substance, "famclog"
       </p>
       <div class="btns-container">
-        <router-link to="/item">
+        <router-link to="/products">
           <button class="buy-now-btn empty-btn">SHOP NOW</button>
         </router-link>
         <router-link to="/products">

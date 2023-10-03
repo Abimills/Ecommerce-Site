@@ -8,8 +8,6 @@
     <PopularProducts />
     <Review />
     <AboutNewsContainer />
-
-    
     <Contact />
     <Footer />
   </div>
@@ -28,7 +26,6 @@ import Review from "../components/Review.vue";
 import Newsletter from "../components/Newsletter.vue";
 import About from "../components/About.vue";
 import Contact from "../components/Contact.vue";
-
 </script>
 
 <style scoped>

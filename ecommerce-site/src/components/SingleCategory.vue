@@ -15,31 +15,12 @@
       </div>
 
       <div class="product-container">
-        <div
-          class="product"
-          v-for="product in productsToShow?.product?.products"
-          :key="product?._id"
-        >
-          <img
-            :src="product?.img"
-            alt=""
-            class="product-img"
-            @click="navigateToProduct(product?._id)"
-          />
-
-          <div class="price-container">
-            <p class="product-name" @click="navigateToProduct(product?._id)">
-              {{ product?.name }}
-            </p>
-
-            <p class="product-price">${{ product?.price }}</p>
-          </div>
-          <p class="description">
-            {{ product?.description }}
-          </p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
+      
+          <SingleProduct  v-for="product in productsToShow?.product?.products"
+          :key="product?._id" :product="product"/>
+       
       </div>
+      
     </div>
   
 </template>
@@ -48,6 +29,7 @@
 import axios from "axios";
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import SingleProduct from "./SingleProduct.vue";
 const activeCategory = ref("Shoes");
 
 // categories set of words from data

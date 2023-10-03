@@ -4,6 +4,7 @@ export default createStore({
   state: {
 
     cart :JSON.parse(localStorage.getItem("products")) || [],
+    user :JSON.parse(localStorage.getItem("user")) || [],
     wishlist: JSON.parse(localStorage.getItem('wishlist')) || []
 
   },
@@ -30,7 +31,7 @@ export default createStore({
         state.wishlist = [...state.wishlist,id]
         localStorage.setItem("wishlist",JSON.stringify(state.wishlist))
       }
-
+      
     },
     removeFromCart (state,id){
       const itemExist = state.cart.find(pro => pro.id ===id)
@@ -41,7 +42,7 @@ export default createStore({
         state.cart = state.cart.filter(item => item.id !== id);
       }
     },
-      updateCartItemQuantity (state,{id,quantity}) {
+    updateCartItemQuantity (state,{id,quantity}) {
       const item = state.cart.find(item => item.id ===id);
       if(item){
         item.quantity = quantity
@@ -49,7 +50,13 @@ export default createStore({
       else{
         console.log("item does not exist")
       }
-
+      
+    },
+    signedIn (state,{data}) {
+      
+      state.user = data
+      localStorage.setItem("user",JSON.stringify(state.user))
+      
     }
   },
   actions: {

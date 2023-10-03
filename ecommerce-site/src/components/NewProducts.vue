@@ -39,10 +39,11 @@
           :class="currentPage == page ? 'active-page' : 'page'"
           v-for="(page, index) in arrayPages.array"
           :key="index"
+          @click="setPagination(page)"
         >
           {{ page }}
         </p>
-        <p class="page">...</p>
+        <p class="page"  @click="setPagination(1)">...</p>
         <!-- {{ propValue }} -->
       </div>
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
@@ -58,9 +59,8 @@ const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
-const show = ref(true);
 const productsPerPage = 6;
-console.log({ current: currentPage.value });
+const show = ref(true);
 const fetchProducts = async () => {
   const res = await axios.get("http://localhost:4040/products/");
   data.product = res.data;
@@ -99,7 +99,6 @@ watchEffect(() => {
     .fill()
     .map((_, index) => index + 1);
 });
-console.log(arrayPages);
 const incCurrentPage = () => {
   if (currentPage.value < totalPages?.value) {
     currentPage.value++;
@@ -113,6 +112,9 @@ const decCurrentPage = () => {
   } else {
     currentPage.value = 1;
   }
+};
+const setPagination = (value) => {
+  currentPage.value = value;
 };
 </script>
 <style scoped>
