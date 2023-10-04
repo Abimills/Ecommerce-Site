@@ -1,52 +1,28 @@
 <template>
-  <div class="single-view-container">
-    <div class="header-container">
-      <h1>All Products</h1>
-      <p>Products : <span>23</span></p>
+  <div class="view-item">
+    <img src="../assets/user.png" alt="" class="view-img" />
+    <div class="name-description-container">
+      <h2>{{ user?.name }}</h2>
+      <!-- <p class="brand">customer</p> -->
+      <p class="price">{{ user?.email }}</p>
+      <button class="in-stock">Active</button>
+      <!-- <p class="description">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
+                earum quibusdam laboriosam hic. Beatae, cumque.
+            </p> -->
     </div>
-    <div class="all-view-items-container">
-      <div class="view-item">
-        <img src="../assets/cutepie23.png" alt="" class="view-img" />
-        <div class="name-description-container">
-          <h2>User Name</h2>
-          <!-- <p class="brand">customer</p> -->
-          <p class="price">user@email.com</p>
-          <button class="in-stock">Active</button>
-          <!-- <p class="description">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                earum quibusdam laboriosam hic. Beatae, cumque.
-            </p> -->
-        </div>
-        <p class="color">Purchased worth: <span>$400</span></p>
-        <p class="category">Active customer: <span>Yes</span></p>
-        <div class="price-delete-container">
-          <button>Delete User</button>
-        </div>
-      </div>
-      <div class="view-item">
-        <img src="../assets/cutepie23.png" alt="" class="view-img" />
-        <div class="name-description-container">
-          <h2>User Name</h2>
-          <!-- <p class="brand">customer</p> -->
-          <p class="price">user@email.com</p>
-          <button class="in-stock">Active</button>
-          <!-- <p class="description">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                earum quibusdam laboriosam hic. Beatae, cumque.
-            </p> -->
-        </div>
-        <p class="color">Purchased worth: <span>$400</span></p>
-        <p class="category">Active customer: <span>Yes</span></p>
-        <div class="price-delete-container">
-          <button>Delete User</button>
-        </div>
-      </div>
-      
+    <p class="color">Purchased Value: <span>$400</span></p>
+    <p class="category">
+      role: <span>{{ user?.role }}</span>
+    </p>
+    <div class="price-delete-container">
+      <button @click="deleteUser(user?._id)">delete</button>
     </div>
   </div>
 </template>
 
 <script setup>
+const props = defineProps(["user", "deleteUser"]);
 </script>
 
 <style scoped>
@@ -107,16 +83,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  margin-bottom: .5rem;;
-  border-bottom:1px solid #90cbc9;
-
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #90cbc9;
 }
 .view-img {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   background: white;
-  border-radius: 50%;;
+  border-radius: 50%;
 }
 .name-description-container {
   display: flex;
@@ -125,14 +100,14 @@
   margin-left: -3rem;
 }
 .name-description-container h2 {
-  font-size: 1.4rem;
+  font-size: 1rem;
   color: white;
   text-transform: uppercase;
 }
 .name-description-container .brand,
 .price {
   margin-bottom: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: white;
   max-width: 250px;
 }
@@ -147,7 +122,7 @@
   max-width: 250px;
 }
 .in-stock {
-  padding: 5px 10px;
+  padding: 2px 6px;
   background: #90cbc9;
   border: 1px solid #90cbc9;
   color: white;
@@ -155,24 +130,24 @@
 }
 .color,
 .category {
-  color: rgb(196, 193, 193);
+  color: #90cbc9;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 }
 .color span,
 .category span {
   background: #000000;
   color: white;
   font-size: 0.8rem;
-  padding: 5px 10px;
+  padding: 5px 8px;
 }
 .price-delete-container button {
   width: 100px;
   padding: 5px;
-  background: rgb(192, 104, 104);
+  background: rgb(44, 18, 18);
   color: white;
   border-radius: 20px;
   cursor: pointer;
-  border: 1px solid rgb(192, 104, 104);
+  border: 1px solid rgb(44, 18, 18);
 }
 </style>

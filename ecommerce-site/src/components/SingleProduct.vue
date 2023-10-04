@@ -58,6 +58,7 @@ const isInWishlist = ref(
 const navigateToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
 };
+
 const addToCart = (id) => {
   const item = {
     id: id,
@@ -70,7 +71,9 @@ const toggleShow = () => {
 };
 const handleWish = () => {
   store.commit("addToWishlist", props.product?._id);
-  isInWishlist.value = store.state.wishlist.some((item) => item === props.product?._id);
+  isInWishlist.value = store.state.wishlist.some(
+    (item) => item === props.product?._id
+  );
 };
 </script>
 

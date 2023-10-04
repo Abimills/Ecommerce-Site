@@ -10,6 +10,7 @@
           strokeWidth="{1.5}"
           stroke="currentColor"
           className="w-6 h-6"
+          @click="navigateBack"
         >
           <path
             strokeLinecap="round"
@@ -21,21 +22,46 @@
         <h1 class="header">Favorite Products</h1>
       </div>
       <div class="category-container">
-        <p>Shoes</p>
-        <p>Shirts</p>
+        <p
+          :class="
+            activeCategory === category ? 'active-category' : 'passive-category'
+          "
+          v-for="(category, index) in wishlistCategory"
+          :key="index"
+          @click="filterProducts(category)"
+        >
+          {{ category }}
+        </p>
       </div>
     </div>
     <div class="products-container-favorite">
       <div
         class="favorite-product"
-        v-for="product in wishlist"
+        v-for="product in wishlistAfterFilter"
         :key="product?._id"
       >
-        <img :src="product?.img" alt="" class="fav-img" />
-        <p class="name">{{ product?.name }}</p>
+        <img :src="product?.img" alt="" @click="navigate(product?._id)" class="fav-img" />
+        <p class="name" @click="navigate(product?._id)">{{ product?.name }}</p>
         <p class="brand">{{ product?.timeRanges[0] }} Product</p>
-        <p class="price">${{ product?.price }}</p>
-        <button class="close" @click="handleWish(product?._id)">X</button>
+        <p class="price" @click="navigate(product?._id)">${{ product?.price }}</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          @click="handleWish(product?._id)"
+          class="close"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="{1.5}"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+
+        <!-- <button class="close" @click="handleWish(product?._id)">X</button> -->
       </div>
     </div>
   </div>
@@ -44,11 +70,31 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-
+const router = useRouter();
 const store = useStore();
 const wishlist = ref([]);
+const wishlistAfterFilter = ref([]);
+const activeCategory = ref("All");
+const wishlistCategory = ref([]);
 
+const getCategories = (data) => {
+  const categories = data?.map((pro) => pro.category);
+  const timeRangeCat = data?.map((pro) => pro.timeRanges[0]);
+  wishlistCategory.value = [
+    "All",
+    ...new Set(categories),
+    ...new Set(timeRangeCat),
+  ];
+};
+
+const navigate = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
+const navigateBack = () => {
+  router.go(-1);
+};
 const fetchData = async (store) => {
   const res = await Promise.all(
     store.state.wishlist?.map((item) =>
@@ -57,14 +103,32 @@ const fetchData = async (store) => {
   );
   const cartProducts = res.map((product) => product.data.product);
   wishlist.value = cartProducts;
+  getCategories(cartProducts);
+  filterProducts("All");
 };
 const handleWish = (id) => {
-  store.commit("addToWishlist",id);
+  store.commit("addToWishlist", id);
   fetchData(store);
 };
-watch(wishlist, (newValue, oldValue) => {
-  console.log(wishlist.value);
-});
+
+const filterProducts = (category) => {
+  if (wishlist.value) {
+    if (category === "All") {
+      wishlistAfterFilter.value = wishlist.value;
+      activeCategory.value = category;
+    } else {
+      wishlistAfterFilter.value = wishlist.value?.filter(
+        (product) =>
+          product.category?.toLowerCase() == category?.toLowerCase() ||
+          product.timeRanges[0]?.toLowerCase() == category?.toLowerCase()
+      );
+      activeCategory.value = category;
+    }
+  } else {
+    return;
+  }
+};
+
 onMounted(() => {
   fetchData(store);
 });
@@ -88,6 +152,7 @@ onMounted(() => {
   width: 200px;
   height: 200px;
   object-fit: contain;
+  cursor:pointer;
 }
 .top-header-container {
   width: 100%;
@@ -136,17 +201,20 @@ onMounted(() => {
   gap: 2rem;
   margin-left: -2rem;
 }
-.category-container p {
-  padding: 4px 20px;
+.active-category {
+  padding: 7px 20px;
   border: 1.4px solid white;
   color: white;
   font-family: "Dosis", sans-serif;
   font-size: 0.72rem;
   text-transform: uppercase;
+  cursor: pointer;
 }
-.category-container p:nth-child(2) {
-  border: 1.4px solid rgb(165, 164, 164);
-  color: rgb(165, 164, 164);
+.passive-category {
+  padding: 4px 15px;
+  border: 1.4px solid #67918f;
+  color: #77aaa8;
+  cursor: pointer;
 }
 .products-container-favorite {
   width: 100%;
@@ -181,6 +249,7 @@ onMounted(() => {
   font-size: 0.8rem;
   text-align: left;
   width: 100%;
+  cursor:pointer;
 }
 .brand,
 .price {
@@ -189,7 +258,7 @@ onMounted(() => {
 }
 .price {
   font-size: 0.8rem;
-  background: orange;
+  background: #92d3d1;
   text-align: center;
   margin-top: 0.5rem;
   color: black;
@@ -201,9 +270,13 @@ onMounted(() => {
   font-size: 0.8rem;
   width: 20px;
   height: 20px;
+  cursor: pointer;
+}
+.return-arrow:hover{
+  color: wheat;
 }
 .close {
-  color: white;
+  color: #034240;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,9 +287,9 @@ onMounted(() => {
   height: 20px;
   right: 10px;
   font-size: 0.8rem;
-  background: black;
+  /* background: black; */
   border: none;
-
+  cursor: pointer;
   font-weight: 400;
   font-family: "Dosis", sans-serif;
   font-family: "Roboto", sans-serif;

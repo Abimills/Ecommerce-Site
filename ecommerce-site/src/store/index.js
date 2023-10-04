@@ -57,6 +57,12 @@ export default createStore({
       state.user = data
       localStorage.setItem("user",JSON.stringify(state.user))
       
+    },
+    signOut (state) {
+      
+      state.user = []
+      localStorage.setItem("user",JSON.stringify(state.user))
+      
     }
   },
   actions: {

@@ -1,51 +1,31 @@
 <template>
-  <div class="single-view-container">
-    <div class="header-container">
-      <h1>All Products</h1>
-      <p>Products : <span>23</span></p>
+  <div class="view-item">
+    <img :src="product?.img" alt="" class="view-img" />
+    <div class="name-description-container">
+      <h2>{{ product?.name }}</h2>
+      <p class="brand">{{ product?.timeRanges[0] }}</p>
+      <p class="price">${{ product?.price }}</p>
+      <button class="in-stock">In Stock</button>
+      <!-- <p class="description">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
+                earum quibusdam laboriosam hic. Beatae, cumque.
+            </p> -->
     </div>
-    <div class="all-view-items-container">
-      <div class="view-item">
-        <img src="../assets/t-shirt.png" alt="" class="view-img" />
-        <div class="name-description-container">
-          <h2>Shirt black</h2>
-          <p class="brand">Brand</p>
-          <p class="price">$23</p>
-          <button class="in-stock">In Stock</button>
-          <!-- <p class="description">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                earum quibusdam laboriosam hic. Beatae, cumque.
-            </p> -->
-        </div>
-        <p class="color">color: <span>black</span></p>
-        <p class="category">Category: <span>Shoes</span></p>
-        <div class="price-delete-container">
-          <button>Delete</button>
-        </div>
-      </div>
-      <div class="view-item">
-        <img src="../assets/t-shirt.png" alt="" class="view-img" />
-        <div class="name-description-container">
-          <h2>Shirt black</h2>
-          <p class="brand">Brand</p>
-          <p class="price">$23</p>
-          <button class="in-stock">In Stock</button>
-          <!-- <p class="description">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
-                earum quibusdam laboriosam hic. Beatae, cumque.
-            </p> -->
-        </div>
-        <p class="color">color: <span>black</span></p>
-        <p class="category">Category: <span>Shoes</span></p>
-        <div class="price-delete-container">
-          <button>Delete</button>
-        </div>
-      </div>
+    <p class="color">
+      color: <span>{{ product?.colors[0] }}</span>
+    </p>
+    <p class="category">
+      Category: <span>{{ product?.category }}</span>
+    </p>
+    <div class="price-delete-container">
+      <button @click="deleteProduct(product?._id)">Delete</button>
     </div>
   </div>
 </template>
 
 <script setup>
+const props = defineProps(["product", "deleteProduct"]);
+
 </script>
 
 <style scoped>
@@ -106,8 +86,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom:1px solid #90cbc9;
-
+  border-bottom: 1px solid #90cbc9;
 }
 .view-img {
   width: 150px;
@@ -117,9 +96,10 @@
 }
 .name-description-container {
   display: flex;
+  width: 300px;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: -3rem;
+  /* margin-left: -3rem; */
 }
 .name-description-container h2 {
   font-size: 1.4rem;

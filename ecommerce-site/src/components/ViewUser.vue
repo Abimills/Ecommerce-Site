@@ -1,50 +1,198 @@
 <template>
   <div class="create-product-container">
-    <div class="admin-mother-container">
+  <div class="admin-mother-container">
       <div class="admin-information-navigation">
+        <div class="profile-container">
+      <div class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="profile-icon"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              @click="navigateHome"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+              />
+            </svg>
+
+            <p>Admin</p>
+          </div>
+        </div>
         <div class="admin-pic-label">
           <img src="../assets/cutepie23.png" alt="" class="admin-pic" />
           <router-link to="/">
-            <p>Admin</p>
+            <button class="log-btn" @click="signOut">logout</button>
           </router-link>
         </div>
         <div class="profile-container">
           <router-link to="/admin/profile" class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              class="profile-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+              />
+            </svg>
+
             <p>Profile</p>
           </router-link>
         </div>
         <div class="categories-container">
           <router-link to="/admin/category" class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              class="profile-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"
+              />
+            </svg>
+
             <p>Categories</p>
           </router-link>
         </div>
         <div class="Add-product-container">
           <router-link to="/admin/add-products" class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              class="profile-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+
             <p>Add Products</p>
           </router-link>
         </div>
         <div class="view-products-container">
           <router-link to="/admin/view-products" class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              class="profile-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+
             <p>View Products</p>
           </router-link>
         </div>
         <div class="user-request-container">
           <router-link to="/admin/view-users" class="link-profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              class="profile-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
             <p>View User</p>
           </router-link>
         </div>
-        <div class="log-out-request-container">
-          <button>Log out</button>
-        </div>
+       
       </div>
     </div>
-
-    <SingleUser />
+ <div class="single-view-container">
+    <div class="header-container">
+      <h1>All Users</h1>
+      <p>Users : <span>{{ users?.users?.length -1 || 0}}</span></p>
+    </div>
+    <div class="all-view-items-container">
+    
+      <SingleUser  v-for="user in users?.users" :deleteUser="deleteUser"  :key="user?._id" :user="user" />
+      
+      
+    </div>
   </div>
+  </div>
+  
 </template>
 
 <script setup>
 import SingleUser from "./SingleUser.vue";
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
+const users = ref([]);
+const store = useStore();
+const router = useRouter();
+const signOut = () => {
+  store.commit("signOut");
+  router.push("/");
+};
+const navigateHome = () => {
+ 
+  router.push("/");
+}
+const deleteUser = (id) => {
+  users.value.users = users.value?.users?.filter(
+    (user) => user?._id !== id
+  );
+};
+onMounted(() => {
+  const fetch = async () => {
+    const res = await axios.get("http://localhost:4040/users/");
+    users.value = res.data;
+  };
+  fetch();
+});
 </script>
 
 <style scoped>
@@ -65,6 +213,33 @@ import SingleUser from "./SingleUser.vue";
 .link-profile {
   list-style: none;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+  /* gap: 2rem; */
+}
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  /* fill: orange; */
+  /* color: orange; */
+  margin-top: -0.2rem;
+  /* border: 1px solid orange;
+  border-radius: 50%; */
+}
+.log-btn {
+  /* padding: 5px 10px; */
+  background: #90cbc9;
+  border: 1px solid #90cbc9;
+  color: white;
+  padding: 5px 8px;
+  font-size: 0.6rem;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  border-radius: 10px;
+   cursor: pointer;
 }
 .add-products-form-container {
   width: 70%;
@@ -424,5 +599,122 @@ li {
   color: white;
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
+}
+.view-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+.single-view-container {
+  width: 100%;
+  margin: 1rem;
+}
+.header-container {
+  width: 100%;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #90cbc9;
+}
+.header-container h1 {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
+.header-container p {
+  color: white;
+  font-size: 0.9rem;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
+.header-container p span {
+  color: white;
+  font-size: 0.9rem;
+  background: #90cbc9;
+  padding: 1px 9px;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
+.all-view-items-container {
+  width: 100%;
+}
+.view-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #90cbc9;
+}
+.view-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  background: white;
+  border-radius: 50%;
+}
+.name-description-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: -3rem;
+}
+.name-description-container h2 {
+  font-size: 1.4rem;
+  color: white;
+  text-transform: uppercase;
+}
+.name-description-container .brand,
+.price {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: white;
+  max-width: 250px;
+}
+.price {
+  /* padding: 2px 10px; */
+  /* background: orange; */
+}
+.name-description-container .description {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: rgb(196, 193, 193);
+  max-width: 250px;
+}
+.in-stock {
+  padding: 5px 10px;
+  background: #90cbc9;
+  border: 1px solid #90cbc9;
+  color: white;
+  font-size: 0.7rem;
+}
+.color,
+.category {
+  color: rgb(196, 193, 193);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.color span,
+.category span {
+  background: #000000;
+  color: white;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+}
+.price-delete-container button {
+  width: 100px;
+  padding: 5px;
+  background: rgb(192, 104, 104);
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid rgb(192, 104, 104);
 }
 </style>
