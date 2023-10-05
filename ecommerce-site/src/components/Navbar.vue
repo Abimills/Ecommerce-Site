@@ -1,23 +1,41 @@
 <template>
   <nav class="nav-container">
-    <ul class="list-nav-container">
+    <ul :class="show ? 'list-nav-container' : 'list-nav-container hide-list'">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="close"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="w-6 h-6"
+         @click="toggleShow"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+
       <li>
-        <router-link to="/" class="links">Famclog</router-link>
+        <router-link to="/" class="links" @click="toggleShow">Famclog</router-link>
       </li>
       <li>
-        <router-link to="/" class="links">Home</router-link>
+        <router-link to="/" class="links" @click="toggleShow">Home</router-link>
       </li>
       <li>
-        <router-link to="/about" class="links">About</router-link>
+        <router-link to="/about" class="links" @click="toggleShow">About</router-link>
       </li>
       <li>
-        <router-link to="/products" class="links">Products</router-link>
+        <router-link to="/products" class="links" @click="toggleShow">Products</router-link>
       </li>
       <li>
-        <router-link to="/login" class="links">Sign in</router-link>
+        <router-link to="/login" class="links" @click="toggleShow">Sign in</router-link>
       </li>
+
       <li>
-        <router-link to="/wishlist" class="links wishlist"
+        <router-link to="/wishlist" class="links wishlist" @click="toggleShow"
           >Wishlist
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,17 +56,35 @@
       </li>
 
       <li>
-        <router-link to="/contact" class="links">Contacts</router-link>
+        <router-link to="/contact" class="links" @click="toggleShow">Contacts</router-link>
       </li>
     </ul>
-    <div class="cart-container">
-      <router-link to="/cart" class="links">
-        <font-awesome-icon
-          icon="fa-solid fa-bag-shopping"
-          class="shopping-bag"
+    <div class="mother-cart-container">
+      <div class="cart-container">
+        <router-link to="/cart" class="links">
+          <font-awesome-icon
+            icon="fa-solid fa-bag-shopping"
+            class="shopping-bag"
+          />
+        </router-link>
+        <p>{{ totalItems }}</p>
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="hamburger"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="w-6 h-6"
+        @click="toggleShow"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
         />
-      </router-link>
-      <p>{{ totalItems }}</p>
+      </svg>
     </div>
   </nav>
 </template>
@@ -58,9 +94,13 @@ import { useStore } from "vuex";
 
 const store = useStore();
 const totalItems = ref(0);
+const show = ref(false);
 watch(store.state, (newValue, oldValue) => {
   totalItems.value = newValue.cart?.length;
 });
+const toggleShow = () => {
+  show.value = !show.value;
+};
 onMounted(() => {
   totalItems.value = store.state.cart.length;
 });
@@ -77,6 +117,8 @@ onMounted(() => {
 .nav-container {
   background: #064240;
   /* background: #3d4935; */
+  width: 100%;
+  position: relative;
 
   display: flex;
   width: 100%;
@@ -149,6 +191,83 @@ onMounted(() => {
   justify-content: center;
 
   font-family: "Roboto", sans-serif;
+}
+.close {
+  display: none;
+}
+.hamburger {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .nav-container {
+    position: relative;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+  }
+  .list-nav-container {
+    flex-direction: column;
+    background: white;
+    position: fixed;
+    top: 0px;
+    right: -15px;
+    width: 100%;
+    height: 100vh;
+    transition: all .6s ease-in-out;
+    padding: 28px 10px;
+  }
+  .links {
+    color: #064240;
+  }
+  .close {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    right: 10px;
+    color: #064240;
+    /* background: #064240; */
+  }
+
+  .hide-list {
+    width: 0;
+    padding: 0;
+    transition: all .3s ease-in-out;
+  }
+  .hide-list .links {
+    font-size: 0;
+  }
+  .hide-list .close {
+    width: 0;
+    height: 0;
+  }
+  .hide-list .heart-icon {
+    width: 0;
+    height: 0;
+  }
+
+  .mother-cart-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background: red; */
+    height: 60px;
+    padding: 10px;
+  }
+  .cart-container {
+    margin-top: .3rem;
+    margin-left:-.1rem;
+  }
+  .hamburger {
+    width: 30px;
+    height: 30px;
+    display: block;
+    /* margin-left:2rem; */
+    margin-top: 0.4rem;
+    color: white;
+  }
 }
 </style>
  

@@ -30,6 +30,11 @@ const routes = [
     component: () => import('../components/AddProductContainer.vue')
   },
   {
+    path: '/payment',
+    name: 'payment',
+    component: () => import('../components/Payment.vue')
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../components/LoginPage.vue')

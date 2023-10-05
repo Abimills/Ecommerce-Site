@@ -64,7 +64,7 @@
               : "Your Products will be delivered free if greater than $20"
           }}
         </p>
-        <button class="checkout">
+        <button class="checkout" @click="toCheckout(totalPrice - discount)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="lock"
@@ -92,6 +92,7 @@ import axios from "axios";
 import SingleCartItem from "./SingleCartItem.vue";
 import { computed, onMounted, reactive, watch, ref } from "vue";
 import { useStore } from "vuex";
+import router from "@/router";
 const store = useStore();
 const cartItems = reactive({ cart: [] });
 const totalItems = ref(0);
@@ -124,7 +125,10 @@ watch(cartItems, (newValue, oldValue) => {
     return total + item.discount * item.quantity;
   }, 0);
 });
-
+const toCheckout = (amount) => {
+ store.commit('addAmount',amount)
+ router.push('/payment')
+}
 watch(store.state.cart, (newValue, oldValue) => {
   const cartProducts = cartItems.cart.map((product) => {
     const matchingCartItem = newValue.find((item) => item.id === product?._id);

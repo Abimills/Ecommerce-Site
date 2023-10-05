@@ -203,4 +203,54 @@ export default {
   color: white;
   
 }
+@media screen and (max-width: 980px) {
+.top-container {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.product-container {
+  width: 100%;
+  margin-top: -2.93rem;
+  display: flex;
+  align-items: center;
+}
+.check-div {
+  width: 32%;
+  height: 200px;
+  
+}
+.left-side-arrival {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex-direction: row; */
+}
+.left-side-arrival h1 {
+  color: white;
+
+  text-align: center;
+
+  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  font-weight: 300;
+  font-family: "Outfit", sans-serif;
+}
+.left-side-arrival p {
+  color: #fff;
+  font-family: "Caveat", cursive;
+  font-family: 'Croissant One', cursive;
+font-family: 'Dosis', sans-serif;
+font-family: 'Mooli', sans-serif;
+  color: #90cbc9;
+  font-size: .8rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  width: 70%;
+  text-transform: uppercase;
+}
+}
 </style>

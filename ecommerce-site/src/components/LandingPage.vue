@@ -1,11 +1,13 @@
 <template>
   <div class="home-container">
     <div class="upper-text-container">
-      <p class="fashion"><span>Big</span> Fashion <span class="sale">Sale</span></p>
+      <p class="fashion">
+        <span>Big </span> Fashion<span class="sale">Sale</span>
+      </p>
       <p class="description-paragraph">
-        Step into a realm of curated elegance at famclog, where
-        sophistication meets convenience. Elevate your online shopping to an art
-        form, unveiling masterpieces with every click in this world where style
+        Step into a realm of curated elegance at famclog, where sophistication
+        meets convenience. Elevate your online shopping to an art form,
+        unveiling masterpieces with every click in this world where style
         converges with substance, "famclog"
       </p>
       <div class="btns-container">
@@ -133,7 +135,7 @@ export default {
   color: white;
 }
 .empty-btn {
-  background-color:rgb(172, 156, 127);
+  background-color: rgb(172, 156, 127);
   color: white;
   border: 2px solid rgb(172, 156, 127);
 }
@@ -157,7 +159,7 @@ export default {
   color: #90cbc9;
   font-size: 7rem;
 }
- .fashion .sale {
+.fashion .sale {
   color: rgb(172, 156, 127);
 }
 .pic-and-style-container {
@@ -218,5 +220,185 @@ export default {
   left: 150px;
   font-family: "Dosis", sans-serif;
   font-weight: 302;
+}
+
+@media screen and (max-width: 1000px) {
+  .fashion {
+    font-size: 3rem;
+    font-family: "Outfit", sans-serif;
+    color: rgb(228, 226, 226);
+    margin-left: 0.5rem;
+  }
+  .description-paragraph {
+    font-size: 0.8rem;
+    width: 360px;
+  }
+  .fashion span {
+    font-family: "Caveat", cursive;
+    color: #90cbc9;
+    font-size: 4rem;
+    margin-left: 0.5rem;
+  }
+  .fashion .sale {
+    color: rgb(172, 156, 127);
+    font-size: 3.4rem;
+  }
+  .buy-now-btn {
+  padding: 6px 20px;
+  border: 1px solid #90cbc9;
+  background-color: transparent;
+  font-size: 0.65rem;
+  color: #90cbc9;
+  font-family: "Dosis", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+.empty-btn {
+  background-color: rgb(172, 156, 127);
+  color: white;
+  border: 2px solid rgb(172, 156, 127);
+}
+.girl-image {
+  width: 90%;
+  height: 100vh;
+  object-fit: cover;
+  /* margin-top: -3rem; */
+  /* margin-right: -4rem; */
+  z-index: 0;
+}
+/* .dot{
+  display: none;
+} */
+.circle{
+  display: none;
+}
+.pic-and-style-container {
+ display: flex;
+ justify-content: flex-end;
+ margin-right:.4rem;
+}
+}
+@media screen and (max-width: 640px) {
+.home-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction:column-reverse;
+  /* background: #064240; */
+}
+.pic-and-style-container {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-bottom:1.5rem;
+}
+.girl-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* margin-top: -3rem; */
+  /* margin-right: -4rem; */
+  display: flex;
+ justify-content: center;
+ align-items: center;
+  z-index: 0;
+  border-radius: 50%;;
+}
+.dot {
+  content: none;
+  width: 2px;
+  height: 2px;
+  background-color: orange;
+
+  border-radius: 50%;
+}
+.dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  left: 20%;;
+  top: 50%;
+}
+/* .dot{
+  display: none;
+} */
+/* .circle{
+  display: none;
+} */
+}
+@media screen and (max-width: 480px) {
+.pic-and-style-container {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-bottom:1.5rem;
+ margin-top:1.5rem;
+ width: 100%;
+ height: 100%;
+}
+.girl-image {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+  /* margin-top: -3rem; */
+  /* margin-right: -4rem; */
+  display: flex;
+ justify-content: center;
+ align-items: center;
+  z-index: 0;
+  border-radius: 50%;;
+}
+.description-paragraph {
+    font-size: 0.8rem;
+    width: 95%;
+  }
+}
+@media screen and (max-width: 360px) {
+  .fashion span {
+    font-family: "Caveat", cursive;
+    color: #90cbc9;
+    font-size: 3rem;
+    margin-left: 0.5rem;
+  }
+  .fashion .sale {
+    color: rgb(172, 156, 127);
+    font-size: 3rem;
+  }
+   .fashion {
+    font-size: 2rem;
+    font-family: "Outfit", sans-serif;
+    color: rgb(228, 226, 226);
+    margin-left: 0.5rem;
+    margin-bottom: .5rem;
+
+  }
+  .description-paragraph {
+    font-size: 0.75rem;
+    width: 95%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .fashion span {
+    font-family: "Caveat", cursive;
+    color: #90cbc9;
+    font-size: 2.6rem;
+    margin-left: 0.5rem;
+  }
+  .fashion .sale {
+    color: rgb(172, 156, 127);
+    font-size: 2.6rem;
+  }
+   .fashion {
+    font-size: 1.7rem;
+    font-family: "Outfit", sans-serif;
+    color: rgb(228, 226, 226);
+    margin-left: 0.5rem;
+    margin-bottom: .5rem;
+
+  }
+ 
 }
 </style>

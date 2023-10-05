@@ -3,13 +3,15 @@
     <Navbar />
     <LandingPage />
     <NewArrivalVue />
+    <!-- 
+    
     <NewProductsVue />
     <OurValue />
     <PopularProducts />
     <Review />
     <AboutNewsContainer />
     <Contact />
-    <Footer />
+    <Footer /> -->
   </div>
 </template>
 

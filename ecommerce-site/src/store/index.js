@@ -5,7 +5,8 @@ export default createStore({
 
     cart :JSON.parse(localStorage.getItem("products")) || [],
     user :JSON.parse(localStorage.getItem("user")) || [],
-    wishlist: JSON.parse(localStorage.getItem('wishlist')) || []
+    wishlist: JSON.parse(localStorage.getItem('wishlist')) || [],
+    amount: JSON.parse(localStorage.getItem('amount')) || 0
 
   },
   getters: {
@@ -50,6 +51,18 @@ export default createStore({
       else{
         console.log("item does not exist")
       }
+      
+    },
+    addAmount (state,amount) {
+      
+      state.amount = amount
+      localStorage.setItem("amount",JSON.stringify(state.amount))
+      
+    },
+    payed (state) {
+      
+      state.amount = 0
+      localStorage.setItem("amount",JSON.stringify(state.amount))
       
     },
     signedIn (state,{data}) {
