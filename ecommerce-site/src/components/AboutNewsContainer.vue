@@ -1,6 +1,6 @@
 <template>
   <div class="about-newsletter-container">
-    <Navbar />
+    <!-- <Navbar /> -->
     <AboutView />
     <Newsletter />
   </div>

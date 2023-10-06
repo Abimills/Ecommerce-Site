@@ -5,22 +5,12 @@
     <!-- <Footer /> -->
   </div>
 </template>
-<script>
+<script setup>
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
-export default {
-  name: "App",
-  components: {
-    Navbar,
-    Footer,
-  },
 
-  data() {
-    return {};
-  },
-};
 </script>
-<style >
+<style  >
 * {
   padding: 0;
   margin: 0;

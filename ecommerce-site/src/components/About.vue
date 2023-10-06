@@ -127,4 +127,45 @@ export default {
   border-radius: 1em;
   color: white;
 }
+@media screen and (max-width:1000px){
+  /* .about-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    margin-top: 3rem;
+    margin-bottom: -4.3rem;
+  } */
+  .right-side{
+    display: none;
+  }
+}
+@media screen and (max-width:700px){
+  
+  .left-side{
+    width:50%;
+  }
+  .center-side{
+    width:40%;
+
+  }
+  .description{
+    width: 100%;
+
+  }
+  .middle-img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
+  .about-container {
+margin-bottom:0;
+
+  }
+}
+@media screen and (max-width:400px){
+
+}
 </style>

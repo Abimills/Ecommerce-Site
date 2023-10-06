@@ -34,11 +34,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "OurValue",
-  data() {},
-};
+<script setup>
+
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -94,5 +91,76 @@ export default {
 .truck-icon {
   font-size: 2rem;
   color: #064240;
+}
+
+@media screen and (max-width: 1000px) {
+  .value-items-container{
+    gap:1rem;
+  justify-content: space-between;
+  /* background: red; */
+  min-height:160px;
+  padding:20px;
+}
+
+.image-value {
+  width: 150px;
+  height: 200px;
+  
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.written-container {
+  
+ 
+  padding: 10px;
+}
+.header-written {
+  font-family: "Mooli", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.text-written {
+  font-family: "Caveat", cursive;
+}
+.truck-icon {
+  font-size: 1.5rem;
+}
+
+}
+@media screen and (max-width: 700px) {
+  .text-written {
+ display: none;
+}
+.value-items-container{
+  flex-direction: column;
+  /* gap:0; */
+
+}
+.item{
+
+  gap:0;
+  justify-content:space-around;
+  width:100%;
+
+  /* display: none; */
+}
+.header-written{
+  text-align: left;
+  min-width: 120px;
+  font-size:.7rem;
+}
+.image-value{
+  width:100px;
+}
+}
+@media screen and (max-width: 337px) {
+.value-container{
+  height:150px;
+  padding:20px 0;
+}
 }
 </style>

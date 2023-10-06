@@ -68,27 +68,17 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  /* background: #064240; */
+  margin:0 auto;
 }
-.vertical-line {
-  content: none;
-  width: 100px;
-  height: 2px;
-  background: black;
-  transform: rotate(90deg);
-  position: absolute;
-  left: 10px;
-}
+
 .words-btns-container {
   width: 100%;
   /* background: red; */
 }
-.bottom-one {
-  bottom: 90px;
-}
+
 .description-paragraph {
   color: #90cbc9;
-  max-width: 450px;
+  max-width: 400px;
   margin-bottom: 3rem;
   font-family: "Caveat", cursive;
   text-align: center;
@@ -106,7 +96,7 @@ export default {
 
 .upper-text-container {
   width: 100%;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   margin-bottom: -6rem;
   display: flex;
   align-items: center;
@@ -264,17 +254,20 @@ export default {
   /* margin-top: -3rem; */
   /* margin-right: -4rem; */
   z-index: 0;
+ 
 }
-/* .dot{
+.dot{
   display: none;
-} */
+}
 .circle{
   display: none;
 }
 .pic-and-style-container {
  display: flex;
  justify-content: flex-end;
- margin-right:.4rem;
+ margin:0rem;
+ 
+
 }
 }
 @media screen and (max-width: 640px) {
@@ -286,6 +279,7 @@ export default {
   flex-direction:column-reverse;
   /* background: #064240; */
 }
+
 .pic-and-style-container {
  display: flex;
  justify-content: center;
@@ -336,7 +330,7 @@ export default {
  align-items: center;
  margin-bottom:1.5rem;
  margin-top:1.5rem;
- width: 100%;
+ width: 98%;
  height: 100%;
 }
 .girl-image {

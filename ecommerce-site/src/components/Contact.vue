@@ -52,7 +52,7 @@ export default {
   /* TODO: check for any errors */
   width: 100%;
   display: flex;
-  margin-bottom: -1.7rem;
+  /* margin-bottom: -1.7rem; */
   margin-top: 3rem;
 }
 .my-logo-with-pic-contact-container {
@@ -65,7 +65,7 @@ export default {
   width: 50%;
 }
 .tempo-abel-pic {
-  width: 400px;
+  width: 350px;
 
   object-fit: contain;
 }
@@ -99,6 +99,10 @@ font-family: 'Outfit', sans-serif;
   margin: 0.3rem;
   color: white;
 }
+.name::placeholder{
+    color:white;
+
+  }
 .email,
 .phone,
 .comment {
@@ -120,6 +124,50 @@ font-family: 'Outfit', sans-serif;
   color: white;
   font-size: 1rem;
   cursor: pointer;
+}
+@media screen and (max-width:550px) {
+  .my-logo-with-pic-contact-container{
+    display: none;
+  }
+  .all-input-contact-container {
+  width: 100%;
+  margin: 0;
+  justify-content: center;
+  /* margin-top: 3rem; */
+  
+}
+
+.get-in-touch{
+  text-align: center;
+}
+.interested-para{
+  text-align: center;
+}
+.form-control{
+  text-align: center;
+}
+}
+@media screen and (max-width:300px) {
+  .get-in-touch{
+    font-size:1.9rem;
+  }
+  .interested-para{
+    font-size:.9rem;
+  }
+  .name{
+    width:45%;
+  }
+  
+  .email,
+.phone,
+.comment {
+  width: 93%;
+  
+}
+.send-contact-comments {
+  width: 93%;
+  
+}
 }
 </style>
 

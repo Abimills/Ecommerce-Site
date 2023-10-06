@@ -20,7 +20,7 @@
         >
           {{ page }}
         </p>
-        <p class="page" @click="setPagination(page)">...</p>
+        <p class="page dot-page" @click="setPagination(page)">...</p>
         <!-- {{ propValue }} -->
       </div>
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
@@ -275,5 +275,57 @@ const setPagination = (value) => {
 }
 .add-to-cart:hover {
   background: transparent;
+}
+@media screen and (max-width: 480px) {
+  .pages-container {
+    width: 100%;
+}
+.pagination-container {
+  width: 100%;
+  /* background: rgb(199, 195, 195); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  padding: 15px;
+  margin: 2rem 1rem;
+  border-radius: 30px;
+  font-family: "Mooli", sans-serif;
+  font-family: "Outfit", sans-serif;
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+.left-arrow,
+.right-arrow {
+  font-family: "Caveat", cursive;
+  font-family: "Croissant One", cursive;
+  font-family: "Dosis", sans-serif;
+  font-size: 2rem;
+  font-weight: 100;
+  cursor: pointer;
+}
+.left-arrow{
+  margin-top:.3rem;
+}
+.dot-page{
+  display: none;
+}
+.active-page , .page{
+  font-size: .7em;
+}
+}
+@media screen and (max-width: 320px) {
+  .product-img {
+  width: 90%;
+}
+.product {
+  width: 90%;
+  padding: 10px;
+ 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 }
 </style>

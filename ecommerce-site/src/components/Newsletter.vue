@@ -94,4 +94,12 @@ export default {
       fill: #709290;
       color:rgb(0, 0, 0);
 }
+@media screen and (max-width:700px){
+  .subscribe{
+    font-size:1rem;
+  }
+  .newsletter-container {
+    width: 95%;
+  }
+}
 </style>

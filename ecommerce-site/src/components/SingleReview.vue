@@ -1,5 +1,8 @@
 <template>
   <div class="review">
+    <div class="img-review-container">
+
+  
     <div class="img-container">
       <img src="../assets/user.png" alt="" class="review-image" />
     </div>
@@ -12,6 +15,7 @@
       <p class="reviewer-name">{{ review?.name }}</p>
       <p class="place">{{ review?.location }}</p>
     </div>
+      </div>
     <div class="review-stars">
       <div class="number-fill-controller" v-for="start in liked" :key="start">
         <font-awesome-icon icon="fa-solid fa-star" class="star-icons" />
@@ -66,8 +70,20 @@ const unliked = ref(5-props.review?.rating || 0)
   justify-content: space-evenly;
   padding: 10px;
   border-bottom: 1px solid black;
+  color:#0c3837;
   margin: 0 auto;
   margin-bottom: 1rem;
+}
+.img-review-container {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap : 3rem;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  
+ 
 }
 .review-image {
   width: 80px;
@@ -87,8 +103,10 @@ const unliked = ref(5-props.review?.rating || 0)
   font-style: italic;
   color: rgb(189, 196, 202);
   font-family: "Caveat", cursive;
+   font-family: "Dosis", sans-serif;
   font-size: 0.8rem;
   max-width: 400px;
+  /* text-transform: uppercase; */
   /* margin-bottom: 1rem; */
 }
 .reviewer-name {
@@ -122,5 +140,40 @@ const unliked = ref(5-props.review?.rating || 0)
 }
 .empty-icon:hover {
   fill: orange;
+}
+@media screen and (max-width:1000px){
+  .review{
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    
+  }
+  .img-review-container {
+   width: 100%;
+  
+    border:none;
+
+  }
+}
+@media screen and (max-width:480px){
+  
+  .review-stars {
+    width: 100px;
+    padding: 2px;
+    border: 1.3px solid black;
+    border-radius: 40px;
+    display: flex;
+  align-items: center;
+}
+.img-review-container {
+ gap: 1rem;
+ justify-content: space-evenly;
+
+}
+}
+@media screen and (max-width:380px){
+  .img-container {
+    display: none;
+  }
 }
 </style>

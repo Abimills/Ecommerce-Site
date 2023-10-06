@@ -1,7 +1,26 @@
 <template>
 
     <div class="new-products-container">
-      <h1 class="brand-header">Categories</h1>
+      <div class="header-redirect-container">
+           <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="return-arrow"
+          strokeWidth="{1.5}"
+          stroke="currentColor"
+          className="w-6 h-6"
+          @click="navigateBack"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+          />
+        </svg>
+        <h1 class="brand-header">Categories</h1>
+        <p></p>
+      </div>
       <div class="category-container">
         <p
           class="filter"
@@ -54,6 +73,9 @@ const router = useRouter();
 const navigateToProduct = (id) => {
   router.push({ name: "product", params: { id: id } });
 };
+const navigateBack = (id) => {
+  router.push({ name: "home"});
+};
 
 onMounted(() => {
   const fetch = async () => {
@@ -95,6 +117,20 @@ const filterProducts = (category) => {
   position: relative;
 
   font-family: "Outfit", sans-serif;
+}
+.return-arrow{
+  width:30px;
+  height:30px;
+  color:white;
+  margin-left:1rem;
+  cursor: pointer;
+}
+.header-redirect-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 .right-side-container {
   width: 100%;
@@ -461,6 +497,7 @@ li {
 }
 .category-container p {
   cursor: pointer;
+  font-family: "Dosis", sans-serif;
   transition: all 0.5s ease-in-out;
 }
 .active-category {
@@ -469,5 +506,28 @@ li {
   color: white;
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
+}
+@media screen and (max-width:600px){
+  .category-container {
+    width: 100%;
+    margin-left: 0rem;
+    gap: 1rem;
+    
+  }
+  .category-container p{
+    font-size:.8rem;
+  }
+}
+@media screen and (max-width:360px){
+  .category-container{
+    flex-wrap: wrap;
+  }
+  .category-container p{
+    font-size:.8rem;
+    text-transform: uppercase;
+  }
+}
+.brand-header {
+  margin-bottom: 0rem;
 }
 </style>

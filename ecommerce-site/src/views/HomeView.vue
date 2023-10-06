@@ -3,15 +3,15 @@
     <Navbar />
     <LandingPage />
     <NewArrivalVue />
-    <!-- 
-    
     <NewProductsVue />
     <OurValue />
     <PopularProducts />
     <Review />
     <AboutNewsContainer />
     <Contact />
-    <Footer /> -->
+    <Footer /> 
+   
+    
   </div>
 </template>
 
@@ -36,8 +36,8 @@ import Contact from "../components/Contact.vue";
   margin: 0;
   box-sizing: border-box;
 }
-body {
+.mother-container {
   width: 100%;
-  background: #064240;
+  margin: 0 auto;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="footer-container">
     <div class="left">
       <h3 class="contact-us">Contact Us</h3>
-      <p>4 R 34th St, Utrecht,NY 1223,Netherlands</p>
+      <p>Utrecht 1223,Netherlands</p>
       <p>+325435435245</p>
       <p>+313290432490</p>
     </div>
@@ -54,7 +54,7 @@ export default {
   align-items: center;
   justify-content: space-around;
   /* margin-bottom: 1rem; */
-  background: wheat;
+  background: rgb(231, 208, 166);
 }
 .contact-us {
   font-family: "Dosis", sans-serif;
@@ -125,5 +125,21 @@ export default {
 }
 .sat-sun .time {
   color: rgb(191, 187, 187);
+}
+@media screen and (max-width:650px) {
+  .left p{
+    font-size:.7rem;
+  }
+}
+@media screen and (max-width:480px) {
+  .right-side{
+    display: none;
+  }
+  .center p {
+    font-size: 0.7rem;
+  }
+  .center .copy-right{
+    font-size: 0.7rem;
+  }
 }
 </style>

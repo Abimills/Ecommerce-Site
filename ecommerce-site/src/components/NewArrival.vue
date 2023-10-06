@@ -1,47 +1,45 @@
 <template>
-  <div class="new-arrival-container">
-    <div class="top-container">
-      <div class="left-side-arrival">
-        <h1>New Arrivals</h1>
-        <p>
-          Explore the essence of modern style with our latest arrivals at
-          famclog. Each piece is a testament to timeless allure and unparalleled
-          craftsmanship, curated to elevate your wardrobe with sophistication.
-        </p>
-        <div class="btn-container">
-          <router-link to="/products">
-            <button class="shop-now">Shop Now &#8594;</button>
-          </router-link>
-        </div>
+  <div class="top-container">
+    <div class="left-side-arrival">
+      <h1>New Arrivals</h1>
+      <p>
+        Explore the essence of modern style with our latest arrivals at famclog.
+        Each piece is a testament to timeless allure and unparalleled
+        craftsmanship, curated to elevate your wardrobe with sophistication.
+      </p>
+      <div class="btn-container">
+        <router-link to="/products">
+          <button class="shop-now">Shop Now &#8594;</button>
+        </router-link>
       </div>
-      <!-- <div class="img-container">
+    </div>
+    <!-- <div class="img-container">
         <img :src="glassGirl" alt="" class="girl-glass-pic" />
       </div> -->
-      <div class="product-container">
-        <div class="product">
-          <img :src="shoes" alt="" class="product-img" />
-          <p class="discount">25% OFF</p>
-          <router-link to="/brand-products">
-            <button class="shop-btn shop-color">Buy now</button>
-          </router-link>
-        </div>
-        
-        <div class="check-div">
-          <h2>New arrivals</h2>
-          <p class="discover-paragraph">
-            Discover all of our discounted prices and donot miss a cheap price
-          </p>
-          <router-link to="/products">
-            <button class="shop-btn ">check all</button>
-          </router-link>
-        </div>
-        <div class="product">
-          <img :src="women" alt="" class="product-img" />
-          <p class="discount">35% OFF</p>
-          <router-link to="/brand-products">
-            <button class="shop-btn shop-color">Buy now</button>
-          </router-link>
-        </div>
+    <div class="product-container">
+      <div class="product">
+        <img :src="shoes" alt="" class="product-img" />
+        <p class="discount">25% OFF</p>
+        <router-link to="/brand-products">
+          <button class="shop-btn shop-color">Buy now</button>
+        </router-link>
+      </div>
+
+      <div class="check-div">
+        <h2>New arrivals</h2>
+        <p class="discover-paragraph">
+          Discover all of our discounted prices and donot miss a cheap price
+        </p>
+        <router-link to="/products">
+          <button class="shop-btn">check all</button>
+        </router-link>
+      </div>
+      <div class="product">
+        <img :src="women" alt="" class="product-img" />
+        <p class="discount">35% OFF</p>
+        <router-link to="/brand-products">
+          <button class="shop-btn shop-color">Buy now</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -69,17 +67,19 @@ export default {
 /* font-family: 'Mooli', sans-serif; */
 /* font-family: 'Outfit', sans-serif; */
 /* font-family: 'Roboto', sans-serif; */
-.new-arrival-container {
+/* TODO DELETE THIS */
+/* .new-arrival-container {
   width: 100%;
   margin-top: 2rem;
-}
+  
+} */
 .product-img {
-  width: 200px;
+  width: 100%;;
   height: 100px;
   object-fit: contain;
 }
 .top-container {
-  width: 100%;
+  width: 99%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -103,7 +103,7 @@ export default {
   margin: 1rem;
 }
 .check-div {
-  width: 300px;
+  width: 30%;
   height: 200px;
   background: #709290;
   display: flex;
@@ -111,7 +111,7 @@ export default {
   align-items: center;
   justify-content: center;
   /* margin: 1rem; */
-  padding: 10px;
+  padding: 20px;
 }
 .discount {
   font-family: "Outfit", sans-serif;
@@ -145,12 +145,12 @@ export default {
   border-radius: 30px;
   text-transform: capitalize;
 }
-.shop-color{
-  background:white ;
+.shop-color {
+  background: white;
 }
-.shop-btn:hover{
-  background: white;;
-  color:#064240 ;
+.shop-btn:hover {
+  background: white;
+  color: #064240;
 }
 .left-side-arrival {
   width: 50%;
@@ -173,11 +173,11 @@ export default {
 .left-side-arrival p {
   color: #fff;
   font-family: "Caveat", cursive;
-  font-family: 'Croissant One', cursive;
-/* font-family: 'Dosis', sans-serif; */
-/* font-family: 'Mooli', sans-serif; */
+  font-family: "Croissant One", cursive;
+  /* font-family: 'Dosis', sans-serif; */
+  /* font-family: 'Mooli', sans-serif; */
   color: #90cbc9;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
   margin-left: 2rem;
   width: 350px;
@@ -193,64 +193,134 @@ export default {
   text-align: center;
   margin-left: -2rem;
   font-family: "Dosis", sans-serif;
-  border: 1px solid #3c7270;
-    background: wheat;;
-  color:rgb(180, 180, 180);
+  border: 1px solid wheat;
+  background: wheat;
+  color: rgb(74, 158, 5);
   border-radius: 4px;
 }
-.shop-now:hover{
+.shop-now:hover {
   background-color: #3c7270;
   color: white;
-  
 }
 @media screen and (max-width: 980px) {
-.top-container {
-  width: 100%;
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column-reverse;
-}
-.product-container {
-  width: 100%;
-  margin-top: -2.93rem;
-  display: flex;
-  align-items: center;
-}
-.check-div {
-  width: 32%;
-  height: 200px;
+  .top-container {
+    /* width: 100%; */
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .product {
+    margin: 0;
+  }
+  .product-container {
+    width: 99%;
+    margin-top: -1.93rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+  }
+  .check-div {
+    width: 32%;
+    height: 200px;
+    /* display: none; */
+  }
+  .left-side-arrival {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* flex-direction: row; */
+  }
+  .discount{
+    font-size:.6rem;
+    margin-top:.5rem;
+  }
+  .check-div h2 {
   
+  font-family: "Outfit", sans-serif;
+  font-weight: 300;
+  /* margin-top: -2rem; */
+  font-size:1rem;
+  margin-bottom: 2rem;
 }
-.left-side-arrival {
-  width: 100%;
-  height: max-content;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* flex-direction: row; */
+.discover-paragraph {
+
+  text-align: center;
+  font-size: 0.6rem;
+  margin-bottom: 2.5rem;
 }
-.left-side-arrival h1 {
+
+  .left-side-arrival h1 {
+    color: white;
+
+    text-align: center;
+
+    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    font-weight: 100;
+    font-family: "Outfit", sans-serif;
+  }
+  .left-side-arrival p {
+    color: #fff;
+    font-family: "Caveat", cursive;
+    font-family: "Croissant One", cursive;
+    font-family: "Dosis", sans-serif;
+    font-family: "Mooli", sans-serif;
+    color: #90cbc9;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    margin-left: 0rem;
+    width: 70%;
+    text-transform: uppercase;
+  }
+}
+@media screen and (max-width: 680px) {
+  .top-container{
+    margin-top: 10rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .left-side-arrival h1 {
   color: white;
 
   text-align: center;
 
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 100;
   font-family: "Outfit", sans-serif;
 }
 .left-side-arrival p {
   color: #fff;
   font-family: "Caveat", cursive;
-  font-family: 'Croissant One', cursive;
-font-family: 'Dosis', sans-serif;
-font-family: 'Mooli', sans-serif;
+  font-family: "Croissant One", cursive;
+  font-family: 'Dosis', sans-serif;
+  text-align: center;
+  /* font-family: 'Mooli', sans-serif; */
   color: #90cbc9;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-bottom: 1rem;
-  margin-left: 2rem;
-  width: 70%;
-  text-transform: uppercase;
+  margin-left: 0rem;
+  width: 90%;
 }
+.shop-btn{
+   padding: 5px 12px;
+    font-size: 0.6rem;
+}
+.check-div{
+ 
+ 
+ 
+}
+}
+@media screen and (max-width: 330px) {
+  .check-div{
+    display: none;;
+  }
+  .product {
+    width:50%;
+  }
 }
 </style>
