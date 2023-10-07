@@ -1,7 +1,7 @@
 <template>
   <div class="view-item">
-    <img :src="product?.img" alt="" class="view-img" />
     <div class="name-description-container">
+      <img :src="product?.img" alt="" class="view-img" />
       <h2>{{ product?.name }}</h2>
       <p class="brand">{{ product?.timeRanges[0] }}</p>
       <p class="price">${{ product?.price }}</p>
@@ -11,14 +11,17 @@
                 earum quibusdam laboriosam hic. Beatae, cumque.
             </p> -->
     </div>
-    <p class="color">
-      color: <span>{{ product?.colors[0] }}</span>
-    </p>
-    <p class="category">
-      Category: <span>{{ product?.category }}</span>
-    </p>
-    <div class="price-delete-container">
-      <button @click="deleteProduct(product?._id)">Delete</button>
+    <div class="new-idea-div">
+
+      <p class="color">
+        color: <span>{{ product?.colors[0] }}</span>
+      </p>
+      <p class="category">
+        Category: <span>{{ product?.category }}</span>
+      </p>
+      <div class="price-delete-container">
+        <button @click="deleteProduct(product?._id)">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +56,12 @@ const props = defineProps(["product", "deleteProduct"]);
   justify-content: space-between;
   border-bottom: 1px solid #90cbc9;
 }
+.new-idea-div{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  gap: 1rem;
+}
 .header-container h1 {
   color: white;
   font-size: 0.9rem;
@@ -84,7 +93,7 @@ const props = defineProps(["product", "deleteProduct"]);
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
   border-bottom: 1px solid #90cbc9;
 }
@@ -151,5 +160,41 @@ const props = defineProps(["product", "deleteProduct"]);
   border-radius: 20px;
   cursor: pointer;
   border: 1px solid rgb(192, 104, 104);
+}
+@media screen and (max-width: 680px) {
+.view-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: flex-start; */
+  flex-direction:column;
+  padding: 10px;
+  border-bottom: 1px solid #90cbc9;
+}
+.name-description-container {
+  display: flex;
+  width: 100%;;
+  align-items: flex-start;
+  flex-direction: column;
+  /* margin-left: -3rem; */
+  margin-bottom: .5rem;
+}
+.view-img {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  background: white;
+  
+}
+}
+@media screen and (max-width: 480px) {
+  .new-idea-div .color, .new-idea-div .category {
+    display: none;
+  }
+  .price-delete-container button {
+ 
+  border-radius: 0px;
+  
+}
 }
 </style>

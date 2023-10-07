@@ -1,9 +1,35 @@
 <template>
   <div class="create-product-container">
-  <div class="admin-mother-container">
-      <div class="admin-information-navigation">
+    <div class="admin-mother-container">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        @click="toggleProfile"
+        class="admin-bar"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="{1.5}"
+        stroke="currentColor"
+        className="w-6 h-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+        />
+      </svg>
+      <div
+        class="admin-information-navigation"
+        :class="{
+          'hide-admin-navigation': showProfile,
+        }"
+      >
         <div class="profile-container">
-      <div class="link-profile">
+          <div class="link-profile">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -22,6 +48,22 @@
             </svg>
 
             <p>Admin</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="close-profile"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              @click="toggleProfile"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </div>
         </div>
         <div class="admin-pic-label">
@@ -144,23 +186,25 @@
             <p>View User</p>
           </router-link>
         </div>
-       
       </div>
     </div>
- <div class="single-view-container">
-    <div class="header-container">
-      <h1>All Users</h1>
-      <p>Users : <span>{{ users?.users?.length -1 || 0}}</span></p>
-    </div>
-    <div class="all-view-items-container">
-    
-      <SingleUser  v-for="user in users?.users" :deleteUser="deleteUser"  :key="user?._id" :user="user" />
-      
-      
+    <div class="single-view-container">
+      <div class="header-container">
+        <h1>All Users</h1>
+        <p>
+          Users : <span>{{ users?.users?.length  || 0 }}</span>
+        </p>
+      </div>
+      <div class="all-view-items-container">
+        <SingleUser
+          v-for="user in users?.users"
+          :deleteUser="deleteUser"
+          :key="user?._id"
+          :user="user"
+        />
+      </div>
     </div>
   </div>
-  </div>
-  
 </template>
 
 <script setup>
@@ -172,19 +216,20 @@ import { useRouter } from "vue-router";
 
 const users = ref([]);
 const store = useStore();
+const showProfile = ref(true);
+const toggleProfile = () => {
+  showProfile.value = !showProfile.value;
+};
 const router = useRouter();
 const signOut = () => {
   store.commit("signOut");
   router.push("/");
 };
 const navigateHome = () => {
- 
   router.push("/");
-}
+};
 const deleteUser = (id) => {
-  users.value.users = users.value?.users?.filter(
-    (user) => user?._id !== id
-  );
+  users.value.users = users.value?.users?.filter((user) => user?._id !== id);
 };
 onMounted(() => {
   const fetch = async () => {
@@ -239,7 +284,7 @@ onMounted(() => {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   border-radius: 10px;
-   cursor: pointer;
+  cursor: pointer;
 }
 .add-products-form-container {
   width: 70%;
@@ -716,5 +761,130 @@ li {
   border-radius: 20px;
   cursor: pointer;
   border: 1px solid rgb(192, 104, 104);
+}
+.profile-container .close-profile {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+.admin-bar {
+  display: none;
+}
+@media screen and (max-width: 930px) {
+  .profile-all {
+    width: 80%;
+  }
+  /* admin all navigation resonsive */
+  .admin-mother-container {
+    width: 1%;
+  }
+  .create-product-container {
+  
+  /* align-items: center; */
+  justify-content: flex-start;
+  gap: 0rem;
+  position: relative;
+
+  font-family: "Outfit", sans-serif;
+}
+  .single-view-container {
+  width: 100%;
+  margin:0;
+  margin-top: 2rem;
+ 
+}
+.all-view-items-container {
+  width: 100%;
+  flex-wrap: wrap;
+}
+  .admin-bar {
+    width: 30px;
+    height: 30px;
+    color: #718b8a;
+    fill: #90cbc9;
+    position: absolute;
+    display: block;
+    top: 10px;
+    margin-left: 1rem;
+    z-index: 3;
+    /* background: #709290;; */
+    border: 1px solid #709290;
+    border-radius: 50%;
+  }
+  .admin-pic-label {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    
+      justify-content: space-between;
+      gap: 3rem;
+      margin: 0rem;
+    
+      border-bottom: 1px solid rgb(184, 183, 183);
+      padding: 5px;
+    }
+    .admin-pic-label p {
+      font-weight: 600;
+      color: #064240;
+    }
+  .admin-information-navigation {
+    width: 100%;
+    z-index: 4;
+    border-top-right-radius: 0px;
+    transition: all 0.3s ease-in-out;
+  }
+  .admin-information-navigation .close-profile {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .hide-admin-navigation .link-profile {
+    width: 0%;
+    font-size: 0;
+  }
+  .hide-admin-navigation .profile-container .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation .admin-pic-label,
+  .hide-admin-navigation .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation .profile-container,
+  .hide-admin-navigation .categories-container,
+  .hide-admin-navigation .Add-product-container,
+  .hide-admin-navigation .view-products-container,
+  .hide-admin-navigation .user-request-container {
+    width: 0%;
+    font-size: 0;
+    border: none;
+   
+  }
+  
+  .hide-admin-navigation .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation {
+      width: 0%;
+      height:0;
+      /* background: transparent; */
+      /* height: 100vh; */
+      transition: all .5s ease-out;
+      /* display:none; */
+      font-size: 0;
+      background: #064240;
+      color:#064240;
+      
+    }
+  .hide-admin-navigation *{
+      width: 0%;
+      height: 0%;
+     font-size: 0;
+     display:none;
+      
+    }
+    
 }
 </style>

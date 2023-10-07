@@ -43,7 +43,8 @@
         <img :src="product?.img" alt="" @click="navigate(product?._id)" class="fav-img" />
         <p class="name" @click="navigate(product?._id)">{{ product?.name }}</p>
         <p class="brand">{{ product?.timeRanges[0] }} Product</p>
-        <p class="price" @click="navigate(product?._id)">${{ product?.price }}</p>
+        <p class="brand">${{ product?.price }}</p>
+        <p class="price" @click="navigate(product?._id)">Add to Cart</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           @click="handleWish(product?._id)"
@@ -159,9 +160,11 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap:wrap;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #77aaa8;
+  
   /* padding: 4px; */
 }
 .nav-header-container {
@@ -198,8 +201,11 @@ onMounted(() => {
   width: max-content;
   display: flex;
   align-items: center;
+  flex-wrap:wrap;
+  justify-content: center;
   gap: 2rem;
-  margin-left: -2rem;
+  padding:10px;
+  /* margin-left: -2rem; */
 }
 .active-category {
   padding: 7px 20px;
@@ -227,10 +233,10 @@ onMounted(() => {
   justify-content: center;
 }
 .favorite-product {
-  width: 200px;
+  width: 250px;
   height: max-content;
   padding: 10px;
-  background: rgb(219, 219, 218);
+  background: aliceblue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,10 +264,10 @@ onMounted(() => {
 }
 .price {
   font-size: 0.8rem;
-  background: #92d3d1;
+  background: black;
   text-align: center;
   margin-top: 0.5rem;
-  color: black;
+  color: white;;
   cursor: pointer;
   padding: 4px;
 }
@@ -293,5 +299,26 @@ onMounted(() => {
   font-weight: 400;
   font-family: "Dosis", sans-serif;
   font-family: "Roboto", sans-serif;
+}
+@media screen and (max-width: 480px) {
+  .nav-header-container .header{
+    font-size: 1.3rem;
+   
+  }
+  .favorite-product {
+  width: 80%;
+
+}
+}
+
+@media screen and (max-width: 300px) {
+  .nav-header-container .header{
+    font-size: 1rem;
+    
+  }
+  .favorite-product {
+  width: 95%;
+  
+  }
 }
 </style>

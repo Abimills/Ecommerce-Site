@@ -1,26 +1,8 @@
 <template>
 
     <div class="new-products-container">
-      <div class="header-redirect-container">
-           <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="return-arrow"
-          strokeWidth="{1.5}"
-          stroke="currentColor"
-          className="w-6 h-6"
-          @click="navigateBack"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-          />
-        </svg>
-        <h1 class="brand-header">Categories</h1>
-        <p></p>
-      </div>
+      
+      <h1 class="brand-header">Categories</h1>
       <div class="category-container">
         <p
           class="filter"
@@ -104,6 +86,7 @@ const filterProducts = (category) => {
     return;
   }
 };
+
 </script>
 
 <style scoped>
@@ -507,6 +490,9 @@ li {
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
 }
+.hide-arrow{
+  display: none;
+}
 @media screen and (max-width:600px){
   .category-container {
     width: 100%;
@@ -526,8 +512,13 @@ li {
     font-size:.8rem;
     text-transform: uppercase;
   }
+  .hide-arrow{
+  display: none;
+}
 }
 .brand-header {
-  margin-bottom: 0rem;
+  margin-bottom: 2rem;
 }
+
+
 </style>

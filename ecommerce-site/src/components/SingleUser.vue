@@ -1,22 +1,25 @@
 <template>
   <div class="view-item">
-    <img src="../assets/user.png" alt="" class="view-img" />
     <div class="name-description-container">
+      <img src="../assets/user.png" alt="" class="view-img" />
       <h2>{{ user?.name }}</h2>
       <!-- <p class="brand">customer</p> -->
       <p class="price">{{ user?.email }}</p>
-      <button class="in-stock">Active</button>
+      <button class="in-stock">{{ user?.role }}</button>
       <!-- <p class="description">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet
                 earum quibusdam laboriosam hic. Beatae, cumque.
             </p> -->
     </div>
-    <p class="color">Purchased Value: <span>$400</span></p>
-    <p class="category">
-      role: <span>{{ user?.role }}</span>
-    </p>
-    <div class="price-delete-container">
-      <button @click="deleteUser(user?._id)">delete</button>
+    <div class="new-idea-div">
+
+      <p class="color">Purchased Value: <span>$400</span></p>
+      <p class="category">
+       <span>Active</span>
+      </p>
+      <div class="price-delete-container">
+        <button @click="deleteUser(user?._id)">delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +53,12 @@ const props = defineProps(["user", "deleteUser"]);
   justify-content: space-between;
   border-bottom: 1px solid #90cbc9;
 }
+.new-idea-div{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  gap: 1rem;
+}
 .header-container h1 {
   color: white;
   font-size: 0.9rem;
@@ -81,39 +90,38 @@ const props = defineProps(["user", "deleteUser"]);
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
-  margin-bottom: 0.5rem;
   border-bottom: 1px solid #90cbc9;
 }
 .view-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 200px;
   object-fit: contain;
   background: white;
-  border-radius: 50%;
 }
 .name-description-container {
   display: flex;
+  width: 300px;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: -3rem;
+  /* margin-left: -3rem; */
 }
 .name-description-container h2 {
-  font-size: 1rem;
+  font-size: 1.4rem;
   color: white;
   text-transform: uppercase;
 }
 .name-description-container .brand,
 .price {
   margin-bottom: 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: white;
   max-width: 250px;
 }
 .price {
-  /* padding: 2px 10px; */
-  /* background: orange; */
+  padding: 2px 10px;
+  background: orange;
 }
 .name-description-container .description {
   margin-bottom: 0.5rem;
@@ -122,32 +130,69 @@ const props = defineProps(["user", "deleteUser"]);
   max-width: 250px;
 }
 .in-stock {
-  padding: 2px 6px;
+  padding: 5px 10px;
   background: #90cbc9;
   border: 1px solid #90cbc9;
   color: white;
   font-size: 0.7rem;
+  text-transform: uppercase;
 }
 .color,
 .category {
-  color: #90cbc9;
+  color: rgb(196, 193, 193);
   text-transform: uppercase;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 .color span,
 .category span {
   background: #000000;
   color: white;
   font-size: 0.8rem;
-  padding: 5px 8px;
+  padding: 5px 10px;
 }
 .price-delete-container button {
   width: 100px;
   padding: 5px;
-  background: rgb(44, 18, 18);
+  background: rgb(192, 104, 104);
   color: white;
   border-radius: 20px;
   cursor: pointer;
-  border: 1px solid rgb(44, 18, 18);
+  border: 1px solid rgb(192, 104, 104);
+}
+@media screen and (max-width: 680px) {
+.view-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: flex-start; */
+  flex-direction:column;
+  padding: 10px;
+  border-bottom: 1px solid #90cbc9;
+}
+.name-description-container {
+  display: flex;
+  width: 100%;;
+  align-items: flex-start;
+  flex-direction: column;
+  /* margin-left: -3rem; */
+  margin-bottom: .5rem;
+}
+.view-img {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  background: white;
+  
+}
+}
+@media screen and (max-width: 480px) {
+  .new-idea-div .color, .new-idea-div .category {
+    display: none;
+  }
+  .price-delete-container button {
+ 
+  border-radius: 0px;
+  
+}
 }
 </style>

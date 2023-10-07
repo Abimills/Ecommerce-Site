@@ -1,7 +1,18 @@
 <template>
   <div class="create-product-container">
   <div class="admin-mother-container">
-      <div class="admin-information-navigation">
+    
+      <svg xmlns="http://www.w3.org/2000/svg"  @click="toggleProfile"  class="admin-bar" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+
+      <div
+        class="admin-information-navigation"
+        :class="{
+          'hide-admin-navigation': showProfile,
+        }"
+      >
         <div class="profile-container">
           <div class="link-profile">
             <svg
@@ -22,6 +33,22 @@
             </svg>
 
             <p>Admin</p>
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="close-profile"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+              @click="toggleProfile"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </div>
         </div>
         <div class="admin-pic-label">
@@ -147,8 +174,10 @@
    
       </div>
     </div>
+         <div class="category-all-container">
 
-    <SingleCategory />
+           <SingleCategory />
+          </div>
   </div>
 </template>
 
@@ -156,8 +185,13 @@
 import SingleCategory from "./SingleCategory.vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { ref } from "vue";
 const store = useStore();
 const router = useRouter();
+const showProfile = ref(true);
+const toggleProfile = () => {
+  showProfile.value = !showProfile.value;
+};
 const signOut = () => {
   store.commit("signOut");
   router.push("/");
@@ -583,5 +617,131 @@ li {
   color: white;
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
+}
+.profile-container .close-profile {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+.admin-bar {
+  display: none;
+}
+.category-all-container{
+  width: 100%;
+}
+@media screen and (max-width: 930px) {
+  .profile-all {
+    width: 80%;
+  }
+  /* admin all navigation resonsive */
+  .admin-mother-container {
+    width: 10%;
+  }
+  .admin-bar {
+    width: 30px;
+    height: 30px;
+    color: #718b8a;
+    fill: #90cbc9;
+    position: absolute;
+    display: block;
+    top: 10px;
+    margin-left: 1rem;
+    z-index: 3;
+    /* background: #709290;; */
+    border: 1px solid #709290;
+    border-radius: 50%;
+  }
+  .admin-pic-label {
+      width: 100%;
+      display: flex;
+      align-items: center;
+    
+      justify-content: space-between;
+      gap: 3rem;
+      margin: 0rem;
+    
+      border-bottom: 1px solid rgb(184, 183, 183);
+      padding: 5px;
+    }
+    .admin-pic-label p {
+      font-weight: 600;
+      color: #064240;
+    }
+  .admin-information-navigation {
+    width: 100%;
+    z-index: 4;
+    border-top-right-radius: 0px;
+    transition: all 0.3s ease-in-out;
+  }
+  .admin-information-navigation .close-profile {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  .hide-admin-navigation .link-profile {
+    width: 0%;
+    font-size: 0;
+  }
+  .hide-admin-navigation .profile-container .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation .admin-pic-label,
+  .hide-admin-navigation .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation .profile-container,
+  .hide-admin-navigation .categories-container,
+  .hide-admin-navigation .Add-product-container,
+  .hide-admin-navigation .view-products-container,
+  .hide-admin-navigation .user-request-container {
+    width: 0%;
+    font-size: 0;
+    border: none;
+   
+  }
+  
+  .hide-admin-navigation .close-profile {
+    display: none;
+  }
+  .hide-admin-navigation {
+      width: 0%;
+      height:0;
+      /* background: transparent; */
+      /* height: 100vh; */
+      transition: all .5s ease-out;
+      /* display:none; */
+      font-size: 0;
+      background: #064240;
+      color:#064240;
+      
+    }
+  .hide-admin-navigation *{
+      width: 0%;
+      height: 0%;
+     font-size: 0;
+     display:none;
+      
+    }
+    .create-product-container {
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
+  gap: 0rem;
+  position: relative;
+  /* background:red; */
+
+  font-family: "Outfit", sans-serif;
+}
+.category-all-container{
+  width: 100%;
+  position:absolute;
+  top: 10px;
+}
+    
 }
 </style>
