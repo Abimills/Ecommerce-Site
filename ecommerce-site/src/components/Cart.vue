@@ -172,13 +172,10 @@ onMounted(() => {
 .cart-container {
   width: 100%;
   color: #90cbc9;
-  font-family: "Caveat", cursive;
-  font-family: "Croissant One", cursive;
-  font-family: "Dosis", sans-serif;
-  font-family: "Mooli", sans-serif;
   font-family: "Outfit", sans-serif;
   display: flex;
   flex-direction: column;
+ 
   gap: 2rem;
   margin-bottom: 2rem;
 }
@@ -217,6 +214,7 @@ onMounted(() => {
   display: flex;
   /* align-items: center; */
   justify-content: center;
+
 }
 .cart-items-container {
   width: 100%;
@@ -332,8 +330,9 @@ onMounted(() => {
 }
 .payment-container {
   width: 40%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: -2rem;
+  margin-bottom: 0rem;
+ 
 }
 .enter-code-header {
   font-family: "Mooli", sans-serif;
@@ -353,10 +352,14 @@ onMounted(() => {
   padding: 10px;
   width: 80%;
   background: transparent;
-  border: 1px solid rgb(155, 160, 165);
+  border: 1px solid #90cbc9;
+  color:#90cbc9;
   outline: none;
   font-family: "Outfit", sans-serif;
   color: white;
+}
+.promo-container input::placeholder {
+  color:#90cbc9;
 }
 .promo-container button {
   padding: 10px;
@@ -391,22 +394,22 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 .shipping-cost-container p {
-  color: rgb(173, 170, 170);
+  color:#90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .discount-cost-container p {
-  color: rgb(173, 170, 170);
+  color:#90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .tax-container p {
-  color: rgb(173, 170, 170);
+  color:#90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .esteemed-price-container p {
-  color: rgb(233, 230, 230);
+  color:#90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 1rem;
 }
@@ -430,4 +433,42 @@ onMounted(() => {
 .checkout span {
   margin-top: 0.3rem;
 }
+@media screen and (max-width:980px){
+  .cart-items-payment-container {
+    width: 100%;
+    padding: 10px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+.payment-container {
+  width: 90%;
+  margin-top: 2rem;
+ 
+}
+
+}
+    @media screen and (max-width:480px){
+      .promo-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.promo-container input {
+ 
+  width: 70%;
+}
+.promo-container input::placeholder {
+  color:#90cbc9;
+}
+.promo-container button {
+ 
+  width: 30%;
+}
+.payment-container {
+  font-size:.5rem;
+
+}
+    }
 </style>

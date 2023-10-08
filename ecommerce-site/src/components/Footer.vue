@@ -54,7 +54,8 @@ export default {
   align-items: center;
   justify-content: space-around;
   /* margin-bottom: 1rem; */
-  background: rgb(231, 208, 166);
+  background: #709290;
+  color:white;
 }
 .contact-us {
   font-family: "Dosis", sans-serif;
@@ -62,7 +63,7 @@ export default {
 }
 .left :nth-child(2) {
   font-family: "Caveat", cursive;
-  color: #709290;
+  color: white;
 }
 .left :nth-child(3),
 :nth-child(4) {
@@ -70,7 +71,9 @@ export default {
   font-family: "Dosis", sans-serif;
   font-size: 0.8rem;
   margin: 1rem 0;
-  color: rgb(144, 142, 142);
+
+    color:white;
+
 }
 .ecom {
   font-family: "Croissant One", cursive;
@@ -83,11 +86,15 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+    color:white;
+
 }
 .center p {
   font-family: "Dosis", sans-serif;
   font-size: 0.75rem;
   color: #709290;
+    color:white;
+
 }
 .social-media {
   display: flex;

@@ -1,24 +1,30 @@
 <template>
   <div class="additional-container">
-    <img :src="product?.img" alt="" class="cart-image" />
     <div class="item-info-container">
-      <h3 class="item-name">{{ product?.name }}</h3>
-      <p class="color">Color : {{ product?.colors[0] }}</p>
-      <p class="item-size">Discount : {{ ( product?.discount / product?.price) *100 + '% '||0 }}</p>
-      <p class="stock">In Stock</p>
-    </div>
-    <div class="each-price-container">
-      <p>Each</p>
-      <h5 class="item-price">${{ product?.price }}</h5>
-    </div>
-    <div class="quantity-container">
-      <p>Quantity</p>
+      <img :src="product?.img" alt="" class="cart-image" />
+      <div class="writen-all-container">
 
-      <input type="number" placeholder="1" v-model="quantity" />
+        <h3 class="item-name">{{ product?.name }}</h3>
+        <p class="color">Color : {{ product?.colors[0] }}</p>
+        <p class="item-size">Discount : {{ (( product?.discount / product?.price) *100).toFixed(0) + '% '||0 }}</p>
+        <p class="stock">In Stock</p>
+      </div>
     </div>
-    <div class="total-item-price">
-      <p>Total</p>
-      <p class="total-price-info">${{ product?.price * quantity }}</p>
+    <div class="total-quantity-all-container">
+
+      <div class="each-price-container">
+        <p>Each</p>
+        <h5 class="item-price">${{ product?.price }}</h5>
+      </div>
+      <div class="quantity-container">
+        <p>Quantity</p>
+        
+        <input type="number" placeholder="1" v-model="quantity" />
+      </div>
+      <div class="total-item-price">
+        <p>Total</p>
+        <p class="total-price-info">${{ product?.price * quantity }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -92,13 +98,18 @@ onMounted(() => {
   margin: 2em;
   font-weight: 300;
 }
+.total-quantity-all-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
 .cart-image {
   width: 150px;
   height: 180px;
   object-fit: contain;
-  background-color: rgba(223, 233, 243, 0.1);
-  backdrop-filter: blur(5px);
-  margin: 1rem 0;
+  background-color: aliceblue;
+  /* backdrop-filter: blur(5px); */
+  margin:  0;
   border-radius: 5px;
 }
 .cart-items-payment-container {
@@ -143,8 +154,18 @@ onMounted(() => {
   display: flex;
   align-items: flex-start;
   /* justify-content: center; */
-  flex-direction: column;
+  /* flex-direction: column; */
   margin-top: 1rem;
+  /* margin-left:1rem; */
+}
+.writen-all-container {
+  width: max-content;
+  display: flex;
+  align-items: flex-start;
+  /* justify-content: center; */
+  flex-direction: column;
+  /* margin-top: 1rem; */
+  margin-left:1rem;
 }
 .item-name,
 .color,
@@ -320,5 +341,24 @@ onMounted(() => {
 }
 .checkout span {
   margin-top: 0.3rem;
+}
+@media screen and (max-width: 530px) {
+
+.total-quantity-all-container{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 4rem;
+  margin-bottom:1rem;
+}
+.additional-container {
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-top: 1rem;
+
+}
 }
 </style>

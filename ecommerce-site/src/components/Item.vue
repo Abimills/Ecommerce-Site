@@ -359,7 +359,7 @@ watchEffect(() => {});
 .description-container {
   margin-bottom: 1rem;
   font-family: "Dosis", sans-serif;
-  width: 440px;
+  width: 100%;;
   color: white;
 }
 .related-items {
@@ -375,7 +375,8 @@ watchEffect(() => {});
   font-family: "Dosis", sans-serif;
   color: white;
   margin: 1rem;
-  font-weight: 300;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 .items img {
   width: 90px;
@@ -389,5 +390,57 @@ watchEffect(() => {});
   height: 20px;
   fill: orange;
   color: orange;
+}
+@media screen and (max-width:740px) {
+
+  .item-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.left-side {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.right-side {
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.item-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+}
+.items {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.related-header {
+  font-family: "Dosis", sans-serif;
+  color: white;
+  margin: 1rem;
+  font-weight: 300;
+  font-size:1.1rem;
+}
+.items img {
+  width: 23%;
+  height: 23%;
+  object-fit: contain;
+  background: black;
+  border-radius: 50%;
+}
+  
 }
 </style>
