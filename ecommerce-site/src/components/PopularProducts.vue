@@ -1,6 +1,6 @@
 <template>
   <div class="new-products-container">
-    <h1 class="brand-header">Popular Products</h1>
+    <h1  :class="store.state.mode === 'light'?'brand-header change-brand-header' :'brand-header'">Popular Products</h1>
 
     <div class="product-container">
       <SingleProduct
@@ -9,7 +9,7 @@
         :product="product"
       />
     </div>
-    <div class="pagination-container">
+    <div :class="store.state.mode === 'light'? 'pagination-container change-color-pagination' :'pagination-container'">
       <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
       <div class="pages-container">
         <p
@@ -31,14 +31,16 @@
 import axios from "axios";
 import SingleProduct from "./SingleProduct.vue";
 import { computed, onMounted, reactive, ref, watch, watchEffect } from "vue";
+import { useStore } from "vuex";
 
 const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
+const store = useStore();
 // const isInWishlist = ref(store.state.wishlist?.some(wish => wish ===));
 
-const productsPerPage = 6;
+const productsPerPage = 8;
 const fetchProducts = async () => {
   const res = await axios.get("http://localhost:4040/products/");
   data.product = res.data;
@@ -141,6 +143,9 @@ const setPagination = (value) => {
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
+.change-brand-header{
+  color:rgb(144, 171, 194);
+}
 .brand-text {
   color: rgb(159, 156, 156);
   font-family: "Dosis", sans-serif;
@@ -198,6 +203,11 @@ const setPagination = (value) => {
   background: orange;
   padding: 5px;
 }
+.change-color-pagination  .active-page {
+  color: white;
+  background: gray;
+  padding: 5px;
+}
 /* pagination end  */
 .product {
   width: 280px;
@@ -238,11 +248,14 @@ const setPagination = (value) => {
 .description {
   font-family: "Dosis", sans-serif;
   color: rgb(240, 238, 238);
-  color: #064240;
+  color: #709290;;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
   overflow: hidden;
+}
+.change-color-pagination{
+  color:gray;
 }
 .hidden-description {
   font-family: "Dosis", sans-serif;

@@ -1,5 +1,5 @@
 <template>
-  <div class="create-product-container">
+  <div :class="store.state.mode === 'light' ? 'create-product-container light-admin-panel': 'create-product-container'" >
    <div class="admin-mother-container">
        <svg xmlns="http://www.w3.org/2000/svg"  @click="toggleProfile"  class="admin-bar" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -424,6 +424,21 @@ const onSubmit = async () => {
   outline: none;
   margin-bottom: 1rem;
 }
+.light-admin-panel .name-container input,
+.light-admin-panel .price-container input,
+.light-admin-panel .img-container input,
+.light-admin-panel .colors-container input,
+.light-admin-panel .time-ranges-container input,
+.light-admin-panel .discount-container input,
+.light-admin-panel .description-container input,
+.light-admin-panel .category-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #709290;
+  color:#709290;
+  outline: none;
+  margin-bottom: 1rem;
+}
 .submit-btn {
   width: 100%;
   padding: 10px;
@@ -467,6 +482,13 @@ const onSubmit = async () => {
 }
 .add-products-header {
   color: white;
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  margin-bottom: -1rem;
+}
+.light-admin-panel .add-products-header {
+  color:#90cbc9;;
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
   letter-spacing: 2px;

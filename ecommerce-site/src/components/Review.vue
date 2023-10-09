@@ -1,6 +1,6 @@
 <template>
   <div class="review-container">
-    <h1 class="review-header"> Reviews</h1>
+    <h1 :class="store.state.mode === 'light'? 'review-header light-header':'review-header'"> Reviews</h1>
     <SingleReviewVue
       v-for="review in reviews"
       :review="review"
@@ -20,9 +20,10 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { useStore } from "vuex";
 import SingleReviewVue from "./SingleReview.vue";
 const reviews = ref([]);
-
+const store = useStore();
 const fetch = async () => {
   const res = await axios.get("http://localhost:4040/reviews/");
   reviews.value = res.data.reviews;
@@ -50,6 +51,9 @@ onMounted(() => {
   font-weight: 300;
   font-family: "Dosis", sans-serif;
   margin-bottom: 1rem;
+}
+.light-header{
+  color:#709290;
 }
 .give-review-btn {
   width: 100%;

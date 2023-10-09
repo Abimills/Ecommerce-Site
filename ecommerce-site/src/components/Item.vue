@@ -1,5 +1,5 @@
 <template>
-  <div class="item-container">
+  <div :class="store.state.mode === 'light' ? 'item-container light-item-container' : 'item-container '">
     <div class="left-side">
       <img
         :src="product.singleProduct?.product?.img"
@@ -30,7 +30,7 @@
         <div class="price-rating-container">
           <p class="price">${{ product.singleProduct?.product?.price }}</p>
 
-          <p class="wishlist-text" >
+          <p class="wishlist-text">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -103,10 +103,10 @@
         </div>
         <div class="quantity">
           <p>Quantity</p>
-          <input type="number" placeholder="1" />
+          <input type="number" placeholder="1" v-model="quantity"/>
         </div>
       </div>
-      <button class="add-to-cart">Add to Cart</button>
+      <button class="add-to-cart" @click="addToCart(id)">Add to Cart</button>
       <div class="description-container">
         <p>Description</p>
         <p>
@@ -128,6 +128,7 @@ const { id } = route.params;
 import { useStore } from "vuex";
 const store = useStore();
 const product = reactive({ singleProduct: [] });
+const quantity = ref(1);
 const data = reactive({ products: [] });
 const isInWishlist = ref(store.state.wishlist?.some((wish) => wish === id));
 // useRoute returns the current route
@@ -136,8 +137,14 @@ console.log(store.state.wishlist?.some((wish) => wish === id));
 
 const handleWish = () => {
   store.commit("addToWishlist", id);
-  isInWishlist.value =store.state.wishlist.some((item) => item === id);
-
+  isInWishlist.value = store.state.wishlist.some((item) => item === id);
+};
+const addToCart = (id) => {
+  const item = {
+    id: id,
+    quantity: quantity.value >=  1 ?  quantity.value  : 1,
+  };
+  store.commit("addToCart", item);
 };
 watch(store.state.wishlist, (newValue, oldValue) => {
   const itemExist = newValue.some((item) => item === id);
@@ -215,6 +222,13 @@ watchEffect(() => {});
   font-family: "Dosis", sans-serif;
   font-family: "Mooli", sans-serif;
 }
+.light-item-container .item-name {
+  font-size: 2.5rem;
+  color:#90cbc9;;
+  text-transform: uppercase;
+  font-family: "Dosis", sans-serif;
+  font-family: "Mooli", sans-serif;
+}
 .item-category {
   color: rgb(192, 189, 189);
   color: #709290;
@@ -273,6 +287,15 @@ watchEffect(() => {});
   font-family: "Dosis", sans-serif;
   text-transform: capitalize;
 }
+.light-item-container .wishlist-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color:#709290;
+
+  font-family: "Dosis", sans-serif;
+  text-transform: capitalize;
+}
 .price {
   font-family: "Dosis", sans-serif;
   text-transform: capitalize;
@@ -280,9 +303,20 @@ watchEffect(() => {});
 
   font-size: 1.1rem;
 }
+.light-item-container .price {
+  font-family: "Dosis", sans-serif;
+  text-transform: capitalize;
+  color:#709290;
+
+  font-size: 1.1rem;
+}
 .review-count {
   font-family: "Dosis", sans-serif;
   color: white;
+}
+.light-item-container .review-count {
+  font-family: "Dosis", sans-serif;
+  color:#709290;
 }
 .color-container {
   margin: 1rem 0;
@@ -290,6 +324,11 @@ watchEffect(() => {});
 .color {
   font-family: "Croissant One", cursive;
   color: white;
+  margin-bottom: 0.4rem;
+}
+.light-item-container .color {
+  font-family: "Croissant One", cursive;
+  color:#709290;
   margin-bottom: 0.4rem;
 }
 .color-options {
@@ -313,7 +352,7 @@ watchEffect(() => {});
 .white-color-option {
   width: 15px;
   height: 15px;
-  background-color: white;
+  background-color:#709290;
   border-radius: 50%;
 }
 .color-quantity-container {
@@ -338,11 +377,28 @@ watchEffect(() => {});
   border-radius: 30px;
   outline: none;
 }
-.quantity input::placeholder {
+.light-item-container .quantity input {
+  width: 40px;
+  text-align: center;
+  background: #709290;
+  border: 1px solid #709290;
+  padding: 3px;
   color: white;
+  border-radius: 30px;
+  outline: none;
+}
+.quantity input::placeholder {
+  color: #709290;
+}
+.light-item-container .quantity input::placeholder {
+  color: #709290;
 }
 .quantity p {
   color: white;
+  font-family: "Dosis", sans-serif;
+}
+.light-item-container .quantity p {
+  color: #709290;
   font-family: "Dosis", sans-serif;
 }
 .add-to-cart {
@@ -359,8 +415,14 @@ watchEffect(() => {});
 .description-container {
   margin-bottom: 1rem;
   font-family: "Dosis", sans-serif;
-  width: 100%;;
+  width: 100%;
   color: white;
+}
+.light-item-container .description-container {
+  margin-bottom: 1rem;
+  font-family: "Dosis", sans-serif;
+  width: 100%;
+  color: #709290;
 }
 .related-items {
   width: 100%;
@@ -378,6 +440,13 @@ watchEffect(() => {});
   font-weight: 400;
   text-transform: uppercase;
 }
+.light-item-container .related-header {
+  font-family: "Dosis", sans-serif;
+  color: #709290;
+  margin: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
 .items img {
   width: 90px;
   height: 90px;
@@ -391,56 +460,54 @@ watchEffect(() => {});
   fill: orange;
   color: orange;
 }
-@media screen and (max-width:740px) {
-
+@media screen and (max-width: 740px) {
   .item-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-.left-side {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.right-side {
-  width: 90%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-}
-.item-image {
-  width: 100%;
-  height: 400px;
-  object-fit: contain;
-}
-.items {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.related-header {
-  font-family: "Dosis", sans-serif;
-  color: white;
-  margin: 1rem;
-  font-weight: 300;
-  font-size:1.1rem;
-}
-.items img {
-  width: 23%;
-  height: 23%;
-  object-fit: contain;
-  background: black;
-  border-radius: 50%;
-}
-  
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .left-side {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .right-side {
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .item-image {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+  }
+  .items {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .related-header {
+    font-family: "Dosis", sans-serif;
+    color: white;
+    margin: 1rem;
+    font-weight: 300;
+    font-size: 1.1rem;
+  }
+  .items img {
+    width: 23%;
+    height: 23%;
+    object-fit: contain;
+    background: black;
+    border-radius: 50%;
+  }
 }
 </style>

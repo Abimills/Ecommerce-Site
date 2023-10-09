@@ -1,5 +1,5 @@
 <template>
-  <div class="create-product-container">
+  <div :class="store.state.mode === 'light' ? 'create-product-container light-admin-panel': 'create-product-container'">
     <div class="admin-mother-container">
        <svg xmlns="http://www.w3.org/2000/svg"  @click="toggleProfile"  class="admin-bar" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -659,8 +659,23 @@ li {
   font-family: "Mooli", sans-serif;
   font-weight: 500;
 }
+.light-admin-panel .header-container h1 {
+  color:#90cbc9;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
 .header-container p {
   color: white;
+  font-size: 0.9rem;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
+.light-admin-panel .header-container p {
+  color:#90cbc9;
   font-size: 0.9rem;
 
   font-family: "Mooli", sans-serif;

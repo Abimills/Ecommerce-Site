@@ -628,6 +628,7 @@ li {
 }
 .category-all-container{
   width: 100%;
+  margin-bottom: 3rem;;
 }
 @media screen and (max-width: 930px) {
   .profile-all {

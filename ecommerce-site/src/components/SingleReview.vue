@@ -1,5 +1,5 @@
 <template>
-  <div class="review">
+  <div  :class="store.state.mode === 'light'? 'review light-review':'review'">
     <div class="img-review-container">
 
   
@@ -44,7 +44,8 @@
 </template>
 <script setup>
 import { ref } from "vue"
-
+import { useStore } from "vuex"
+const store = useStore();
 const props = defineProps(['review'])
 const liked = ref(props.review?.rating || 0)
 const unliked = ref(5-props.review?.rating || 0)
@@ -109,6 +110,16 @@ const unliked = ref(5-props.review?.rating || 0)
   /* text-transform: uppercase; */
   /* margin-bottom: 1rem; */
 }
+.light-review .review-para {
+  font-style: italic;
+  color: gray;
+  font-family: "Caveat", cursive;
+   font-family: "Dosis", sans-serif;
+  font-size: 0.8rem;
+  max-width: 400px;
+  /* text-transform: uppercase; */
+  /* margin-bottom: 1rem; */
+}
 .reviewer-name {
   color: aliceblue;
   font-family: "Dosis", sans-serif;
@@ -116,6 +127,16 @@ const unliked = ref(5-props.review?.rating || 0)
 }
 .place {
   color: aliceblue;
+  font-family: "Dosis", sans-serif;
+  font-size: 0.9rem;
+}
+.light-review .reviewer-name {
+  color: rgb(185, 183, 183);
+  font-family: "Dosis", sans-serif;
+  font-size: 0.9rem;
+}
+.light-review .place {
+  color: rgb(185, 183, 183);
   font-family: "Dosis", sans-serif;
   font-size: 0.9rem;
 }
@@ -131,8 +152,20 @@ const unliked = ref(5-props.review?.rating || 0)
   color: orange;
   font-size: 0.8rem;
 }
+.light-review .star-icons {
+ 
+  color:#0c3837;
+  font-size: 0.8rem;
+}
 .empty-icon {
   color: white;
+  width: 17px;
+  height: 20px;
+  margin-top:.3rem;
+  border-radius: 50%;
+}
+.light-review .empty-icon {
+  color: gray;
   width: 17px;
   height: 20px;
   margin-top:.3rem;

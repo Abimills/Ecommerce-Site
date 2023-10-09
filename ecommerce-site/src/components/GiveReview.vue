@@ -1,6 +1,6 @@
 <template>
   <div class="mother-review-container">
-    <h2 class="header">WE APPRECIATE YOUR REVIEW!</h2>
+    <h2 :class="store.state.mode === 'light' ? 'header light-header' : 'header'">WE APPRECIATE YOUR REVIEW!</h2>
     <h6 class="customer-app">
       Your review will help us to improve our web hosting quality products, and
       customer services.
@@ -171,7 +171,8 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
-
+import { useStore } from "vuex";
+const store = useStore()
 const name = ref("");
 const email = ref("");
 const location = ref("");
@@ -240,6 +241,14 @@ const handleSubmit = async () => {
   margin: 2rem;
   margin-bottom: 1rem;
   text-align: center;
+}
+.light-header {
+  padding: 2px 15px;
+  color:gray;;
+  margin: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  margin-bottom: 2.5rem;;
 }
 
 .customer-app {

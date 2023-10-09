@@ -1,5 +1,5 @@
 <template>
-  <div class="view-item">
+  <div :class="store.state.mode === 'light' ? 'view-item light-view-item': 'view-item'">
     <div class="name-description-container">
       <img :src="product?.img" alt="" class="view-img" />
       <h2>{{ product?.name }}</h2>
@@ -27,7 +27,10 @@
 </template>
 
 <script setup>
+import { useStore } from "vuex";
+
 const props = defineProps(["product", "deleteProduct"]);
+const store = useStore();
 
 </script>
 
@@ -70,6 +73,14 @@ const props = defineProps(["product", "deleteProduct"]);
   font-family: "Mooli", sans-serif;
   font-weight: 500;
 }
+ .light-view-item .header-container h1 {
+  color:#90cbc9;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+
+  font-family: "Mooli", sans-serif;
+  font-weight: 500;
+}
 .header-container p {
   color: white;
   font-size: 0.9rem;
@@ -103,6 +114,13 @@ const props = defineProps(["product", "deleteProduct"]);
   object-fit: contain;
   background: white;
 }
+.light-view-item .view-img {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  background: #90cbc9;
+  color:#90cbc9;
+}
 .name-description-container {
   display: flex;
   width: 300px;
@@ -115,11 +133,22 @@ const props = defineProps(["product", "deleteProduct"]);
   color: white;
   text-transform: uppercase;
 }
+.light-view-item .name-description-container h2 {
+  font-size: 1.4rem;
+  color: #90cbc9;
+  text-transform: uppercase;
+}
 .name-description-container .brand,
 .price {
   margin-bottom: 0.5rem;
   font-size: 0.8rem;
   color: white;
+  max-width: 250px;
+}
+.light-view-item .name-description-container .brand {
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: #90cbc9;
   max-width: 250px;
 }
 .price {
@@ -141,7 +170,7 @@ const props = defineProps(["product", "deleteProduct"]);
 }
 .color,
 .category {
-  color: rgb(196, 193, 193);
+  color: #90cbc9;
   text-transform: uppercase;
   font-size: 0.8rem;
 }
@@ -160,6 +189,15 @@ const props = defineProps(["product", "deleteProduct"]);
   border-radius: 20px;
   cursor: pointer;
   border: 1px solid rgb(192, 104, 104);
+}
+.light-view-item .price-delete-container button {
+  width: 100px;
+  padding: 5px;
+  background: #90cbc9;
+  color:white;
+  border-radius: 0px;
+  cursor: pointer;
+  border: 1px solid #90cbc9;
 }
 @media screen and (max-width: 680px) {
 .view-item {

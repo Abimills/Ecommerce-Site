@@ -1,5 +1,9 @@
 <template>
-  <nav class="nav-container">
+  <nav
+    :class="
+      store.state.mode === 'light' ? 'nav-container light-nav' : 'nav-container'
+    "
+  >
     <ul :class="show ? 'list-nav-container' : 'list-nav-container hide-list'">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +13,7 @@
         strokeWidth="{1.5}"
         stroke="currentColor"
         className="w-6 h-6"
-         @click="toggleShow"
+        @click="toggleShow"
       >
         <path
           strokeLinecap="round"
@@ -19,19 +23,27 @@
       </svg>
 
       <li>
-        <router-link to="/" class="links" @click="toggleShow">Famclog</router-link>
+        <router-link to="/" class="links" @click="toggleShow"
+          >Famclog</router-link
+        >
       </li>
       <li>
         <router-link to="/" class="links" @click="toggleShow">Home</router-link>
       </li>
       <li>
-        <router-link to="/about" class="links" @click="toggleShow">About</router-link>
+        <router-link to="/about" class="links" @click="toggleShow"
+          >About</router-link
+        >
       </li>
       <li>
-        <router-link to="/products" class="links" @click="toggleShow">Products</router-link>
+        <router-link to="/products" class="links" @click="toggleShow"
+          >Products</router-link
+        >
       </li>
       <li>
-        <router-link to="/login" class="links" @click="toggleShow">Sign in</router-link>
+        <router-link to="/login" class="links" @click="toggleShow"
+          >Sign in</router-link
+        >
       </li>
 
       <li>
@@ -54,9 +66,49 @@
           </svg>
         </router-link>
       </li>
+      <li>
+        <p class="links wishlist" @click="toggleMode">
+          {{ store.state.mode === "dark" ? "Dark" : "Light" }}
+          <svg
+            v-if="store.state.mode === 'dark'"
+            xmlns="http://www.w3.org/2000/svg"
+            class="dark-mode-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="{1.5}"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+            />
+          </svg>
+
+          <svg
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            class="dark-mode-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="{1.5}"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+            />
+          </svg>
+        </p>
+      </li>
 
       <li>
-        <router-link to="/contact" class="links" @click="toggleShow">Contacts</router-link>
+        <router-link to="/contact" class="links" @click="toggleShow"
+          >Contacts</router-link
+        >
       </li>
     </ul>
     <div class="mother-cart-container">
@@ -101,6 +153,9 @@ watch(store.state, (newValue, oldValue) => {
 const toggleShow = () => {
   show.value = !show.value;
 };
+const toggleMode = () => {
+  store.commit("toggleMode");
+};
 onMounted(() => {
   totalItems.value = store.state.cart.length;
 });
@@ -125,6 +180,11 @@ onMounted(() => {
   height: 60px;
   justify-items: space-between;
   align-items: center;
+
+}
+.light-nav {
+  background: white;
+  color: black;
 }
 .nav-container li {
   text-decoration: none;
@@ -135,6 +195,13 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0rem;
+}
+.dark-mode-icon {
+  width: 20px;
+  height: 20px;
+  fill: black;
+  color: #709290;
+  fill: #78c0bb;
 }
 .heart-icon {
   width: 20px;
@@ -156,6 +223,18 @@ onMounted(() => {
 .links {
   color: white;
 
+  text-decoration: none;
+  z-index: 10;
+  
+}
+li{
+  z-index: 10;
+
+}
+.light-nav .links {
+  color: rgb(172, 156, 127);
+  /* color:#064240; */
+  font-size: 1.1rem;
   text-decoration: none;
   z-index: 3;
 }
@@ -198,6 +277,9 @@ onMounted(() => {
 .hamburger {
   display: none;
 }
+.wishlist {
+  cursor: pointer;
+}
 @media screen and (max-width: 800px) {
   .nav-container {
     position: relative;
@@ -213,7 +295,7 @@ onMounted(() => {
     right: -15px;
     width: 100%;
     height: 100vh;
-    transition: all .6s ease-in-out;
+    transition: all 0.6s ease-in-out;
     padding: 28px 10px;
   }
   .links {
@@ -233,7 +315,7 @@ onMounted(() => {
   .hide-list {
     width: 0;
     padding: 0;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
   .hide-list .links {
     font-size: 0;
@@ -257,8 +339,8 @@ onMounted(() => {
     padding: 10px;
   }
   .cart-container {
-    margin-top: .3rem;
-    margin-left:-.1rem;
+    margin-top: 0.3rem;
+    margin-left: -0.1rem;
   }
   .hamburger {
     width: 30px;

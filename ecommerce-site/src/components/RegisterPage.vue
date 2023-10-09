@@ -79,8 +79,9 @@
           </form>
           <div class="social-login">
             <router-link to="/login" class="link">
-
-              <h3>Login</h3>
+              <h3 :class="{ 'dark-login': store.state.mode === 'light' }">
+                Login
+              </h3>
             </router-link>
             <div class="social-icons">
               <a href="#" class="social-login__icon fab fa-instagram"></a>
@@ -112,8 +113,10 @@
 import axios from "axios";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const router = useRouter();
+const store = useStore();
 const data = ref([]);
 const name = ref("");
 const email = ref("");
@@ -129,9 +132,8 @@ const handleSubmit = () => {
       .then((res) => {
         if (res.data.success) {
           router.push({ name: "login" });
-        }
-        else{
-          alert('something went wrong with registration')
+        } else {
+          alert("something went wrong with registration");
         }
       })
       .catch((err) => console.log(err));
@@ -175,9 +177,9 @@ watch(data.value, (newValue, oldValue) => {
   /* margin-top: 2rem; */
   overflow: hidden;
 }
-.link{
-  text-decoration:none;
-  color:white;
+.link {
+  text-decoration: none;
+  color: white;
 }
 
 .screen__content {
@@ -350,5 +352,8 @@ watch(data.value, (newValue, oldValue) => {
 
 .social-login__icon:hover {
   transform: scale(1.5);
+}
+.dark-login {
+  color: black;
 }
 </style>

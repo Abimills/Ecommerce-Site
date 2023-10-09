@@ -1,6 +1,6 @@
 <template>
-  <div class="create-product-container">
-    <div class="admin-mother-container">
+  <div :class="store.state.mode === 'light' ? 'create-product-container light-admin-panel': 'create-product-container'"  >
+    <div class=" admin-mother-container">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         @click="toggleProfile"
@@ -25,6 +25,7 @@
 
       <div
         class="admin-information-navigation"
+        
         :class="{
           'hide-admin-navigation': showProfile,
         }"
@@ -450,9 +451,27 @@ onMounted(() => {
   /* margin-left: 3rem; */
   border-top-right-radius: 90px;
   position: fixed;
-
+  
   padding: 10px;
 }
+.light-admin-panel .admin-information-navigation {
+  width: 20%;
+  height: 100vh;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* background-color: rgb(0, 0, 0); */
+  color:#90cbc9;
+  /* margin-left: 3rem; */
+  border-top-right-radius: 90px;
+  position: fixed;
+  
+  padding: 10px;
+}
+
+
 .admin-pic-label {
   width: 100%;
   display: flex;
@@ -526,6 +545,15 @@ onMounted(() => {
 }
 .person-info {
   color: white;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.light-admin-panel .person-info {
+  color:black;
   display: flex;
   align-items: flex-start;
   flex-direction: column;

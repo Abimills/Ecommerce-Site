@@ -6,7 +6,8 @@ export default createStore({
     cart :JSON.parse(localStorage.getItem("products")) || [],
     user :JSON.parse(localStorage.getItem("user")) || [],
     wishlist: JSON.parse(localStorage.getItem('wishlist')) || [],
-    amount: JSON.parse(localStorage.getItem('amount')) || 0
+    amount: JSON.parse(localStorage.getItem('amount')) || 0,
+    mode: JSON.parse(localStorage.getItem('mode')) || 'light'
 
   },
   getters: {
@@ -21,6 +22,23 @@ export default createStore({
         
         state.cart = [item,...state.cart];
         localStorage.setItem("products",JSON.stringify(state.cart))
+      }
+    },
+    toggleMode (state) {
+     
+      if(state.mode === 'light'){
+        state.mode = 'dark'
+        localStorage.setItem("mode",JSON.stringify(state.mode))
+      }
+      else if(state.mode === 'dark'){
+        
+        state.mode = 'light';
+        localStorage.setItem("mode",JSON.stringify(state.mode));
+      }
+      else{
+        
+        state.mode = 'light';
+        localStorage.setItem("mode",JSON.stringify(state.mode));
       }
     },
     addToWishlist (state,id) {

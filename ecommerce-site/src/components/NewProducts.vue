@@ -1,38 +1,15 @@
 <template>
   <div class="new-products-container">
-    <h1 class="brand-header">Brand New Products</h1>
-    <p class="brand-text">
-      Elevate Your Style, Redefine Your Confidence with famclog's Exquisite
-      Collection of Brand New Clothes!
-    </p>
+    <h1  :class="store.state.mode === 'light'?'brand-header change-brand-header' :'brand-header'">Brand Products</h1>
+<p class="brand-text">New Branded Products approved by cli</p>
     <div class="product-container">
-      <div
-        class="product"
+      <SingleProduct
         v-for="product in products?.product"
         :key="product?._id"
-      >
-        <img
-          :src="product?.img"
-          alt=""
-          class="product-img"
-          @click="navigateToProduct(product?._id)"
-        />
-        <div class="price-container">
-          <p class="product-name" @click="navigateToProduct(product?._id)">
-            {{ product?.name }}
-          </p>
-          <p class="product-price">${{ product?.price }}</p>
-        </div>
-        <p :class="show ? 'description' : 'hidden-description'">
-          {{ product?.description }}
-        </p>
-        <button class="read-more" @click="toggleShow">
-          {{ show ? "read more..." : "read less..." }}
-        </button>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
+        :product="product"
+      />
     </div>
-    <div class="pagination-container">
+    <div :class="store.state.mode === 'light'? 'pagination-container change-color-pagination' :'pagination-container'">
       <p class="left-arrow" @click="decCurrentPage">{{ "<" }}</p>
       <div class="pages-container">
         <p
@@ -43,7 +20,7 @@
         >
           {{ page }}
         </p>
-        <p class="page dot-page"  @click="setPagination(1)">...</p>
+        <p class="page dot-page" @click="setPagination(page)">...</p>
         <!-- {{ propValue }} -->
       </div>
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
@@ -52,15 +29,18 @@
 </template>
 <script setup>
 import axios from "axios";
-import { computed, onMounted, reactive, ref, watchEffect } from "vue";
-import { useRouter } from "vue-router";
+import SingleProduct from "./SingleProduct.vue";
+import { computed, onMounted, reactive, ref, watch, watchEffect } from "vue";
+import { useStore } from "vuex";
 
 const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
-const productsPerPage = 6;
-const show = ref(true);
+const store = useStore();
+// const isInWishlist = ref(store.state.wishlist?.some(wish => wish ===));
+
+const productsPerPage = 8;
 const fetchProducts = async () => {
   const res = await axios.get("http://localhost:4040/products/");
   data.product = res.data;
@@ -69,14 +49,8 @@ const fetchProducts = async () => {
 onMounted(() => {
   fetchProducts();
 });
-const toggleShow = () => {
-  show.value = !show.value;
-};
-const router = useRouter();
 
-const navigateToProduct = (id) => {
-  router.push({ name: "product", params: { id: id } });
-};
+// useRouter returns the router instance
 
 // Reactive calculations inside computed
 const totalPages = computed(() => {
@@ -148,6 +122,9 @@ const setPagination = (value) => {
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
+.change-brand-header {
+  color: wheat;
+}
 .brand-text {
   color: rgb(175, 159, 130);
   font-family: "Dosis", sans-serif;
@@ -155,7 +132,7 @@ const setPagination = (value) => {
   text-transform: uppercase;
   font-size: 0.7rem;
   margin-bottom: 2rem;
-  text-align:center;
+  text-align: center;
   letter-spacing: 2px;
 }
 /* pagination ----- */
@@ -196,7 +173,7 @@ const setPagination = (value) => {
 }
 .active-page {
   color: white;
-  background: orange;
+  background: wheat;
   padding: 5px;
 }
 /* pagination end  */
@@ -211,7 +188,7 @@ const setPagination = (value) => {
 .product {
   width: 280px;
   padding: 10px;
-  background: rgb(197, 179, 145);
+  background: wheat;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -238,7 +215,8 @@ const setPagination = (value) => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: rgb(240, 238, 238);
+  color: #709290;;
+
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
@@ -275,56 +253,56 @@ const setPagination = (value) => {
 .add-to-cart:hover {
   background: transparent;
 }
+.change-color-pagination {
+  color: gray;
+}
 @media screen and (max-width: 480px) {
   .pages-container {
     width: 100%;
-}
-.pagination-container {
-  width: 100%;
-  /* background: rgb(199, 195, 195); */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0rem;
-  padding: 15px;
-  margin: 2rem 1rem;
-  border-radius: 30px;
-  font-family: "Mooli", sans-serif;
-  font-family: "Outfit", sans-serif;
-  font-family: "Roboto", sans-serif;
-  color: white;
-}
-.left-arrow,
-.right-arrow {
-  font-family: "Caveat", cursive;
-  font-family: "Croissant One", cursive;
-  font-family: "Dosis", sans-serif;
-  font-size: 2rem;
-  font-weight: 100;
-  cursor: pointer;
-}
-.left-arrow{
-  margin-top:.3rem;
-}
-.dot-page{
-  display: none;
-}
-.active-page , .page{
-  font-size: .7em;
-}
+  }
+  .pagination-container {
+    width: 100%;
+    /* background: rgb(199, 195, 195); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0rem;
+    padding: 15px;
+    margin: 2rem 1rem;
+  }
+  .left-arrow,
+  .right-arrow {
+    font-family: "Caveat", cursive;
+    font-family: "Croissant One", cursive;
+    font-family: "Dosis", sans-serif;
+    font-size: 2rem;
+    font-weight: 100;
+    cursor: pointer;
+  }
+  .left-arrow {
+    margin-top: 0.3rem;
+  }
+
+  .dot-page {
+    display: none;
+  }
+  .active-page,
+  .page {
+    font-size: 0.7em;
+  }
 }
 @media screen and (max-width: 320px) {
   .product-img {
-  width: 90%;
-}
-.product {
-  width: 90%;
-  padding: 10px;
-  background: rgb(197, 179, 145);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
+    width: 90%;
+  }
+  .product {
+    width: 90%;
+    padding: 10px;
+    background: rgb(197, 179, 145);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-container">
+  <div :class=" store.state.mode  === 'light' ? 'home-container light-landing':'home-container'">
     <div class="upper-text-container">
       <p class="fashion">
         <span>Big </span> Fashion<span class="sale">Sale</span>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="pic-and-style-container">
-      <img :src="girlOne" alt="girl-image" class="girl-image" />
+      <img src="../assets/girl-two.png" alt="girl-image" class="girl-image" />
 
       <div class="dot-container">
         <div class="dot"></div>
@@ -41,18 +41,13 @@
   </div>
 </template>
 
-<script>
-import girlOne from "../assets/girl-two.png";
+<script setup>
+import { useStore } from "vuex";
 
-export default {
-  name: "LandingPage",
-  components: {},
-  data() {
-    return {
-      girlOne,
-    };
-  },
-};
+
+const store = useStore();
+
+
 </script>
 
 <style scoped>
@@ -124,14 +119,18 @@ export default {
   /* background-color: transparent; */
   color: white;
 }
+.light-landing .buy-now-btn:hover {
+  /* background-color: transparent; */
+  color: #447e7c;
+}
 .empty-btn {
   background-color: rgb(172, 156, 127);
   color: white;
   border: 2px solid rgb(172, 156, 127);
 }
-.empty-btn:hover {
+.light-landing .empty-btn:hover {
   background-color: rgb(172, 156, 127);
-  color: black;
+  color: #def3f2;
 }
 
 .fashion {
@@ -163,6 +162,12 @@ export default {
   background-color: white;
   border-radius: 50%;
 }
+.light-landing .dot{
+  width: 3px;
+  height: 3px;
+  background-color:#90cbc9;
+
+}
 .dot-container {
   display: flex;
   align-items: center;
@@ -182,20 +187,24 @@ export default {
   width: 15px;
   height: 15px;
   background-color: transparent;
-  border: 2.2px solid black;
+  border: 3.2px solid wheat;
   border-radius: 50%;
   position: absolute;
   top: 50%;
   right: 100px;
 }
 .righty-one {
-  border: 2.2px solid white;
+  border: 3.2px solid white;
+  left: 0;
+}
+.light-landing .righty-one {
+  border: 3.2px solid wheat;
   left: 0;
 }
 .lefty-one {
   top: 60%;
   right: 0;
-  border: 2.2px solid greenyellow;
+  border: 3.2px solid #90cbc9;
 }
 .x-sign {
   width: 15px;

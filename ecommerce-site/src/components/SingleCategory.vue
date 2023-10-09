@@ -163,10 +163,11 @@ const filterProducts = (category) => {
 .description-container,
 .category-container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
+  
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .name-container label,
 .price-container label,
@@ -379,16 +380,16 @@ li {
   cursor: pointer;
 
 }
-.price-container{
-
-}
 .new-products-container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 2rem;
+  margin: 0rem;
+  margin-bottom:5rem;;
+  height:100%;
+ 
 }
 .brand-header {
   color: rgb(217, 217, 217);

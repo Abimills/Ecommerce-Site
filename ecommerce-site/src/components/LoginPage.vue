@@ -52,12 +52,12 @@
                 v-model="password"
               />
             </div>
-            <button type="submit" class="button login__submit">Log In</button>
+            <button type="submit" class="button login__submit" >Log In</button>
           </form>
           <div class="social-login">
             <router-link to="/register" class="link">
 
-              <h3>Sign up</h3>
+              <h3 :class="{'dark-login' : store.state.mode === 'light'}">Sign up</h3>
             </router-link>
             <div class="social-icons">
               <a href="#" class="social-login__icon fab fa-instagram"></a>
@@ -322,5 +322,8 @@ watch(data.value, (newValue, oldValue) => {
 
 .social-login__icon:hover {
   transform: scale(1.5);
+}
+.dark-login{
+  color:black;
 }
 </style>

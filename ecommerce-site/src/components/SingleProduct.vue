@@ -221,7 +221,6 @@ const handleWish = () => {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   transition: all 0.5s ease-in-out;
@@ -230,6 +229,7 @@ const handleWish = () => {
   font-family: "Dosis", sans-serif;
   color: rgb(240, 238, 238);
   color: #064240;
+  color:gray;;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
@@ -251,7 +251,7 @@ const handleWish = () => {
   text-align: left;
   width: 100%;
   font-family: "Dosis", sans-serif;
-  color: #064240;
+  color: #7d8584;
   cursor: pointer;
   font-size: 0.8rem;
   transition: all 0.5s ease-in-out;

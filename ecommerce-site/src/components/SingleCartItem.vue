@@ -1,5 +1,5 @@
 <template>
-  <div class="additional-container">
+  <div class="additional-container" :class="store.state.mode === 'light' ? 'additional-container light-additional-container': 'additional-container'">
     <div class="item-info-container">
       <img :src="product?.img" alt="" class="cart-image" />
       <div class="writen-all-container">
@@ -178,6 +178,17 @@ onMounted(() => {
   font-weight: 300;
   margin-bottom: 0.4rem;
 }
+.light-additional-container .item-name,
+.color,
+.item-size,
+.stock {
+  color:#90cbc9;
+  text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  margin-bottom: 0.4rem;
+}
 .stock {
   color: white;
   padding: 3px 10px;
@@ -197,8 +208,22 @@ onMounted(() => {
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }
+.light-additional-container .each-price-container p {
+  color:#90cbc9;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
 .item-price {
   color: white;
+  font-family: "Dosis", sans-serif;
+  font-weight: 500;
+  /* font-size: 1.1rem; */
+  margin-bottom: 0.4rem;
+}
+.light-additional-container .item-price {
+  color:#90cbc9;
   font-family: "Dosis", sans-serif;
   font-weight: 500;
   /* font-size: 1.1rem; */
@@ -214,6 +239,13 @@ onMounted(() => {
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }
+.light-additional-container .quantity-container p {
+  color:#90cbc9;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
 .quantity-container input {
   padding: 3px 10px;
   width: 55px;
@@ -222,6 +254,15 @@ onMounted(() => {
   border-radius: 40px;
   outline: none;
   color: white;
+}
+.light-additional-container .quantity-container input {
+  padding: 3px 10px;
+  width: 55px;
+  background: transparent;
+  border: 1px solid #90cbc9;;
+  border-radius: 40px;
+  outline: none;
+  color: #90cbc9;;
 }
 
 .quantity-container input::placeholder {
@@ -236,6 +277,13 @@ onMounted(() => {
   color: white;
   font-family: "Dosis", sans-serif;
   font-weight: 300;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.light-additional-container .total-item-price p {
+  color: #90cbc9;;
+  font-family: "Dosis", sans-serif;
+  font-weight: 500;
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }

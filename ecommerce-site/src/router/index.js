@@ -32,27 +32,27 @@ const routes = [
   {
     path: '/payment',
     name: 'payment',
-    component: () => import('../components/Payment.vue')
+    component: () => import('../components/NavigationPayment.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('../components/LoginPage.vue')
+    component: () => import('../components/NavigationLoginPage.vue')
   },
   {
     path: '/give-review',
     name: 'give-review',
-    component: () => import('../components/GiveReview.vue')
+    component: () => import('../components/NavigationGiveReview.vue')
   },
   {
     path: '/all-review',
     name: 'all-review',
-    component: () => import('../components/Review.vue')
+    component: () => import('../components/NavigationReview.vue')
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('../components/RegisterPage.vue')
+    component: () => import('../components/NavigationRegister.vue')
   },
   {
     path: '/admin/profile',
@@ -85,7 +85,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/SingleCategory.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/NavigationContainer.vue')
   },
  
   {
@@ -102,12 +102,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/Cart.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/NavigationCart.vue')
   },
   {
     path:"/product/:id",
     name:"product",
-    component: () => import(/* webpackChunkName: "about" */ '../components/Item.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/NavigationItem.vue')
   }
 ]
 

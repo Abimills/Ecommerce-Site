@@ -1,5 +1,5 @@
 <template>
-  <div class="favorite-container">
+  <div :class="store.state.mode === 'light' ? 'favorite-container light-favorite-container': 'favorite-container'">
     <div class="top-header-container">
       <div class="nav-header-container">
         <svg
@@ -44,7 +44,7 @@
         <p class="name" @click="navigate(product?._id)">{{ product?.name }}</p>
         <p class="brand">{{ product?.timeRanges[0] }} Product</p>
         <p class="brand">${{ product?.price }}</p>
-        <p class="price" @click="navigate(product?._id)">Add to Cart</p>
+        <p class="price" @click="addToCart(product?._id)">Add to Cart</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           @click="handleWish(product?._id)"
@@ -89,7 +89,13 @@ const getCategories = (data) => {
     ...new Set(timeRangeCat),
   ];
 };
-
+const addToCart = (id) => {
+  const item = {
+    id: id,
+    quantity: 1,
+  };
+  store.commit("addToCart", item);
+};
 const navigate = (id) => {
   router.push({ name: "product", params: { id: id } });
 };
@@ -146,6 +152,7 @@ onMounted(() => {
 .favorite-container {
   width: 100%;
   display: flex;
+  min-height: 100vh;
   /* align-items: center; */
   flex-direction: column;
 }
@@ -178,7 +185,25 @@ onMounted(() => {
   color: white;
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 1.7rem;
+  font-size: 1.3rem;
+
+  font-family: "Roboto", sans-serif;
+}
+.nav-header-container p {
+  color: white;
+  font-size: 2rem;
+  /* background: black; */
+  padding: 5px;
+  border-radius: 50%;
+  letter-spacing: -0.5rem;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+}
+.light-favorite-container .nav-header-container h1 {
+  color:#77aaa8;;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 1.3rem;
 
   font-family: "Roboto", sans-serif;
 }
@@ -278,8 +303,15 @@ onMounted(() => {
   height: 20px;
   cursor: pointer;
 }
+.light-favorite-container .return-arrow {
+  color:#77aaa8;
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
 .return-arrow:hover{
-  color: wheat;
+  color: black;
 }
 .close {
   color: #034240;

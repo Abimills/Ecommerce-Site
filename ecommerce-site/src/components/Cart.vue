@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-container">
+  <div :class="store.state.mode === 'light' ? 'cart-container light-cart-container': 'cart-container'">
     <h1 class="cart-header">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,9 @@ onMounted(() => {
   flex-direction: column;
  
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+      /* min-height: 100vh; */
+  
 }
 .lock {
   width: 20px;
@@ -187,6 +189,11 @@ onMounted(() => {
   width: 40px;
   height: 50px;
 }
+.light-cart-container .cart-icon {
+  width: 40px;
+  height: 50px;
+  color:#90cbc9;
+}
 .cart-header {
   text-align: center;
   display: flex;
@@ -195,6 +202,18 @@ onMounted(() => {
   gap: 0.5rem;
   font-size: 1.5rem;
   color: white;
+  /* margin: 2rem; */
+  margin: 2em;
+  font-weight: 300;
+}
+.light-cart-container .cart-header {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  color:#90cbc9;
   /* margin: 2rem; */
   margin: 2em;
   font-weight: 300;
@@ -211,9 +230,11 @@ onMounted(() => {
 .cart-items-payment-container {
   width: 95%;
   padding: 10px;
+  min-height:100vh;
   display: flex;
   /* align-items: center; */
   justify-content: center;
+
 
 }
 .cart-items-container {
@@ -259,6 +280,17 @@ onMounted(() => {
 .item-size,
 .stock {
   color: white;
+  text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  margin-bottom: 0.4rem;
+}
+.light-cart-container .item-name,
+.light-cart-container .color,
+.light-cart-container .item-size,
+.light-cart-container.stock {
+  color:#90cbc9;
   text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-family: "Dosis", sans-serif;

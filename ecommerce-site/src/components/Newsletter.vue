@@ -1,6 +1,6 @@
 <template>
   <div class="news-container">
-    <div class="newsletter-container">
+    <div :class="store.state.mode === 'light'? 'newsletter-container light-newsletter':'newsletter-container'">
       <h3 class="header">Newsletter</h3>
 <svg fill="none" class="news-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
@@ -15,10 +15,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {},
-};
+<script setup>
+import { useStore } from "vuex";
+
+const store = useStore();
+
+
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -52,6 +54,9 @@ export default {
   font-family: "Mooli", sans-serif;
   margin-bottom: 1rem;
 }
+.light-newsletter .header{
+  color:gray;
+}
 .subscribe {
   margin-bottom: 1rem;
   color: #709290;
@@ -59,6 +64,16 @@ export default {
 }
 .miss {
   color: rgb(238, 237, 237);
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  
+  /* font-family: "Caveat", cursive; */
+}
+.light-newsletter .miss {
+  color:#709290;
   margin-bottom: 1rem;
   font-size: 0.8rem;
 
@@ -79,6 +94,13 @@ export default {
   width: 85%;
   padding: 10px;
   border: 1px solid white;
+  outline: none;
+}
+.light-newsletter .sub-form input {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #709290;;
+  background: #709290;
   outline: none;
 }
 .sub-btn {
