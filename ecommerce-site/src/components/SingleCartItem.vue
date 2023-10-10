@@ -1,24 +1,40 @@
 <template>
-  <div class="additional-container" :class="store.state.mode === 'light' ? 'additional-container light-additional-container': 'additional-container'">
+  <div
+    class="additional-container"
+    :class="
+      store.state.mode === 'light'
+        ? 'additional-container light-additional-container'
+        : 'additional-container'
+    "
+  >
     <div class="item-info-container">
       <img :src="product?.img" alt="" class="cart-image" />
       <div class="writen-all-container">
-
         <h3 class="item-name">{{ product?.name }}</h3>
         <p class="color">Color : {{ product?.colors[0] }}</p>
-        <p class="item-size">Discount : {{ (( product?.discount / product?.price) *100).toFixed(0) + '% '||0 }}</p>
+        <p class="item-size">
+          Discount :
+          {{
+            ((product?.discount / product?.price) * 100).toFixed(0) + "% " || 0
+          }}
+        </p>
         <p class="stock">In Stock</p>
+        <p
+          class="stock delete-btn"
+          @click="deleteProduct(product?._id)"
+        >
+          delete
+        </p>
       </div>
     </div>
     <div class="total-quantity-all-container">
-
       <div class="each-price-container">
         <p>Each</p>
         <h5 class="item-price">${{ product?.price }}</h5>
       </div>
       <div class="quantity-container">
         <p>Quantity</p>
-        
+
         <input type="number" placeholder="1" v-model="quantity" />
       </div>
       <div class="total-item-price">
@@ -33,7 +49,7 @@
 import { onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 
-const props = defineProps(["product"]);
+const props = defineProps(["product", 'deleteProduct']);
 const store = useStore();
 const quantity = ref(1);
 watch(quantity, (newValue, oldValue) => {
@@ -48,11 +64,12 @@ watch(quantity, (newValue, oldValue) => {
   });
 });
 
+
 onMounted(() => {
-      const item = store.state.cart.find((item => item.id === props.product?._id));
-    if (item) {
-      quantity.value = item.quantity;
-    }
+  const item = store.state.cart.find((item) => item.id === props.product?._id);
+  if (item) {
+    quantity.value = item.quantity;
+  }
 });
 </script>
 
@@ -82,6 +99,7 @@ onMounted(() => {
   width: 20px;
   height: 20px;
 }
+
 .cart-icon {
   width: 40px;
   height: 50px;
@@ -98,7 +116,7 @@ onMounted(() => {
   margin: 2em;
   font-weight: 300;
 }
-.total-quantity-all-container{
+.total-quantity-all-container {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
@@ -109,7 +127,7 @@ onMounted(() => {
   object-fit: contain;
   background-color: aliceblue;
   /* backdrop-filter: blur(5px); */
-  margin:  0;
+  margin: 0;
   border-radius: 5px;
 }
 .cart-items-payment-container {
@@ -165,7 +183,7 @@ onMounted(() => {
   /* justify-content: center; */
   flex-direction: column;
   /* margin-top: 1rem; */
-  margin-left:1rem;
+  margin-left: 1rem;
 }
 .item-name,
 .color,
@@ -182,7 +200,7 @@ onMounted(() => {
 .color,
 .item-size,
 .stock {
-  color:#90cbc9;
+  color: #90cbc9;
   text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-family: "Dosis", sans-serif;
@@ -209,7 +227,7 @@ onMounted(() => {
   margin-bottom: 0.4rem;
 }
 .light-additional-container .each-price-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Dosis", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
@@ -223,7 +241,7 @@ onMounted(() => {
   margin-bottom: 0.4rem;
 }
 .light-additional-container .item-price {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Dosis", sans-serif;
   font-weight: 500;
   /* font-size: 1.1rem; */
@@ -240,7 +258,7 @@ onMounted(() => {
   margin-bottom: 0.4rem;
 }
 .light-additional-container .quantity-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Dosis", sans-serif;
   font-weight: 300;
   font-size: 0.9rem;
@@ -259,10 +277,10 @@ onMounted(() => {
   padding: 3px 10px;
   width: 55px;
   background: transparent;
-  border: 1px solid #90cbc9;;
+  border: 1px solid #90cbc9;
   border-radius: 40px;
   outline: none;
-  color: #90cbc9;;
+  color: #90cbc9;
 }
 
 .quantity-container input::placeholder {
@@ -281,7 +299,7 @@ onMounted(() => {
   margin-bottom: 0.4rem;
 }
 .light-additional-container .total-item-price p {
-  color: #90cbc9;;
+  color: #90cbc9;
   font-family: "Dosis", sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
@@ -390,23 +408,29 @@ onMounted(() => {
 .checkout span {
   margin-top: 0.3rem;
 }
+.delete-btn {
+  background: rgb(233, 186, 186);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.delete-btn:hover {
+  background: rgb(235, 52, 52);
+}
 @media screen and (max-width: 530px) {
-
-.total-quantity-all-container{
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  gap: 4rem;
-  margin-bottom:1rem;
-}
-.additional-container {
-  width: 100%;
-  display: flex;
-  /* align-items: center; */
-  justify-content: space-evenly;
-  flex-direction: column;
-  margin-top: 1rem;
-
-}
+  .total-quantity-all-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 4rem;
+    margin-bottom: 1rem;
+  }
+  .additional-container {
+    width: 100%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
 }
 </style>

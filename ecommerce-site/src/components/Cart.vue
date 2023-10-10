@@ -1,5 +1,11 @@
 <template>
-  <div :class="store.state.mode === 'light' ? 'cart-container light-cart-container': 'cart-container'">
+  <div
+    :class="
+      store.state.mode === 'light'
+        ? 'cart-container light-cart-container'
+        : 'cart-container'
+    "
+  >
     <h1 class="cart-header">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -19,17 +25,22 @@
       My Cart
     </h1>
     <div class="cart-items-payment-container">
-      <div class="cart-items-container">
+      <div class="cart-items-container" v-if="cartItems?.cart?.length > 0">
         <SingleCartItem
           v-for="product in cartItems?.cart"
           :key="product?._id"
           :product="product"
+          :deleteProduct="deleteProduct"
         />
 
         <div class="real-price-items">
           <p>{{ totalItems }} items</p>
           <p>${{ totalPrice }}</p>
         </div>
+      </div>
+       <div class="empty-data" v-else >
+        <h1 class="empty-data-header">Your Cart is Desperately Empty</h1>
+        <p>Fill it up with your choice of Products</p>
       </div>
       <div class="payment-container">
         <h4 class="enter-code-header">ENTER PROMO CODE</h4>
@@ -99,12 +110,13 @@ const totalItems = ref(0);
 const totalPrice = ref(0);
 const discount = ref(0);
 const priceAfterDiscount = ref(totalPrice - discount || 0);
-const fetchProducts = async () => {
+const fetchProducts = async (store) => {
   const res = await Promise.all(
     store.state.cart?.map((item) =>
       axios.get(`http://localhost:4040/products/${item?.id}`)
     )
   );
+
   const cartProducts = res.map((product) => {
     const matchingCartItem = store.state.cart.find(
       (item) => item.id === product?.data?.product?._id
@@ -125,10 +137,16 @@ watch(cartItems, (newValue, oldValue) => {
     return total + item.discount * item.quantity;
   }, 0);
 });
+
 const toCheckout = (amount) => {
- store.commit('addAmount',amount)
- router.push('/payment')
-}
+  store.commit("addAmount", amount);
+  router.push("/payment");
+};
+const deleteProduct = (id) => {
+  store.commit("removeFromCart", id);
+  fetchProducts(store);
+  totalItems.value = store.state.cart?.length;
+};
 watch(store.state.cart, (newValue, oldValue) => {
   const cartProducts = cartItems.cart.map((product) => {
     const matchingCartItem = newValue.find((item) => item.id === product?._id);
@@ -152,9 +170,9 @@ watch(store.state.cart, (newValue, oldValue) => {
   }, 0);
 });
 onMounted(() => {});
-fetchProducts();
+fetchProducts(store);
 onMounted(() => {
-  totalItems.value = store.state.cart.length;
+  totalItems.value = store.state.cart?.length;
   // totalPrice.value = store.state.cart.reduce((total,item) => {
   //   return total + item
   // })
@@ -175,12 +193,26 @@ onMounted(() => {
   font-family: "Outfit", sans-serif;
   display: flex;
   flex-direction: column;
- 
+
   gap: 2rem;
   margin-bottom: 1rem;
-      /* min-height: 100vh; */
-  
+  /* min-height: 100vh; */
 }
+.empty-data{
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items:center;
+  justify-content : center;
+  flex-direction: column;
+  color:#709290;
+  gap: 4rem;
+    font-family: "Outfit", sans-serif;
+    text-transform: uppercase;
+  }
+  .empty-data p{
+    text-transform: lowercase;
+  }
 .lock {
   width: 20px;
   height: 20px;
@@ -192,7 +224,7 @@ onMounted(() => {
 .light-cart-container .cart-icon {
   width: 40px;
   height: 50px;
-  color:#90cbc9;
+  color: #90cbc9;
 }
 .cart-header {
   text-align: center;
@@ -213,7 +245,7 @@ onMounted(() => {
   justify-content: center;
   gap: 0.5rem;
   font-size: 1.5rem;
-  color:#90cbc9;
+  color: #90cbc9;
   /* margin: 2rem; */
   margin: 2em;
   font-weight: 300;
@@ -230,12 +262,10 @@ onMounted(() => {
 .cart-items-payment-container {
   width: 95%;
   padding: 10px;
-  min-height:100vh;
+  min-height: 100vh;
   display: flex;
   /* align-items: center; */
   justify-content: center;
-
-
 }
 .cart-items-container {
   width: 100%;
@@ -290,7 +320,7 @@ onMounted(() => {
 .light-cart-container .color,
 .light-cart-container .item-size,
 .light-cart-container.stock {
-  color:#90cbc9;
+  color: #90cbc9;
   text-transform: capitalize;
   font-family: "Roboto", sans-serif;
   font-family: "Dosis", sans-serif;
@@ -364,7 +394,6 @@ onMounted(() => {
   width: 40%;
   margin-top: -2rem;
   margin-bottom: 0rem;
- 
 }
 .enter-code-header {
   font-family: "Mooli", sans-serif;
@@ -385,13 +414,13 @@ onMounted(() => {
   width: 80%;
   background: transparent;
   border: 1px solid #90cbc9;
-  color:#90cbc9;
+  color: #90cbc9;
   outline: none;
   font-family: "Outfit", sans-serif;
   color: white;
 }
 .promo-container input::placeholder {
-  color:#90cbc9;
+  color: #90cbc9;
 }
 .promo-container button {
   padding: 10px;
@@ -426,22 +455,22 @@ onMounted(() => {
   margin-bottom: 1rem;
 }
 .shipping-cost-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .discount-cost-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .tax-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 0.9rem;
 }
 .esteemed-price-container p {
-  color:#90cbc9;
+  color: #90cbc9;
   font-family: "Outfit", sans-serif;
   font-size: 1rem;
 }
@@ -465,42 +494,36 @@ onMounted(() => {
 .checkout span {
   margin-top: 0.3rem;
 }
-@media screen and (max-width:980px){
+@media screen and (max-width: 980px) {
   .cart-items-payment-container {
     width: 100%;
     padding: 10px;
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-  flex-wrap: wrap;
-
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .payment-container {
+    width: 90%;
+    margin-top: 2rem;
+  }
 }
-.payment-container {
-  width: 90%;
-  margin-top: 2rem;
- 
+@media screen and (max-width: 480px) {
+  .promo-container {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .promo-container input {
+    width: 70%;
+  }
+  .promo-container input::placeholder {
+    color: #90cbc9;
+  }
+  .promo-container button {
+    width: 30%;
+  }
+  .payment-container {
+    font-size: 0.5rem;
+  }
 }
-
-}
-    @media screen and (max-width:480px){
-      .promo-container {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-.promo-container input {
- 
-  width: 70%;
-}
-.promo-container input::placeholder {
-  color:#90cbc9;
-}
-.promo-container button {
- 
-  width: 30%;
-}
-.payment-container {
-  font-size:.5rem;
-
-}
-    }
 </style>

@@ -263,7 +263,9 @@ import axios from "axios";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useToast } from 'vue-toastification'
 const store = useStore();
+const toast = useToast();
 const router = useRouter();
 const showProfile = ref(true);
 const toggleProfile = () => {
@@ -314,9 +316,21 @@ const onSubmit = async () => {
       ...data,
       img: url,
     });
-    console.log(res);
+   if(res.data){
+     toast.success("Product successfully added to database", {
+       timeout: 2000
+     });
+     
+    }else{
+      
+      toast.warning("Something went wrong, please try again", {
+        timeout: 2000
+      });
+   }
   } else {
-    alert("Please provide stared fields");
+      toast.warning("Please provide all fields", {
+        timeout: 2000
+      });
   }
 };
 </script>

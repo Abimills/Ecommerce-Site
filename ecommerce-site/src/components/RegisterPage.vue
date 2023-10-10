@@ -114,7 +114,8 @@ import axios from "axios";
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-
+import { useToast } from "vue-toastification";
+const toast = useToast();
 const router = useRouter();
 const store = useStore();
 const data = ref([]);
@@ -131,12 +132,21 @@ const handleSubmit = () => {
       })
       .then((res) => {
         if (res.data.success) {
+            toast.success("Successfully Registered", {
+            timeout: 2000,
+          });
           router.push({ name: "login" });
         } else {
-          alert("something went wrong with registration");
+          toast.warning("something went wrong with registration", {
+            timeout: 2000,
+          });
         }
       })
       .catch((err) => console.log(err));
+  } else {
+    toast.warning("Please provide all fields", {
+      timeout: 2000,
+    });
   }
 };
 watch(data.value, (newValue, oldValue) => {

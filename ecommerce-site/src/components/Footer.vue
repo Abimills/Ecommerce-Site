@@ -15,7 +15,7 @@
         <font-awesome-icon icon="fa-brands fa-linkedin" />
         <font-awesome-icon icon="fa-brands fa-instagram" />
       </div>
-      <p class="copy-right">@copy right Abel T. developer</p>
+      <p class="copy-right">&copy; 2023 Abel T. developer</p>
     </div>
     <div class="right-side">
       <h3>Working Hours</h3>
@@ -104,7 +104,7 @@ export default {
   margin: 1rem 0;
 }
 .social-media * {
-  color: #709290;
+  color: white;
 }
 .center .copy-right {
   font-size: 0.9rem;
@@ -121,11 +121,11 @@ export default {
 }
 .mone-fri p {
   font-family: "Caveat", cursive;
-  color: #709290;
+  color: white;
 }
 .sat-sun p {
   font-family: "Caveat", cursive;
-  color: #709290;
+  color: white;
 }
 .mone-fri .time {
   color: rgb(191, 187, 187);

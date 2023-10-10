@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
+import { useToast } from 'vue-toastification'
 import axios from 'axios'
+const toast = useToast();
 export default createStore({
   state: {
 
@@ -17,10 +19,16 @@ export default createStore({
     addToCart (state,item) {
       const itemExist = state.cart.find(pro => pro.id === item.id)
       if(itemExist){
-        alert("item already exist")
-      }else{
-        
-        state.cart = [item,...state.cart];
+        toast.warning("Product is already in Cart", {
+        timeout: 2000
+      });
+    }else{
+      
+      state.cart = [item,...state.cart];
+      toast.success("Product added to Cart", {
+        timeout: 2000
+      });
+      
         localStorage.setItem("products",JSON.stringify(state.cart))
       }
     },
@@ -45,9 +53,15 @@ export default createStore({
       const itemExist =state.wishlist.find(wish => wish === id);
       if(itemExist){
         state.wishlist = state.wishlist.filter(wish => wish !== id);
+         toast.success("Product removed from  Wishlist", {
+        timeout: 2000
+      });
         localStorage.setItem("wishlist",JSON.stringify(state.wishlist))
       }else{
         state.wishlist = [...state.wishlist,id]
+         toast.success("Product added to Wishlist", {
+        timeout: 2000
+      });
         localStorage.setItem("wishlist",JSON.stringify(state.wishlist))
       }
       
@@ -55,10 +69,17 @@ export default createStore({
     removeFromCart (state,id){
       const itemExist = state.cart.find(pro => pro.id ===id)
       if(!itemExist ){
-        alert("item does not exist")
+         toast.warning("Product does not exist in cart", {
+        timeout: 2000
+      });
       }else{
 
         state.cart = state.cart.filter(item => item.id !== id);
+        console.log(state.cart)
+           localStorage.setItem("products",JSON.stringify(state.cart))
+         toast.success("Product removed from Cart", {
+        timeout: 2000
+      });
       }
     },
     updateCartItemQuantity (state,{id,quantity}) {
@@ -80,18 +101,32 @@ export default createStore({
     payed (state) {
       
       state.amount = 0
+      state.cart = []
       localStorage.setItem("amount",JSON.stringify(state.amount))
+      localStorage.setItem("cart",JSON.stringify(state.cart))
+        toast.success("Payment done successfull ", {
+        timeout: 2000
+      });
+        toast.info("Hang tight for the delivery of your product, Thank you!! ", {
+        timeout: 4000
+      });
       
     },
     signedIn (state,{data}) {
       
       state.user = data
+       toast.success("Successfully Signed In", {
+        timeout: 2000
+      });
       localStorage.setItem("user",JSON.stringify(state.user))
       
     },
     signOut (state) {
       
       state.user = []
+       toast.success("Successfully Signed Out", {
+        timeout: 2000
+      });
       localStorage.setItem("user",JSON.stringify(state.user))
       
     }

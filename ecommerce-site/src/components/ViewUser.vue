@@ -192,16 +192,20 @@
       <div class="header-container">
         <h1>All Users</h1>
         <p>
-          Users : <span>{{ users?.users?.length  || 0 }}</span>
+          Users : <span>{{ users?.users?.length || 0 }}</span>
         </p>
       </div>
-      <div class="all-view-items-container">
+      <div class="all-view-items-container" v-if="users?.users?.length > 0">
         <SingleUser
           v-for="user in users?.users"
           :deleteUser="deleteUser"
           :key="user?._id"
           :user="user"
         />
+      </div>
+      <div class="empty-data" v-else >
+        <h1 class="empty-data-header">You have no user currently</h1>
+        <p>Tip : Advertise your website to get Users!!</p>
       </div>
     </div>
   </div>
@@ -213,10 +217,11 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
+import { useToast } from "vue-toastification";
 const users = ref([]);
 const store = useStore();
 const showProfile = ref(true);
+const toast = useToast();
 const toggleProfile = () => {
   showProfile.value = !showProfile.value;
 };
@@ -229,6 +234,9 @@ const navigateHome = () => {
   router.push("/");
 };
 const deleteUser = (id) => {
+  toast.warning("You Just Delete a user from database", {
+    timeout: 2000,
+  });
   users.value.users = users.value?.users?.filter((user) => user?._id !== id);
 };
 onMounted(() => {
@@ -265,6 +273,22 @@ onMounted(() => {
   width: 100%;
   /* gap: 2rem; */
 }
+/*  */
+.empty-data{
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items:center;
+  justify-content : center;
+  flex-direction: column;
+  color:#709290;
+  gap: 4rem;
+    font-family: "Outfit", sans-serif;
+    text-transform: uppercase;
+  }
+  .empty-data p{
+    text-transform: lowercase;
+  }
 .profile-icon {
   width: 20px;
   height: 20px;
@@ -779,24 +803,22 @@ li {
     width: 1%;
   }
   .create-product-container {
-  
-  /* align-items: center; */
-  justify-content: flex-start;
-  gap: 0rem;
-  position: relative;
+    /* align-items: center; */
+    justify-content: flex-start;
+    gap: 0rem;
+    position: relative;
 
-  font-family: "Outfit", sans-serif;
-}
+    font-family: "Outfit", sans-serif;
+  }
   .single-view-container {
-  width: 100%;
-  margin:0;
-  margin-top: 2rem;
- 
-}
-.all-view-items-container {
-  width: 100%;
-  flex-wrap: wrap;
-}
+    width: 100%;
+    margin: 0;
+    margin-top: 2rem;
+  }
+  .all-view-items-container {
+    width: 100%;
+    flex-wrap: wrap;
+  }
   .admin-bar {
     width: 30px;
     height: 30px;
@@ -812,21 +834,21 @@ li {
     border-radius: 50%;
   }
   .admin-pic-label {
-      width: 100%;
-      display: flex;
-      align-items: center;
-    
-      justify-content: space-between;
-      gap: 3rem;
-      margin: 0rem;
-    
-      border-bottom: 1px solid rgb(184, 183, 183);
-      padding: 5px;
-    }
-    .admin-pic-label p {
-      font-weight: 600;
-      color: #064240;
-    }
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+    gap: 3rem;
+    margin: 0rem;
+
+    border-bottom: 1px solid rgb(184, 183, 183);
+    padding: 5px;
+  }
+  .admin-pic-label p {
+    font-weight: 600;
+    color: #064240;
+  }
   .admin-information-navigation {
     width: 100%;
     z-index: 4;
@@ -860,31 +882,27 @@ li {
     width: 0%;
     font-size: 0;
     border: none;
-   
   }
-  
+
   .hide-admin-navigation .close-profile {
     display: none;
   }
   .hide-admin-navigation {
-      width: 0%;
-      height:0;
-      /* background: transparent; */
-      /* height: 100vh; */
-      transition: all .5s ease-out;
-      /* display:none; */
-      font-size: 0;
-      background: #064240;
-      color:#064240;
-      
-    }
-  .hide-admin-navigation *{
-      width: 0%;
-      height: 0%;
-     font-size: 0;
-     display:none;
-      
-    }
-    
+    width: 0%;
+    height: 0;
+    /* background: transparent; */
+    /* height: 100vh; */
+    transition: all 0.5s ease-out;
+    /* display:none; */
+    font-size: 0;
+    background: #064240;
+    color: #064240;
+  }
+  .hide-admin-navigation * {
+    width: 0%;
+    height: 0%;
+    font-size: 0;
+    display: none;
+  }
 }
 </style>

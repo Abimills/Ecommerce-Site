@@ -1,5 +1,11 @@
 <template>
-  <div :class="store.state.mode === 'light' ? 'item-container light-item-container' : 'item-container '">
+  <div
+    :class="
+      store.state.mode === 'light'
+        ? 'item-container light-item-container'
+        : 'item-container '
+    "
+  >
     <div class="left-side">
       <img
         :src="product.singleProduct?.product?.img"
@@ -14,7 +20,9 @@
             v-for="item in data.products"
             :key="item?._id"
             alt=""
+            @click="navigate(item?._id)"
           />
+
           <!-- <img src="../assets/shoes.png" alt="" />
           <img src="../assets/shoes.png" alt="" />
           <img src="../assets/t-shirt.png" alt="" /> -->
@@ -103,10 +111,15 @@
         </div>
         <div class="quantity">
           <p>Quantity</p>
-          <input type="number" placeholder="1" v-model="quantity"/>
+          <input type="number" placeholder="1" v-model="quantity" />
         </div>
       </div>
-      <button class="add-to-cart" @click="addToCart(id)">Add to Cart</button>
+      <button
+        class="add-to-cart"
+        @click="addToCart(id, product.singleProduct?.product?.name)"
+      >
+        Add to Cart
+      </button>
       <div class="description-container">
         <p>Description</p>
         <p>
@@ -120,29 +133,34 @@
 <script setup>
 // const id = $route.params.id
 import axios from "axios";
-const route = useRoute();
+import { useToast } from "vue-toastification";
 
-import { onMounted, reactive, watch, watchEffect, ref } from "vue";
-import { useRoute } from "vue-router";
-const { id } = route.params;
 import { useStore } from "vuex";
+import { onMounted, reactive, watch, watchEffect, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const toast = useToast();
+const route = useRoute();
+const router = useRouter();
 const store = useStore();
 const product = reactive({ singleProduct: [] });
 const quantity = ref(1);
+const { id } = route.params;
 const data = reactive({ products: [] });
 const isInWishlist = ref(store.state.wishlist?.some((wish) => wish === id));
 // useRoute returns the current route
 console.log(store.state.wishlist?.some((wish) => wish === id));
 // Access the 'id' parameter fr om the route
-
+const navigate = (id) => {
+  router.push({ name: "product", params: { id: id } });
+};
 const handleWish = () => {
   store.commit("addToWishlist", id);
   isInWishlist.value = store.state.wishlist.some((item) => item === id);
 };
-const addToCart = (id) => {
+const addToCart = (id, name) => {
   const item = {
     id: id,
-    quantity: quantity.value >=  1 ?  quantity.value  : 1,
+    quantity: quantity.value >= 1 ? quantity.value : 1,
   };
   store.commit("addToCart", item);
 };
@@ -224,7 +242,7 @@ watchEffect(() => {});
 }
 .light-item-container .item-name {
   font-size: 2.5rem;
-  color:#90cbc9;;
+  color: #90cbc9;
   text-transform: uppercase;
   font-family: "Dosis", sans-serif;
   font-family: "Mooli", sans-serif;
@@ -291,7 +309,7 @@ watchEffect(() => {});
   display: flex;
   align-items: center;
   gap: 1rem;
-  color:#709290;
+  color: #709290;
 
   font-family: "Dosis", sans-serif;
   text-transform: capitalize;
@@ -306,7 +324,7 @@ watchEffect(() => {});
 .light-item-container .price {
   font-family: "Dosis", sans-serif;
   text-transform: capitalize;
-  color:#709290;
+  color: #709290;
 
   font-size: 1.1rem;
 }
@@ -316,7 +334,7 @@ watchEffect(() => {});
 }
 .light-item-container .review-count {
   font-family: "Dosis", sans-serif;
-  color:#709290;
+  color: #709290;
 }
 .color-container {
   margin: 1rem 0;
@@ -328,7 +346,7 @@ watchEffect(() => {});
 }
 .light-item-container .color {
   font-family: "Croissant One", cursive;
-  color:#709290;
+  color: #709290;
   margin-bottom: 0.4rem;
 }
 .color-options {
@@ -352,7 +370,7 @@ watchEffect(() => {});
 .white-color-option {
   width: 15px;
   height: 15px;
-  background-color:#709290;
+  background-color: #709290;
   border-radius: 50%;
 }
 .color-quantity-container {

@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Abimills/ecommerce-site#readme",
   "devDependencies": {
     "vue-stripe-js": "^1.0.1"
+  },
+  "dependencies": {
+    "vue-toastification": "^2.0.0-rc.5"
   }
 }

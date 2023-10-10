@@ -164,8 +164,9 @@ const store = useStore();
 const props = defineProps([]);
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-
+import { useToast } from 'vue-toastification'
 const router = useRouter();
+const toast = useToast();
 const receivedValue = ref("");
 const cardNumber = ref("");
 const cvv = ref("");
@@ -176,15 +177,16 @@ const handleSubmit = (type) => {
     if (cardNumber.value && cvv.value && month.value && cardName) {
       // alert("all payed");
       store.commit("payed");
-      router.push({ name: "home" });
-      router.push({ name: "home" });
+      router.push('/');
     } else {
-      alert("not filled");
+    toast.warning("Fill the payment details ", {
+        timeout: 2000
+      });
     }
   } else if (type === "paypal") {
 //     alert("all payed");
     store.commit("payed");
-    router.push({ name: "home" });
+    router.push('/');
   }
 };
 // Accessing the value from the route parameters
@@ -254,11 +256,11 @@ onMounted(() => {
 
 .container .card-body .btn.btn-primary .fab.fa-cc-paypal {
   font-size: 32px;
-  color: #3333f7;
+  color: #709290;
 }
 
 .fab.fa-cc-amex {
-  color: #1c6acf;
+  color: #709290;;
   font-size: 32px;
 }
 
@@ -286,7 +288,7 @@ onMounted(() => {
 }
 
 .btn.btn-primary.payment {
-  background-color: #1c6acf;
+  background-color: #709290;;
   color: white;
   border-radius: 0px;
   height: 50px;
@@ -320,7 +322,7 @@ onMounted(() => {
   left: 16px;
   top: 10px;
   background-color: #fff;
-  color: #80868b;
+  color: #709290;;
   font-size: 16px;
   transition: 0.3s;
   text-transform: uppercase;
@@ -329,7 +331,7 @@ onMounted(() => {
 .form-control:focus + .form__label {
   top: -8px;
   left: 12px;
-  color: #1a73e8;
+  color: #709290;;
   font-size: 12px;
   font-weight: 500;
   z-index: 10;
@@ -344,7 +346,7 @@ onMounted(() => {
 }
 
 .form-control:focus {
-  border: 1.5px solid #1a73e8;
+  border: 1.5px solid #709290;;
   box-shadow: none;
 }
 </style>

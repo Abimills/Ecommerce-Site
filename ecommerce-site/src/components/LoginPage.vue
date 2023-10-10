@@ -4,6 +4,7 @@
       <div class="screen">
         <div class="screen__content">
           <form class="login" @submit.prevent="handleSubmit">
+            <p class="hint">To have admin experience, Log in with hint</p>
             <div class="login__field">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +28,8 @@
                 placeholder="Email"
                 v-model="email"
               />
+              <br/>
+              <p class="hint">hint : admin@gmail.com</p>
             </div>
             <div class="login__field">
               <svg
@@ -51,6 +54,8 @@
                 placeholder="Password"
                 v-model="password"
               />
+               <p class="hint">hint : admin123</p>
+              
             </div>
             <button type="submit" class="button login__submit" >Log In</button>
           </form>

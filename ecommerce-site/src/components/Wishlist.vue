@@ -34,7 +34,7 @@
         </p>
       </div>
     </div>
-    <div class="products-container-favorite">
+    <div class="products-container-favorite" v-if="wishlistAfterFilter?.length > 0">
       <div
         class="favorite-product"
         v-for="product in wishlistAfterFilter"
@@ -65,6 +65,10 @@
         <!-- <button class="close" @click="handleWish(product?._id)">X</button> -->
       </div>
     </div>
+     <div class="empty-data" v-else >
+        <h1 class="empty-data-header">Your WishList is desperately empty</h1>
+        <p>Fill it with your favorite products!!</p>
+      </div>
   </div>
 </template>
 
@@ -174,6 +178,22 @@ onMounted(() => {
   
   /* padding: 4px; */
 }
+.empty-data{
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items:center;
+  justify-content : center;
+  flex-direction: column;
+  
+  color:#709290;
+  gap: 4rem;
+    font-family: "Outfit", sans-serif;
+    text-transform: uppercase;
+}
+  .empty-data p{
+    text-transform: lowercase;
+  }
 .nav-header-container {
   /* width: 30%; */
   display: flex;

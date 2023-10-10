@@ -119,7 +119,7 @@
             class="shopping-bag"
           />
         </router-link>
-        <p>{{ totalItems }}</p>
+        <p class="total-all-items-cart">{{ totalItems }}</p>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +255,7 @@ li{
   margin-top: -0.9rem;
   cursor: pointer;
 }
-.cart-container p {
+.total-all-items-cart {
   position: absolute;
   background-color: black;
   width: 21px;
@@ -264,7 +264,7 @@ li{
   color: white;
   top: -14px;
   left: 20px;
-  z-index: 4;
+  z-index: 12;
   display: flex;
   align-items: center;
   justify-content: center;

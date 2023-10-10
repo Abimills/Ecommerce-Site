@@ -9,22 +9,43 @@
         Want to have a conversation? <br />
         lets make it happen!
       </p>
-      <form class="form-control">
+      <form class="form-control" @submit.prevent="handleSubmit">
         <div class="contact-name-user">
-          <input type="text" placeholder="First Name" class="name" />
-          <input type="text" placeholder="Last Name" class="name" />
+          <input
+            type="text"
+            placeholder="First Name"
+            class="name"
+            v-model="firstName"
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            class="name"
+            v-model="lastName"
+          />
         </div>
         <div class="email-container">
-          <input type="email" placeholder="Email" class="email" />
+          <input
+            type="email"
+            placeholder="Email"
+            class="email"
+            v-model="email"
+          />
         </div>
         <div class="phone-container">
-          <input type="text" placeholder="Phone" class="phone" />
+          <input
+            type="text"
+            placeholder="Phone"
+            class="phone"
+            v-model="phone"
+          />
         </div>
         <div class="text-area-container">
           <textarea
             type="text"
             placeholder="Write your comment here"
             class="comment"
+            v-model="text"
           ></textarea>
         </div>
         <div class="send-btn-container">
@@ -34,10 +55,36 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "Contact",
-  data() {},
+<script setup>
+import { ref } from "vue";
+import { useToast } from "vue-toastification";
+const toast = useToast();
+const firstName = ref("");
+const lastName = ref("");
+const email = ref("");
+const phone = ref("");
+const text = ref("");
+const handleSubmit = () => {
+  if (
+    firstName.value &&
+    lastName.value &&
+    email.value &&
+    phone.value &&
+    text.value
+  ) {
+    toast.success(`Thank you ${firstName.value}, We will get back to you!`, {
+      timeout: 2000,
+    });
+    firstName.value = "";
+    lastName.value = "";
+    email.value = "";
+    phone.value = "";
+    text.value = "";
+  } else {
+    toast.warning(`Please fill all fields`, {
+      timeout: 2000,
+    });
+  }
 };
 </script>
 <style scoped>
@@ -79,10 +126,10 @@ export default {
   text-transform: uppercase;
   font-family: "Croissant One", cursive;
   /* font-family: 'Dosis', sans-serif; */
-/* font-family: 'Mooli', sans-serif; */
-font-family: 'Outfit', sans-serif;
+  /* font-family: 'Mooli', sans-serif; */
+  font-family: "Outfit", sans-serif;
   font-weight: 100;
-  color:#709290;
+  color: #709290;
 }
 .interested-para {
   font-family: "Dosis", sans-serif;
@@ -99,10 +146,9 @@ font-family: 'Outfit', sans-serif;
   margin: 0.3rem;
   color: white;
 }
-.name::placeholder{
-    color:white;
-
-  }
+.name::placeholder {
+  color: white;
+}
 .email,
 .phone,
 .comment {
@@ -125,49 +171,46 @@ font-family: 'Outfit', sans-serif;
   font-size: 1rem;
   cursor: pointer;
 }
-@media screen and (max-width:550px) {
-  .my-logo-with-pic-contact-container{
+@media screen and (max-width: 550px) {
+  .my-logo-with-pic-contact-container {
     display: none;
   }
   .all-input-contact-container {
-  width: 100%;
-  margin: 0;
-  justify-content: center;
-  /* margin-top: 3rem; */
-  
-}
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    /* margin-top: 3rem; */
+  }
 
-.get-in-touch{
-  text-align: center;
-}
-.interested-para{
-  text-align: center;
-}
-.form-control{
-  text-align: center;
-}
-}
-@media screen and (max-width:300px) {
-  .get-in-touch{
-    font-size:1.9rem;
+  .get-in-touch {
+    text-align: center;
   }
-  .interested-para{
-    font-size:.9rem;
+  .interested-para {
+    text-align: center;
   }
-  .name{
-    width:45%;
+  .form-control {
+    text-align: center;
   }
-  
+}
+@media screen and (max-width: 300px) {
+  .get-in-touch {
+    font-size: 1.9rem;
+  }
+  .interested-para {
+    font-size: 0.9rem;
+  }
+  .name {
+    width: 45%;
+  }
+
   .email,
-.phone,
-.comment {
-  width: 93%;
-  
-}
-.send-contact-comments {
-  width: 93%;
-  
-}
+  .phone,
+  .comment {
+    width: 93%;
+  }
+  .send-contact-comments {
+    width: 93%;
+  }
 }
 </style>
 

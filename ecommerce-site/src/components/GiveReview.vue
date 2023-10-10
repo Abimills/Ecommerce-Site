@@ -1,6 +1,10 @@
 <template>
   <div class="mother-review-container">
-    <h2 :class="store.state.mode === 'light' ? 'header light-header' : 'header'">WE APPRECIATE YOUR REVIEW!</h2>
+    <h2
+      :class="store.state.mode === 'light' ? 'header light-header' : 'header'"
+    >
+      WE APPRECIATE YOUR REVIEW!
+    </h2>
     <h6 class="customer-app">
       Your review will help us to improve our web hosting quality products, and
       customer services.
@@ -170,9 +174,13 @@
 
 <script setup>
 import axios from "axios";
+import { useToast } from "vue-toastification";
 import { ref } from "vue";
 import { useStore } from "vuex";
-const store = useStore()
+import { useRouter } from "vue-router";
+const store = useStore();
+const router = useRouter();
+const toast = useToast();
 const name = ref("");
 const email = ref("");
 const location = ref("");
@@ -195,9 +203,26 @@ const handleSubmit = async () => {
     };
 
     const res = await axios.post("http://localhost:4040/reviews/", data);
-    
+    if (res.data) {
+      name.value = "";
+      email.value = "";
+      location.value = "";
+      rating.value = 1;
+      review.value = "";
+      router.push({name:'all-review'})
+      toast.success("Thank you!, review submitted successfully", {
+        timeout: 2000,
+      });
+    }
+    else{
+       toast.warning("Something went wrong while submitting this form", {
+        timeout: 2000,
+      });
+    }
   } else {
-    alert("Please fill the necessary fields");
+    toast.warning("Please fill all fields before submitting", {
+      timeout: 2000,
+    });
   }
 };
 </script>
@@ -244,11 +269,11 @@ const handleSubmit = async () => {
 }
 .light-header {
   padding: 2px 15px;
-  color:gray;;
+  color: gray;
   margin: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  margin-bottom: 2.5rem;;
+  margin-bottom: 2.5rem;
 }
 
 .customer-app {
