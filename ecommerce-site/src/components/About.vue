@@ -1,5 +1,5 @@
 <template>
-  <div class="about-container">
+  <div class="about-container" >
     <div class="left-side">
       <h1 class="about-header left-header">About Us</h1>
       <svg
@@ -80,6 +80,8 @@ export default {
  
   margin-top: 3rem;
   margin-bottom: -4.3rem;
+    transition: all 1s ease-in-out ;
+  animation-delay: 1s;
 }
 .left-header {
   text-align: right;

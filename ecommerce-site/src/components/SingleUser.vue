@@ -88,6 +88,7 @@ const store = useStore();
 }
 .all-view-items-container {
   width: 100%;
+   transition: all 1s ease-in-out ;
 }
 .view-item {
   width: 100%;

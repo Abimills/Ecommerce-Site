@@ -1,4 +1,5 @@
 <template>
+   <!-- transition: all 1s ease-in-out ; -->
   <div :class="store.state.mode === 'light' ? 'favorite-container light-favorite-container': 'favorite-container'">
     <div class="top-header-container">
       <div class="nav-header-container">
@@ -34,7 +35,16 @@
         </p>
       </div>
     </div>
-    <div class="products-container-favorite" v-if="wishlistAfterFilter?.length > 0">
+    <div class="products-container-favorite" v-if="wishlistAfterFilter?.length > 0" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }" >
       <div
         class="favorite-product"
         v-for="product in wishlistAfterFilter"
@@ -65,7 +75,16 @@
         <!-- <button class="close" @click="handleWish(product?._id)">X</button> -->
       </div>
     </div>
-     <div class="empty-data" v-else >
+     <div class="empty-data" v-else v-motion
+    :initial="{
+      opacity: 0,
+      y: -50,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }"  >
         <h1 class="empty-data-header">Your WishList is desperately empty</h1>
         <p>Fill it with your favorite products!!</p>
       </div>
@@ -190,6 +209,7 @@ onMounted(() => {
   gap: 4rem;
     font-family: "Outfit", sans-serif;
     text-transform: uppercase;
+     transition: all 1s ease-in-out ;
 }
   .empty-data p{
     text-transform: lowercase;
@@ -276,6 +296,7 @@ onMounted(() => {
   flex-wrap: wrap;
   padding: 10px;
   justify-content: center;
+   transition: all 1s ease-in-out ;
 }
 .favorite-product {
   width: 250px;

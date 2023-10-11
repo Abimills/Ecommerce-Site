@@ -191,7 +191,16 @@
       </div>
     </div>
 
-    <div class="profile-all-container">
+    <div class="profile-all-container" v-motion
+    :initial="{
+      opacity: 0,
+      y: -60,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <div class="profile-all">
         <div class="top-img-info-container">
           <img
@@ -536,6 +545,7 @@ onMounted(() => {
   /* flex-direction: column; */
   /* margin-left: 4rem; */
   margin-top: 2rem;
+   transition: all 1s ease-in-out ;
 }
 .profile-all {
   width: 50%;

@@ -200,7 +200,16 @@
         <h1>All Products</h1>
         <p>Products : <span>23</span></p>
       </div>
-      <div class="all-view-items-container" v-if="products?.products?.length > 0">
+      <div class="all-view-items-container"  v-if="products?.products?.length > 0" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
         <SingleViewVue
           v-for="product in products?.products"
           :deleteProduct="deleteProduct"
@@ -748,6 +757,7 @@ li {
 .all-view-items-container {
   width: 100%;
   flex-wrap: wrap;
+   transition: all 1s ease-in-out ;
 }
 .view-item {
   width: 100%;
@@ -852,6 +862,7 @@ li {
   .all-view-items-container {
     width: 100%;
     flex-wrap: wrap;
+     transition: all 1s ease-in-out ;
   }
   .admin-bar {
     width: 30px;

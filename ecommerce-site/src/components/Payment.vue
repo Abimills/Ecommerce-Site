@@ -1,28 +1,28 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12 mt-4">
-        <div class="card p-3">
-          <p class="mb-0 fw-bold h4">Payment Methods</p>
-        </div>
+    <div class="">
+      <div class="payment-instruction-container">
+        
+          <p class="">Payment Methods</p>
+       
       </div>
-      <div class="col-12">
-        <div class="card p-3">
-          <div class="card-body border p-0">
+      <div class="">
+        <div class="">
+          <div class="pay-now-paypal">
             <p>
               <a
-                class="btn btn-primary w-100 h-100 d-flex align-items-center justify-content-between"
+                class=" "
                 data-bs-toggle="collapse"
                 href="#collapseExample"
                 role="button"
                 aria-expanded="true"
                 aria-controls="collapseExample"
               >
-                <span class="fw-bold">PayPal</span>
+                <span class="paypal">PayPal</span>
                 <span class="fab fa-cc-paypal"> </span>
               </a>
             </p>
-            <div class="collapse p-3 pt-0" id="collapseExample">
+            <div class="bill-info">
               <div class="row">
                 <div class="col-8">
                   <p class="h4 mb-0">Summary</p>
@@ -44,11 +44,11 @@
                 class="btn btn-primary payment"
                 @click="handleSubmit('paypal')"
               >
-                Make Payment
+              ${{ store.state.amount }}.00   Pay Now
               </div>
             </div>
           </div>
-          <div class="card-body border p-0">
+          <div class="payment-instruction-container">
             <p>
               <a
                 class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
@@ -66,7 +66,7 @@
                 </span>
               </a>
             </p>
-            <div class="collapse show p-3 pt-0" id="collapseExample">
+            <div class="bill-info" >
               <div class="row">
                 <div class="col-lg-5 mb-lg-0 mb-3">
                   <p class="h4 mb-0">Summary</p>
@@ -141,7 +141,7 @@
                       <div class="col-12">
                         <!-- <div class="btn btn-primary w-100">Sumbit</div> -->
                         <button type="submit" class="btn btn-primary payment">
-                          Pay
+                           ${{ store.state.amount }}.00 Pay
                         </button>
                       </div>
                     </div>
@@ -157,8 +157,8 @@
 </template>
 
 <script setup>
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
-import "bootstrap"; // Bootstrap JavaScript (if needed)
+// import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
+// import "bootstrap"; // Bootstrap JavaScript (if needed)
 import { useStore } from "vuex";
 const store = useStore();
 const props = defineProps([]);
@@ -173,6 +173,9 @@ const cvv = ref("");
 const month = ref("");
 const cardName = ref("");
 const handleSubmit = (type) => {
+  if(store.state.cart?.length > 0){
+
+  
   if (type === "credit") {
     if (cardNumber.value && cvv.value && month.value && cardName) {
       // alert("all payed");
@@ -184,15 +187,18 @@ const handleSubmit = (type) => {
       });
     }
   } else if (type === "paypal") {
-//     alert("all payed");
     store.commit("payed");
     router.push('/');
+  }
+  }else {
+      toast.warning("can not pay for $0 amount ", {
+        timeout: 2000
+      });
   }
 };
 // Accessing the value from the route parameters
 onMounted(() => {
   const { amount } = router.currentRoute.value.params;
-  console.log(router.currentRoute);
   receivedValue.value = amount || "No value received";
 });
 </script>
@@ -223,6 +229,7 @@ onMounted(() => {
   
   border-radius: 0px;
 }
+
 
 
 
@@ -288,7 +295,7 @@ onMounted(() => {
 }
 
 .btn.btn-primary.payment {
-  background-color: #709290;;
+  background-color: rgb(115, 162, 45);;
   color: white;
   border-radius: 0px;
   height: 50px;
@@ -322,7 +329,7 @@ onMounted(() => {
   left: 16px;
   top: 10px;
   background-color: #fff;
-  color: #709290;;
+  color: greenyellow;;
   font-size: 16px;
   transition: 0.3s;
   text-transform: uppercase;
@@ -331,7 +338,7 @@ onMounted(() => {
 .form-control:focus + .form__label {
   top: -8px;
   left: 12px;
-  color: #709290;;
+  color: greenyellow;;
   font-size: 12px;
   font-weight: 500;
   z-index: 10;
@@ -348,5 +355,33 @@ onMounted(() => {
 .form-control:focus {
   border: 1.5px solid #709290;;
   box-shadow: none;
+}
+.payment-instruction-container{
+  width: 100%;
+  color:#709290;;
+  margin-bottom:2rem;
+  
+}
+.payment-instruction-container p{
+  text-transform: uppercase;
+
+}
+.paypal{
+  width: 200px;
+  background:white;
+  padding: 2px;;
+  
+
+
+}
+.pay-now-paypal{
+  width: 100%;
+  color:#709290;;
+}
+.bill-info *{
+  color:#709290;;
+  margin:.3rem 0;
+  
+  
 }
 </style>

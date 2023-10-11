@@ -172,7 +172,16 @@
    
       </div>
     </div>
-    <div class="add-products-form-container">
+    <div class="add-products-form-container" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <h1 class="add-products-header">Add Products</h1>
       <div class="line"></div>
       <form class="add-product-form" @submit.prevent="onSubmit">
@@ -363,6 +372,7 @@ const onSubmit = async () => {
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+   transition: all 1s ease-in-out ;
 }
 .log-out-request-container {
   margin-top: 1rem;

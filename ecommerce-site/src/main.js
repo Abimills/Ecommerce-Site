@@ -17,7 +17,7 @@ import {  faLinkedin} from '@fortawesome/free-brands-svg-icons'
 import {  faInstagram} from '@fortawesome/free-brands-svg-icons'
 import { createToast } from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
-
+import { MotionPlugin } from '@vueuse/motion'
 
 
 import App from './App.vue'
@@ -31,4 +31,4 @@ const options = {
 
 
 library.add(faBagShopping,faTruck,faHeadphones,faMoneyCheckDollar,faStar,faFacebook,faLinkedin,faInstagram)
-createApp(App).use(store).use(router).use(Toast, options).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
+createApp(App).use(store).use(router).use(Toast, options).use(MotionPlugin).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

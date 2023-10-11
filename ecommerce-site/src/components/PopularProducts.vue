@@ -1,4 +1,5 @@
 <template>
+
   <div class="new-products-container">
     <h1  :class="store.state.mode === 'light'?'brand-header change-brand-header' :'brand-header'">Popular Products</h1>
 
@@ -26,6 +27,7 @@
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
     </div>
   </div>
+
 </template>
 <script setup>
 import axios from "axios";

@@ -1,6 +1,15 @@
 <template>
 
-    <div class="new-products-container">
+    <div class="new-products-container"  v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       
       <h1 class="brand-header">Categories</h1>
       <div class="category-container">
@@ -98,7 +107,7 @@ const filterProducts = (category) => {
   justify-content: space-between;
   gap: 6rem;
   position: relative;
-
+ transition: all 1s ease-in-out ;
   font-family: "Outfit", sans-serif;
 }
 .return-arrow{
@@ -389,6 +398,7 @@ li {
   margin: 0rem;
   margin-bottom:5rem;;
   height:100%;
+   transition: all 1s ease-in-out ;
  
 }
 .brand-header {

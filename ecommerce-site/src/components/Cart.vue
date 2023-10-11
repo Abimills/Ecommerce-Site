@@ -25,7 +25,16 @@
       My Cart
     </h1>
     <div class="cart-items-payment-container">
-      <div class="cart-items-container" v-if="cartItems?.cart?.length > 0">
+      <div class="cart-items-container" v-if="cartItems?.cart?.length > 0" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }" >
         <SingleCartItem
           v-for="product in cartItems?.cart"
           :key="product?._id"
@@ -38,11 +47,29 @@
           <p>${{ totalPrice }}</p>
         </div>
       </div>
-       <div class="empty-data" v-else >
+       <div class="empty-data" v-else  v-motion
+    :initial="{
+      opacity: 0,
+      y: -50,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }" >
         <h1 class="empty-data-header">Your Cart is Desperately Empty</h1>
         <p>Fill it up with your choice of Products</p>
       </div>
-      <div class="payment-container">
+      <div class="payment-container" v-motion
+    :initial="{
+      opacity: 0,
+      y: -50,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
         <h4 class="enter-code-header">ENTER PROMO CODE</h4>
         <div class="promo-container">
           <input type="text" placeholder="Promo Code" />
@@ -102,11 +129,13 @@
 import axios from "axios";
 import SingleCartItem from "./SingleCartItem.vue";
 import { computed, onMounted, reactive, watch, ref } from "vue";
+import { useToast } from 'vue-toastification'
 import { useStore } from "vuex";
 import router from "@/router";
 const store = useStore();
 const cartItems = reactive({ cart: [] });
 const totalItems = ref(0);
+const toast = useToast();
 const totalPrice = ref(0);
 const discount = ref(0);
 const priceAfterDiscount = ref(totalPrice - discount || 0);
@@ -139,8 +168,16 @@ watch(cartItems, (newValue, oldValue) => {
 });
 
 const toCheckout = (amount) => {
-  store.commit("addAmount", amount);
-  router.push("/payment");
+  if(cartItems.cart?.length > 0){
+    store.commit("addAmount", amount);
+    router.push("/payment");
+
+  }
+  else{
+     toast.warning("Cart is empty, fill it up first!", {
+        timeout: 2000
+      });
+  }
 };
 const deleteProduct = (id) => {
   store.commit("removeFromCart", id);
@@ -209,6 +246,7 @@ onMounted(() => {
   gap: 4rem;
     font-family: "Outfit", sans-serif;
     text-transform: uppercase;
+     transition: all 1s ease-in-out ;
   }
   .empty-data p{
     text-transform: lowercase;
@@ -274,6 +312,7 @@ onMounted(() => {
   flex-direction: column;
   margin-top: 1rem;
   /* border-top: 1px solid #90cbc9; ; */
+   transition: all 1s ease-in-out ;
 
   margin: -5rem 1.2rem 0;
 }
@@ -394,6 +433,7 @@ onMounted(() => {
   width: 40%;
   margin-top: -2rem;
   margin-bottom: 0rem;
+   transition: all 1s ease-in-out ;
 }
 .enter-code-header {
   font-family: "Mooli", sans-serif;

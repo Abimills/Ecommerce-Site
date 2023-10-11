@@ -1,25 +1,7 @@
 <template>
   <div class="navigation-container">
-      <div :class="store.state.mode === 'light' ? 'nav-header-container light-mode-nav-header' :'nav-header-container'">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="return-arrow"
-          strokeWidth="{1.5}"
-          stroke="currentColor"
-          className="w-6 h-6"
-          @click="navigateBack"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-          />
-        </svg>
-
-        <h1 class="header" @click="navigateBack">Home/Payment</h1>
-      </div>
+  
+      <Navbar />
 <Payment/>
   </div>
 </template>
@@ -29,7 +11,7 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import SingleCategory from './SingleCategory.vue';
 import LoginPage from './LoginPage.vue';
-import RegisterPage from './RegisterPage.vue';
+import Navbar from './Navbar.vue';
 import Payment from './Payment.vue';
 const router = useRouter();
 const store = useStore();
@@ -41,7 +23,7 @@ function navigateBack() {
 <style scoped>
 .navigation-container{
       width: 100%;
-      padding: 10px;;
+      padding: 0px;;
 
 }
 .nav-header-container {
@@ -49,7 +31,7 @@ function navigateBack() {
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin: 1rem;
+  /* margin: 1rem; */
 }
 .nav-header-container h1 {
   color: aliceblue;

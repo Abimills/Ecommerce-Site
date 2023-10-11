@@ -6,7 +6,16 @@
         : 'item-container '
     "
   >
-    <div class="left-side">
+    <div class="left-side" v-motion
+    :initial="{
+      opacity: 0,
+      y: -100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <img
         :src="product.singleProduct?.product?.img"
         alt=""
@@ -29,7 +38,16 @@
         </div>
       </div>
     </div>
-    <div class="right-side">
+    <div class="right-side" v-motion
+    :initial="{
+      opacity: 0,
+      y: 60,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <h2 class="item-name">{{ product.singleProduct?.product?.name }}</h2>
       <p class="item-category">
         {{ product.singleProduct?.product?.category }}
@@ -225,13 +243,15 @@ watchEffect(() => {});
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.right-side {
-  width: 50%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
+   transition: all 1s ease-in-out ;
+  }
+  .right-side {
+    width: 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    transition: all 1s ease-in-out ;
 }
 .item-name {
   font-size: 2.5rem;

@@ -103,8 +103,8 @@ export default createStore({
       state.amount = 0
       state.cart = []
       localStorage.setItem("amount",JSON.stringify(state.amount))
-      localStorage.setItem("cart",JSON.stringify(state.cart))
-        toast.success("Payment done successfull ", {
+      localStorage.setItem("products",JSON.stringify(state.cart))
+        toast.success("Payment done successful ", {
         timeout: 2000
       });
         toast.info("Hang tight for the delivery of your product, Thank you!! ", {

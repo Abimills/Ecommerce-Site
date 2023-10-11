@@ -1,9 +1,27 @@
 <template>
-  <div class="contact-us-page-container">
-    <div class="my-logo-with-pic-contact-container">
+  <div class="contact-us-page-container" >
+    <div class="my-logo-with-pic-contact-container" v-motion
+    :initial="{
+      opacity: 0,
+      y: 40,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <img src="../assets/person.png" alt="" class="tempo-abel-pic" />
     </div>
-    <div class="all-input-contact-container">
+    <div class="all-input-contact-container" v-motion
+    :initial="{
+      opacity: 0,
+      y: -50,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <h1 class="get-in-touch">Contact us</h1>
       <p class="interested-para">
         Want to have a conversation? <br />
@@ -107,6 +125,7 @@ const handleSubmit = () => {
   display: flex;
   align-items: center;
   /* justify-content: space-evenly; */
+     transition: all 1s ease-in-out ;
 }
 .my-logo-with-pic-contact-container {
   width: 50%;
@@ -120,6 +139,7 @@ const handleSubmit = () => {
   width: 80%;
   margin: 0 auto;
   margin-top: 3rem;
+   transition: all 1s ease-in-out ;
 }
 .get-in-touch {
   font-size: 3rem;

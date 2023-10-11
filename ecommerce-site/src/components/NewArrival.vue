@@ -1,6 +1,15 @@
 <template>
   <div class="top-container">
-    <div class="left-side-arrival">
+    <div class="left-side-arrival" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
       <h1>New Arrivals</h1>
       <p>
         Explore the essence of modern style with our latest arrivals at famclog.

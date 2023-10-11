@@ -1,5 +1,5 @@
 <template>
-  <div class="about-section">
+  <div class="about-section" >
     <Navbar />
     <AboutNewsContainer />
     <Footer />

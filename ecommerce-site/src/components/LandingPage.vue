@@ -1,5 +1,21 @@
 <template>
-  <div :class=" store.state.mode  === 'light' ? 'home-container light-landing':'home-container'">
+  <div
+   v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }"
+    :class="
+      store.state.mode === 'light'
+        ? 'home-container light-landing'
+        : 'home-container'
+    "
+  >
     <div class="upper-text-container">
       <p class="fashion">
         <span>Big </span> Fashion<span class="sale">Sale</span>
@@ -43,11 +59,9 @@
 
 <script setup>
 import { useStore } from "vuex";
-
-
+import AOS from 'aos';
+AOS.init();
 const store = useStore();
-
-
 </script>
 
 <style scoped>
@@ -63,7 +77,27 @@ const store = useStore();
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin:0 auto;
+  margin: 0 auto; 
+  transition: all 1s ease-in-out ;
+
+ 
+}
+/* div {
+  animation: fadeAn .3s ease-in-out both;
+  animation-timeline: view();
+
+} */
+@keyframes fadeAn {
+ 0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 .words-btns-container {
@@ -162,11 +196,10 @@ const store = useStore();
   background-color: white;
   border-radius: 50%;
 }
-.light-landing .dot{
+.light-landing .dot {
   width: 3px;
   height: 3px;
-  background-color:#90cbc9;
-
+  background-color: #90cbc9;
 }
 .dot-container {
   display: flex;
@@ -243,118 +276,115 @@ const store = useStore();
     font-size: 3.4rem;
   }
   .buy-now-btn {
-  padding: 6px 20px;
-  border: 1px solid #90cbc9;
-  background-color: transparent;
-  font-size: 0.65rem;
-  color: #90cbc9;
-  font-family: "Dosis", sans-serif;
-  transition: all 0.3s ease-in-out;
-}
-.empty-btn {
-  background-color: rgb(172, 156, 127);
-  color: white;
-  border: 2px solid rgb(172, 156, 127);
-}
-.girl-image {
-  width: 90%;
-  height: 100vh;
-  object-fit: cover;
-  /* margin-top: -3rem; */
-  /* margin-right: -4rem; */
-  z-index: 0;
- 
-}
-.dot{
-  display: none;
-}
-.circle{
-  display: none;
-}
-.pic-and-style-container {
- display: flex;
- justify-content: flex-end;
- margin:0rem;
- 
-
-}
+    padding: 6px 20px;
+    border: 1px solid #90cbc9;
+    background-color: transparent;
+    font-size: 0.65rem;
+    color: #90cbc9;
+    font-family: "Dosis", sans-serif;
+    transition: all 0.3s ease-in-out;
+  }
+  .empty-btn {
+    background-color: rgb(172, 156, 127);
+    color: white;
+    border: 2px solid rgb(172, 156, 127);
+  }
+  .girl-image {
+    width: 90%;
+    height: 100vh;
+    object-fit: cover;
+    /* margin-top: -3rem; */
+    /* margin-right: -4rem; */
+    z-index: 0;
+  }
+  .dot {
+    display: none;
+  }
+  .circle {
+    display: none;
+  }
+  .pic-and-style-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0rem;
+  }
 }
 @media screen and (max-width: 640px) {
-.home-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction:column-reverse;
-  /* background: #064240; */
-}
+  .home-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column-reverse;
+    /* background: #064240; */
+  }
 
-.pic-and-style-container {
- display: flex;
- justify-content: center;
- align-items: center;
- margin-bottom:1.5rem;
-}
-.girl-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* margin-top: -3rem; */
-  /* margin-right: -4rem; */
-  display: flex;
- justify-content: center;
- align-items: center;
-  z-index: 0;
-  border-radius: 50%;;
-}
-.dot {
-  content: none;
-  width: 2px;
-  height: 2px;
-  background-color: orange;
+  .pic-and-style-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .girl-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* margin-top: -3rem; */
+    /* margin-right: -4rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    border-radius: 50%;
+  }
+  .dot {
+    content: none;
+    width: 2px;
+    height: 2px;
+    background-color: orange;
 
-  border-radius: 50%;
-}
-.dot-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1rem;
-  position: absolute;
-  left: 20%;;
-  top: 50%;
-}
-/* .dot{
+    border-radius: 50%;
+  }
+  .dot-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    left: 20%;
+    top: 50%;
+  }
+  /* .dot{
   display: none;
 } */
-/* .circle{
+  /* .circle{
   display: none;
 } */
 }
 @media screen and (max-width: 480px) {
-.pic-and-style-container {
- display: flex;
- justify-content: center;
- align-items: center;
- margin-bottom:1.5rem;
- margin-top:1.5rem;
- width: 98%;
- height: 100%;
-}
-.girl-image {
-  width: 100%;
-  height: 90vh;
-  object-fit: cover;
-  /* margin-top: -3rem; */
-  /* margin-right: -4rem; */
-  display: flex;
- justify-content: center;
- align-items: center;
-  z-index: 0;
-  border-radius: 50%;;
-}
-.description-paragraph {
+  .pic-and-style-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    width: 98%;
+    height: 100%;
+  }
+  .girl-image {
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    /* margin-top: -3rem; */
+    /* margin-right: -4rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    border-radius: 50%;
+  }
+  .description-paragraph {
     font-size: 0.8rem;
     width: 95%;
   }
@@ -370,13 +400,12 @@ const store = useStore();
     color: rgb(172, 156, 127);
     font-size: 3rem;
   }
-   .fashion {
+  .fashion {
     font-size: 2rem;
     font-family: "Outfit", sans-serif;
     color: rgb(228, 226, 226);
     margin-left: 0.5rem;
-    margin-bottom: .5rem;
-
+    margin-bottom: 0.5rem;
   }
   .description-paragraph {
     font-size: 0.75rem;
@@ -394,14 +423,12 @@ const store = useStore();
     color: rgb(172, 156, 127);
     font-size: 2.6rem;
   }
-   .fashion {
+  .fashion {
     font-size: 1.7rem;
     font-family: "Outfit", sans-serif;
     color: rgb(228, 226, 226);
     margin-left: 0.5rem;
-    margin-bottom: .5rem;
-
+    margin-bottom: 0.5rem;
   }
- 
 }
 </style>

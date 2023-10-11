@@ -195,7 +195,16 @@
           Users : <span>{{ users?.users?.length || 0 }}</span>
         </p>
       </div>
-      <div class="all-view-items-container" v-if="users?.users?.length > 0">
+      <div class="all-view-items-container" v-if="users?.users?.length > 0" v-motion
+    :initial="{
+      opacity: 0,
+      y: 100,
+
+    }"
+    :enter="{
+      opacity: 1,
+      y: 0,
+    }">
         <SingleUser
           v-for="user in users?.users"
           :deleteUser="deleteUser"
@@ -712,6 +721,7 @@ li {
 }
 .all-view-items-container {
   width: 100%;
+   transition: all 1s ease-in-out ;
 }
 .view-item {
   width: 100%;
