@@ -70,8 +70,8 @@ const navigateBack = (id) => {
 
 onMounted(() => {
   const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/products/");
-    products.product = res.data;
+    const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
+    products.product = res.data.products?.sort(() => Math.random() - 0.5);
     filterProducts("Shoes");
     getCategories(res.data);
   };
@@ -81,14 +81,14 @@ onMounted(() => {
 const filterProducts = (category) => {
   if (products.product) {
     if (category === "All") {
-      productsToShow.product.products = products.product.products;
+      productsToShow.product.products = products.product?.sort(() => Math.random() - 0.5);
       activeCategory.value = category;
     } else {
-      productsToShow.product.products = products.product.products?.filter(
+      productsToShow.product.products = products.product?.filter(
         (product) =>
           product.category?.toLowerCase() == category?.toLowerCase() ||
           product.timeRanges[0]?.toLowerCase() == category?.toLowerCase()
-      );
+      ).sort(() => Math.random() - 0.5);
       activeCategory.value = category;
     }
   } else {

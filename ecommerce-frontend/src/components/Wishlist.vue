@@ -128,7 +128,7 @@ const navigateBack = () => {
 const fetchData = async (store) => {
   const res = await Promise.all(
     store.state.wishlist?.map((item) =>
-      axios.get(`http://localhost:4040/products/${item}`)
+      axios.get(`https://my-ecommerce-bkends.onrender.com/products/${item}`)
     )
   );
   const cartProducts = res.map((product) => product.data.product);

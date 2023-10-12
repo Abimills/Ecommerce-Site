@@ -134,7 +134,7 @@ const password = ref("");
 const handleSubmit = () => {
   if (name.value && email.value && password.value) {
     axios
-      .post(`http://localhost:4040/users/register`, {
+      .post(`https://my-ecommerce-bkends.onrender.com/users/register`, {
         name: name.value,
         email: email.value,
         password: password.value,

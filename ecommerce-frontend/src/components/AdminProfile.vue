@@ -1,6 +1,6 @@
 <template>
-  <div class="create-product-container">
-    <div class="admin-mother-container">
+  <div :class="store.state.mode === 'light' ? 'create-product-container light-admin-panel': 'create-product-container'"  >
+    <div class=" admin-mother-container">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         @click="toggleProfile"
@@ -22,8 +22,10 @@
           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
         />
       </svg>
+
       <div
         class="admin-information-navigation"
+        
         :class="{
           'hide-admin-navigation': showProfile,
         }"
@@ -188,52 +190,65 @@
         </div>
       </div>
     </div>
-    <div class="single-view-container">
-      <div class="header-container">
-        <h1>All Users</h1>
-        <p>
-          Users : <span>{{ users?.users?.length || 0 }}</span>
-        </p>
-      </div>
-      <div class="all-view-items-container" v-if="users?.users?.length > 0" v-motion
+
+    <div class="profile-all-container" v-motion
     :initial="{
       opacity: 0,
-      y: 100,
+      y: -60,
 
     }"
     :enter="{
       opacity: 1,
       y: 0,
     }">
-        <SingleUser
-          v-for="user in users?.users"
-          :deleteUser="deleteUser"
-          :key="user?._id"
-          :user="user"
-        />
-      </div>
-      <div class="empty-data" v-else >
-        <h1 class="empty-data-header">You have no user currently</h1>
-        <p>Tip : Advertise your website to get Users!!</p>
+      <div class="profile-all">
+        <div class="top-img-info-container">
+          <img
+            src="../assets/cutepie23.png"
+            alt=""
+            class="person-profile-img"
+          />
+          <div class="person-info">
+            <p>{{ store.state.user?.name || "" }}.</p>
+            <p>{{ store.state.user?.email || "" }}</p>
+            <p class="owner">Owner</p>
+          </div>
+        </div>
+        <div class="product-info-container">
+          <ul class="list-info">
+            <div class="li-container">
+              <li class="list">categories of products</li>
+              <p>{{ productCategory.categories?.length }}</p>
+            </div>
+            <div class="li-container">
+              <li class="list">Newsletter subscribers</li>
+              <p>0</p>
+            </div>
+            <div class="li-container">
+              <li class="list">Reviews</li>
+              <p>0</p>
+            </div>
+            <div class="li-container">
+              <li class="list">users</li>
+              <p>{{ users?.users?.length - 1 || 0 }}</p>
+            </div>
+            <div class="li-container">
+              <li class="list">products</li>
+              <p>{{ products.product?.products?.length }}</p>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import SingleUser from "./SingleUser.vue";
 import axios from "axios";
-import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
+import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useToast } from "vue-toastification";
-const users = ref([]);
+import { useStore } from "vuex";
 const store = useStore();
-const showProfile = ref(true);
-const toast = useToast();
-const toggleProfile = () => {
-  showProfile.value = !showProfile.value;
-};
 const router = useRouter();
 const signOut = () => {
   store.commit("signOut");
@@ -242,16 +257,31 @@ const signOut = () => {
 const navigateHome = () => {
   router.push("/");
 };
-const deleteUser = (id) => {
-  toast.warning("You Just Delete a user from database", {
-    timeout: 2000,
-  });
-  users.value.users = users.value?.users?.filter((user) => user?._id !== id);
+const productCategory = reactive({ categories: [] });
+const products = reactive({ product: [] });
+const users = ref([]);
+const showProfile = ref(true);
+const toggleProfile = () => {
+  showProfile.value = !showProfile.value;
 };
+const getCategories = (data) => {
+  const categories = data?.products?.map((pro) => pro.category);
+  const timeRangeCat = data?.products?.map((pro) => pro.timeRanges[0]);
+  productCategory.categories = [
+    "All",
+    ...new Set(categories),
+    ...new Set(timeRangeCat),
+  ];
+};
+
 onMounted(() => {
   const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/users/");
-    users.value = res.data;
+    const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
+    const response = await axios.get("https://my-ecommerce-bkends.onrender.com/users/");
+    products.product = res.data;
+    users.value = response.data;
+    // filterProducts("Shoes");
+    getCategories(res.data);
   };
   fetch();
 });
@@ -259,12 +289,13 @@ onMounted(() => {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Croissant+One&family=Dosis:wght@200;300;400;500;600;700;800&family=Mooli&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 .create-product-container {
   width: 100%;
   display: flex;
   /* align-items: center; */
-  justify-content: space-between;
-  gap: 6rem;
+  /* justify-content: space-between; */
+  /* gap: 2rem; */
   position: relative;
 
   font-family: "Outfit", sans-serif;
@@ -282,30 +313,18 @@ onMounted(() => {
   width: 100%;
   /* gap: 2rem; */
 }
-/*  */
-.empty-data{
-  width: 100%;
-  min-height: 400px;
+.add-products-form-container {
+  width: 70%;
   display: flex;
-  align-items:center;
-  justify-content : center;
+  align-items: center;
+  justify-content: space-evenly;
   flex-direction: column;
-  color:#709290;
-  gap: 4rem;
-    font-family: "Outfit", sans-serif;
-    text-transform: uppercase;
-  }
-  .empty-data p{
-    text-transform: lowercase;
-  }
-.profile-icon {
-  width: 20px;
-  height: 20px;
-  /* fill: orange; */
-  /* color: orange; */
-  margin-top: -0.2rem;
-  /* border: 1px solid orange;
-  border-radius: 50%; */
+  gap: 1rem;
+  /* margin-left: 14rem; */
+}
+.log-out-request-container {
+  margin-top: 1rem;
+  width: 100%;
 }
 .log-btn {
   /* padding: 5px 10px; */
@@ -318,19 +337,6 @@ onMounted(() => {
   text-transform: uppercase;
   border-radius: 10px;
   cursor: pointer;
-}
-.add-products-form-container {
-  width: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  gap: 1rem;
-  margin-left: 14rem;
-}
-.log-out-request-container {
-  margin-top: 1rem;
-  width: 100%;
 }
 .log-out-request-container button {
   width: 100%;
@@ -454,9 +460,27 @@ onMounted(() => {
   /* margin-left: 3rem; */
   border-top-right-radius: 90px;
   position: fixed;
-
+  
   padding: 10px;
 }
+.light-admin-panel .admin-information-navigation {
+  width: 20%;
+  height: 100vh;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* background-color: rgb(0, 0, 0); */
+  color:#90cbc9;
+  /* margin-left: 3rem; */
+  border-top-right-radius: 90px;
+  position: fixed;
+  
+  padding: 10px;
+}
+
+
 .admin-pic-label {
   width: 100%;
   display: flex;
@@ -485,6 +509,15 @@ onMounted(() => {
   padding: 10px;
   border-bottom: 1px solid #90cbc9;
 }
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  /* fill: orange; */
+  /* color: orange; */
+  margin-top: -0.2rem;
+  /* border: 1px solid orange;
+  border-radius: 50%; */
+}
 .profile-container p,
 .categories-container p,
 .Add-product-container p,
@@ -510,8 +543,9 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   /* flex-direction: column; */
-  margin-left: 4rem;
+  /* margin-left: 4rem; */
   margin-top: 2rem;
+   transition: all 1s ease-in-out ;
 }
 .profile-all {
   width: 50%;
@@ -521,6 +555,15 @@ onMounted(() => {
 }
 .person-info {
   color: white;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.light-admin-panel .person-info {
+  color:black;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -678,124 +721,7 @@ li {
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
 }
-.view-img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-}
-.single-view-container {
-  width: 100%;
-  margin: 1rem;
-}
-.header-container {
-  width: 100%;
-  margin: 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #90cbc9;
-}
-.header-container h1 {
-  color: white;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
 
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.header-container p {
-  color: white;
-  font-size: 0.9rem;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.header-container p span {
-  color: white;
-  font-size: 0.9rem;
-  background: #90cbc9;
-  padding: 1px 9px;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.all-view-items-container {
-  width: 100%;
-   transition: all 1s ease-in-out ;
-}
-.view-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid #90cbc9;
-}
-.view-img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  background: white;
-  border-radius: 50%;
-}
-.name-description-container {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-left: -3rem;
-}
-.name-description-container h2 {
-  font-size: 1.4rem;
-  color: white;
-  text-transform: uppercase;
-}
-.name-description-container .brand,
-.price {
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: white;
-  max-width: 250px;
-}
-.price {
-  /* padding: 2px 10px; */
-  /* background: orange; */
-}
-.name-description-container .description {
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: rgb(196, 193, 193);
-  max-width: 250px;
-}
-.in-stock {
-  padding: 5px 10px;
-  background: #90cbc9;
-  border: 1px solid #90cbc9;
-  color: white;
-  font-size: 0.7rem;
-}
-.color,
-.category {
-  color: rgb(196, 193, 193);
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-.color span,
-.category span {
-  background: #000000;
-  color: white;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-}
-.price-delete-container button {
-  width: 100px;
-  padding: 5px;
-  background: rgb(192, 104, 104);
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  border: 1px solid rgb(192, 104, 104);
-}
 .profile-container .close-profile {
   display: none;
   width: 0px;
@@ -810,24 +736,7 @@ li {
   }
   /* admin all navigation resonsive */
   .admin-mother-container {
-    width: 1%;
-  }
-  .create-product-container {
-    /* align-items: center; */
-    justify-content: flex-start;
-    gap: 0rem;
-    position: relative;
-
-    font-family: "Outfit", sans-serif;
-  }
-  .single-view-container {
-    width: 100%;
-    margin: 0;
-    margin-top: 2rem;
-  }
-  .all-view-items-container {
-    width: 100%;
-    flex-wrap: wrap;
+    width: 10%;
   }
   .admin-bar {
     width: 30px;
@@ -913,6 +822,25 @@ li {
     height: 0%;
     font-size: 0;
     display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .profile-all {
+    width: 99%;
+  }
+   .admin-bar {
+    width: 30px;
+    height: 30px;
+    color: #718b8a;
+    fill: #90cbc9;
+    position: absolute;
+    display: block;
+    top: 0px;
+    margin-left: 1rem;
+    z-index: 3;
+    /* background: #709290;; */
+    border: 1px solid #709290;
+    border-radius: 50%;
   }
 }
 </style>

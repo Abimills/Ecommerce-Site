@@ -196,8 +196,8 @@ onMounted(() => {
   // }
   const fetchProduct = async () => {
     try {
-      const res = await axios.get(`http://localhost:4040/products/${id}`);
-      const response = await axios.get(`http://localhost:4040/products/`);
+      const res = await axios.get(`https://my-ecommerce-bkends.onrender.com/products/${id}`);
+      const response = await axios.get(`https://my-ecommerce-bkends.onrender.com/products/`);
       product.singleProduct = res?.data;
       data.products = response?.data.products
         ?.filter((pro) => pro.category === res.data.product?.category)

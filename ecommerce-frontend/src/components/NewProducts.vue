@@ -1,8 +1,7 @@
 <template>
-
   <div class="new-products-container">
-    <h1  :class="store.state.mode === 'light'?'brand-header change-brand-header' :'brand-header'">Popular Products</h1>
-
+    <h1  :class="store.state.mode === 'light'?'brand-header change-brand-header' :'brand-header'">Brand Products</h1>
+<p class="brand-text">New Branded Products approved by cli</p>
     <div class="product-container">
       <SingleProduct
         v-for="product in products?.product"
@@ -21,13 +20,12 @@
         >
           {{ page }}
         </p>
-        <p class="page dot-page" @click="setPagination(page)">...</p>
+        <p class="page dot-page" @click="setPagination(1)">...</p>
         <!-- {{ propValue }} -->
       </div>
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
     </div>
   </div>
-
 </template>
 <script setup>
 import axios from "axios";
@@ -44,8 +42,8 @@ const store = useStore();
 
 const productsPerPage = 8;
 const fetchProducts = async () => {
-  const res = await axios.get("http://localhost:4040/products/");
-  data.product = res.data;
+  const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
+  data.product = res.data.products?.sort(() => Math.random() - 0.5);
 };
 
 onMounted(() => {
@@ -56,7 +54,7 @@ onMounted(() => {
 
 // Reactive calculations inside computed
 const totalPages = computed(() => {
-  const productLength = data.product?.products?.length || 0;
+  const productLength = data.product?.length || 0;
   return Math.ceil(productLength / productsPerPage);
 });
 
@@ -65,7 +63,7 @@ const endIndex = computed(() => startIndex.value + productsPerPage);
 
 // Computed property to get sliced products
 const slicedProducts = computed(() => {
-  return data.product?.products?.slice(startIndex.value, endIndex.value) || [];
+  return data.product?.slice(startIndex.value, endIndex.value) || [];
 });
 watchEffect(() => {
   products.product = slicedProducts.value;
@@ -134,27 +132,6 @@ div {
   margin-top: 6rem;
   margin-bottom: 6rem;
 }
-.wish {
-  width: 100%;
-
-  color: black;
-  /* position: absolute; */
-  top: 10px;
-  left: 50%;
-  fill: black;
-  text-align: right;
-}
-.heart-icon {
-  width: 25px;
-  height: 25px;
-  color: black;
-}
-.full-icon {
-  width: 25px;
-  height: 25px;
-  color: black;
-  fill: black;
-}
 .brand-header {
   color: rgb(217, 217, 217);
   font-family: "Dosis", sans-serif;
@@ -162,24 +139,18 @@ div {
   text-transform: uppercase;
   margin-bottom: 2rem;
 }
-.change-brand-header{
-  color:rgb(144, 171, 194);
+.change-brand-header {
+  color: wheat;
 }
 .brand-text {
-  color: rgb(159, 156, 156);
+  color: rgb(175, 159, 130);
   font-family: "Dosis", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   font-size: 0.7rem;
   margin-bottom: 2rem;
-}
-.product-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: 2rem;
-  align-items: center;
-  flex-wrap: wrap;
+  text-align: center;
+  letter-spacing: 2px;
 }
 /* pagination ----- */
 
@@ -219,25 +190,27 @@ div {
 }
 .active-page {
   color: white;
-  background: orange;
-  padding: 5px;
-}
-.change-color-pagination  .active-page {
-  color: white;
-  background: gray;
+  background: wheat;
   padding: 5px;
 }
 /* pagination end  */
+.product-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .product {
   width: 280px;
   padding: 10px;
-  background: aliceblue;
+  background: wheat;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 }
-
 .price-container {
   width: 100%;
   display: flex;
@@ -247,8 +220,7 @@ div {
 }
 .product-name {
   font-family: "Dosis", sans-serif;
-  color: #064240;
-  font-weight: 500;
+  color: white;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -260,26 +232,16 @@ div {
 }
 .description {
   font-family: "Dosis", sans-serif;
-  color: #064240;
-  margin-bottom: 1rem;
-  font-size: 0.8rem;
-}
-.description {
-  font-family: "Dosis", sans-serif;
-  color: rgb(240, 238, 238);
   color: #709290;;
+
   margin-bottom: 1rem;
   font-size: 0.8rem;
   max-height: 50px;
   overflow: hidden;
 }
-.change-color-pagination{
-  color:gray;
-}
 .hidden-description {
   font-family: "Dosis", sans-serif;
   color: rgb(240, 238, 238);
-  color: #064240;
   margin-bottom: 1rem;
   font-size: 0.8rem;
   height: max-content;
@@ -308,56 +270,56 @@ div {
 .add-to-cart:hover {
   background: transparent;
 }
+.change-color-pagination {
+  color: gray;
+}
 @media screen and (max-width: 480px) {
   .pages-container {
     width: 100%;
-}
-.pagination-container {
-  width: 100%;
-  /* background: rgb(199, 195, 195); */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0rem;
-  padding: 15px;
-  margin: 2rem 1rem;
-  border-radius: 30px;
-  font-family: "Mooli", sans-serif;
-  font-family: "Outfit", sans-serif;
-  font-family: "Roboto", sans-serif;
-  color: white;
-}
-.left-arrow,
-.right-arrow {
-  font-family: "Caveat", cursive;
-  font-family: "Croissant One", cursive;
-  font-family: "Dosis", sans-serif;
-  font-size: 2rem;
-  font-weight: 100;
-  cursor: pointer;
-}
-.left-arrow{
-  margin-top:.3rem;
-}
-.dot-page{
-  display: none;
-}
-.active-page , .page{
-  font-size: .7em;
-}
+  }
+  .pagination-container {
+    width: 100%;
+    /* background: rgb(199, 195, 195); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0rem;
+    padding: 15px;
+    margin: 2rem 1rem;
+  }
+  .left-arrow,
+  .right-arrow {
+    font-family: "Caveat", cursive;
+    font-family: "Croissant One", cursive;
+    font-family: "Dosis", sans-serif;
+    font-size: 2rem;
+    font-weight: 100;
+    cursor: pointer;
+  }
+  .left-arrow {
+    margin-top: 0.3rem;
+  }
+
+  .dot-page {
+    display: none;
+  }
+  .active-page,
+  .page {
+    font-size: 0.7em;
+  }
 }
 @media screen and (max-width: 320px) {
   .product-img {
-  width: 90%;
-}
-.product {
-  width: 90%;
-  padding: 10px;
- 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
+    width: 90%;
+  }
+  .product {
+    width: 90%;
+    padding: 10px;
+    background: rgb(197, 179, 145);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 </style>

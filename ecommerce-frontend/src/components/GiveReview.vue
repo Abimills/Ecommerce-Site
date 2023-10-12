@@ -202,7 +202,7 @@ const handleSubmit = async () => {
       review: review.value,
     };
 
-    const res = await axios.post("http://localhost:4040/reviews/", data);
+    const res = await axios.post("https://my-ecommerce-bkends.onrender.com/reviews/", data);
     if (res.data) {
       name.value = "";
       email.value = "";

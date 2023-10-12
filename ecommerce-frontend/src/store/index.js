@@ -53,13 +53,13 @@ export default createStore({
       const itemExist =state.wishlist.find(wish => wish === id);
       if(itemExist){
         state.wishlist = state.wishlist.filter(wish => wish !== id);
-         toast.success("Product removed from  Wishlist", {
+         toast.info("Product removed from  Wishlist", {
         timeout: 2000
       });
         localStorage.setItem("wishlist",JSON.stringify(state.wishlist))
       }else{
         state.wishlist = [...state.wishlist,id]
-         toast.success("Product added to Wishlist", {
+         toast.info("Product added to Wishlist", {
         timeout: 2000
       });
         localStorage.setItem("wishlist",JSON.stringify(state.wishlist))
@@ -136,26 +136,6 @@ export default createStore({
       commit('updateCartItemQuantity',{id ,quantity});
       localStorage.setItem('products', JSON.stringify(state.cart))
     },
-
-//     async fetchData ({commit,state}) {
-//       const res = await Promise.all(
-//     store.state.cart?.map((item) =>
-//       axios.get(`http://localhost:4040/products/${item?.id}`)
-//     )
-//   );
-//   const cartProducts = res.map((product) => {
-//     const matchingCartItem = store.state.cart.find(
-//       (item) => item.id === product?.data?.product?._id
-//     );
-//     if (matchingCartItem) {
-//       return { ...product?.data?.product, quantity: matchingCartItem.quantity };
-//     } else {
-//       return product?.data?.product;
-//     }
-
-//   });
-
-//  } 
  },
   modules: {
   }

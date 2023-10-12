@@ -25,7 +25,7 @@ import SingleReviewVue from "./SingleReview.vue";
 const reviews = ref([]);
 const store = useStore();
 const fetch = async () => {
-  const res = await axios.get("http://localhost:4040/reviews/");
+  const res = await axios.get("https://my-ecommerce-bkends.onrender.com/reviews/");
   reviews.value = res.data.reviews;
 };
 onMounted(() => {

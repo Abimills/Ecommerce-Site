@@ -232,7 +232,7 @@ const getCategories = (data) => {
 
 onMounted(() => {
   const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/products/");
+    const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
     // productsToShow.product = res.data;
     products.product = res.data;
     filterProducts("Shoes");
@@ -259,7 +259,7 @@ const onSubmit = async () => {
       newData
     );
     const { url } = imgUploaded.data;
-    const res = await axios.post(`http://localhost:4040/products/`, {
+    const res = await axios.post(`https://my-ecommerce-bkends.onrender.com/products/`, {
       ...data,
       img: url,
     });

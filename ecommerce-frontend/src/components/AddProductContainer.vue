@@ -1,42 +1,18 @@
 <template>
-  <div
-    :class="
-      store.state.mode === 'light'
-        ? 'create-product-container light-admin-panel'
-        : 'create-product-container'
-    "
-  >
-    <div class="admin-mother-container">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        @click="toggleProfile"
-        class="admin-bar"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="{1.5}"
-        stroke="currentColor"
-        className="w-6 h-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-
-      <div
+  <div :class="store.state.mode === 'light' ? 'create-product-container light-admin-panel': 'create-product-container'" >
+   <div class="admin-mother-container">
+       <svg xmlns="http://www.w3.org/2000/svg"  @click="toggleProfile"  class="admin-bar" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+     <div
         class="admin-information-navigation"
         :class="{
           'hide-admin-navigation': showProfile,
         }"
       >
         <div class="profile-container">
-          <div class="link-profile">
+       <div class="link-profile">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -55,7 +31,7 @@
             </svg>
 
             <p>Admin</p>
-            <svg
+              <svg
               xmlns="http://www.w3.org/2000/svg"
               class="close-profile"
               fill="none"
@@ -193,14 +169,10 @@
             <p>View User</p>
           </router-link>
         </div>
+   
       </div>
     </div>
-    <div class="single-view-container">
-      <div class="header-container">
-        <h1>All Products</h1>
-        <p>Products : <span>23</span></p>
-      </div>
-      <div class="all-view-items-container"  v-if="products?.products?.length > 0" v-motion
+    <div class="add-products-form-container" v-motion
     :initial="{
       opacity: 0,
       y: 100,
@@ -210,31 +182,100 @@
       opacity: 1,
       y: 0,
     }">
-        <SingleViewVue
-          v-for="product in products?.products"
-          :deleteProduct="deleteProduct"
-          :key="product?._id"
-          :product="product"
-        />
-      </div>
-      <div class="empty-data" v-else >
-        <h1 class="empty-data-header">Your Products are empty</h1>
-        <p>Fill Your products in addProducts section!!</p>
-      </div>
+      <h1 class="add-products-header">Add Products</h1>
+      <div class="line"></div>
+      <form class="add-product-form" @submit.prevent="onSubmit">
+        <div class="name-container">
+          <label class="label">Product Name</label>
+          <input
+            type="text"
+            class="name"
+            placeholder="Enter Product name"
+            v-model="data.name"
+          />
+        </div>
+        <div class="price-container">
+          <label class="label">Product Price</label>
+          <input
+            type="number"
+            class="name"
+            placeholder="Enter Product price"
+            v-model="data.price"
+          />
+        </div>
+        <div class="category-container">
+          <label class="label">Category</label>
+          <input
+            type="text"
+            class="name"
+            placeholder="Enter Product category"
+            v-model="data.category"
+          />
+        </div>
+        <div class="description-container">
+          <label class="label">Product Description</label>
+          <input
+            type="text"
+            class="name"
+            placeholder="Enter Product Description"
+            v-model="data.description"
+          />
+        </div>
+        <div class="discount-container">
+          <label class="label"> Discount </label>
+          <input
+            type="number"
+            class="name"
+            placeholder="Enter Product discount if applies"
+            v-model="data.discount"
+          />
+        </div>
+        <div class="time-ranges-container">
+          <label class="label">
+            Give label for the product entrance name
+          </label>
+          <input
+            type="text"
+            class="name"
+            placeholder="Label product entrance time"
+            v-model="data.timeRanges"
+          />
+        </div>
+        <div class="colors-container">
+          <label class="label">Product colors </label>
+          <input
+            type="text"
+            class="name"
+            placeholder="Enter Product colors availability"
+            v-model="data.colors"
+          />
+        </div>
+        <div class="img-container">
+          <label class="label">Product Image </label>
+          <input
+            type="file"
+            class="name"
+            placeholder="Provide product image"
+            @change="handleImage"
+          />
+        </div>
+
+        <input type="submit" class="submit-btn" value="Add Product" />
+      </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import SingleViewVue from "./SingleView.vue";
 import axios from "axios";
-import { useToast } from "vue-toastification";
-import { onMounted, ref } from "vue";
+
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { useToast } from 'vue-toastification'
 const store = useStore();
-const router = useRouter();
 const toast = useToast();
+const router = useRouter();
 const showProfile = ref(true);
 const toggleProfile = () => {
   showProfile.value = !showProfile.value;
@@ -243,33 +284,64 @@ const signOut = () => {
   store.commit("signOut");
   router.push("/");
 };
+const data = reactive({
+  name: "",
+  price: "",
+  description: "",
+  category: "",
+  img: "3241324",
+  colors: "",
+  timeRanges: "",
+  discount: "",
+});
 const navigateHome = () => {
+ 
   router.push("/");
+}
+const handleImage = (e) => {
+  const file = e.target.files[0];
+  data.img = file;
 };
 
-const products = ref([]);
-
-const deleteProduct = (id) => {
- toast.warning("You Just Delete a product from database", {
+const onSubmit = async () => {
+  if (
+    data?.price &&
+    data?.name &&
+    data?.description &&
+    data?.category &&
+    data?.img &&
+    data?.timeRanges &&
+    data?.img
+  ) {
+    const newData = new FormData();
+    newData.append("file", data?.img);
+    newData.append("upload_preset", "uploads");
+    const imgUploaded = await axios.post(
+      "https://api.cloudinary.com/v1_1/dnokvmwmd/image/upload",
+      newData
+    );
+    const { url } = imgUploaded.data;
+    const res = await axios.post(`https://my-ecommerce-bkends.onrender.com/products/`, {
+      ...data,
+      img: url,
+    });
+   if(res.data){
+     toast.success("Product successfully added to database", {
        timeout: 2000
      });
-    products.value.products = products.value?.products?.filter(
-      (product) => product?._id !== id
-      );
-
-   
- 
-
-  
-
+     
+    }else{
+      
+      toast.warning("Something went wrong, please try again", {
+        timeout: 2000
+      });
+   }
+  } else {
+      toast.warning("Please provide all fields", {
+        timeout: 2000
+      });
+  }
 };
-onMounted(() => {
-  const fetch = async () => {
-    const res = await axios.get("http://localhost:4040/products/");
-    products.value = res.data;
-  };
-  fetch();
-});
 </script>
 
 <style scoped>
@@ -288,6 +360,10 @@ onMounted(() => {
 .right-side-container {
   width: 100%;
 }
+.link-profile {
+  list-style: none;
+  text-decoration: none;
+}
 .add-products-form-container {
   width: 70%;
   display: flex;
@@ -295,24 +371,9 @@ onMounted(() => {
   justify-content: space-evenly;
   flex-direction: column;
   gap: 1rem;
-  margin-left: 14rem;
+  margin-top: 2rem;
+   transition: all 1s ease-in-out ;
 }
-.empty-data{
-  width: 100%;
-  min-height: 400px;
-  display: flex;
-  align-items:center;
-  justify-content : center;
-  flex-direction: column;
-  
-  color:#709290;
-  gap: 4rem;
-    font-family: "Outfit", sans-serif;
-    text-transform: uppercase;
-}
-  .empty-data p{
-    text-transform: lowercase;
-  }
 .log-out-request-container {
   margin-top: 1rem;
   width: 100%;
@@ -335,37 +396,6 @@ onMounted(() => {
   padding: 20px;
   border: 1px solid #90cbc9;
   border-radius: 5px;
-}
-.link-profile {
-  list-style: none;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  width: 100%;
-  /* gap: 2rem; */
-}
-.profile-icon {
-  width: 20px;
-  height: 20px;
-  /* fill: orange; */
-  /* color: orange; */
-  margin-top: -0.2rem;
-  /* border: 1px solid orange;
-  border-radius: 50%; */
-}
-.log-btn {
-  /* padding: 5px 10px; */
-  background: #90cbc9;
-  border: 1px solid #90cbc9;
-  color: white;
-  padding: 5px 8px;
-  font-size: 0.6rem;
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  border-radius: 10px;
-  cursor: pointer;
 }
 .name-container,
 .price-container,
@@ -418,6 +448,21 @@ onMounted(() => {
   outline: none;
   margin-bottom: 1rem;
 }
+.light-admin-panel .name-container input,
+.light-admin-panel .price-container input,
+.light-admin-panel .img-container input,
+.light-admin-panel .colors-container input,
+.light-admin-panel .time-ranges-container input,
+.light-admin-panel .discount-container input,
+.light-admin-panel .description-container input,
+.light-admin-panel .category-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #709290;
+  color:#709290;
+  outline: none;
+  margin-bottom: 1rem;
+}
 .submit-btn {
   width: 100%;
   padding: 10px;
@@ -427,8 +472,47 @@ onMounted(() => {
   outline: none;
   cursor: pointer;
 }
+.link-profile {
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+  /* gap: 2rem; */
+}
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  /* fill: orange; */
+  /* color: orange; */
+  margin-top: -0.2rem;
+  /* border: 1px solid orange;
+  border-radius: 50%; */
+}
+.log-btn {
+  /* padding: 5px 10px; */
+  background: #90cbc9;
+  border: 1px solid #90cbc9;
+  color:white;
+  padding: 5px 8px;
+  font-size: 0.6rem;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  
+}
 .add-products-header {
   color: white;
+  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 2px;
+  margin-bottom: -1rem;
+}
+.light-admin-panel .add-products-header {
+  color:#90cbc9;;
   font-size: 2rem;
   font-family: "Roboto", sans-serif;
   letter-spacing: 2px;
@@ -457,10 +541,6 @@ onMounted(() => {
   width: 25%;
   height: 100vh;
   position: relative;
-}
-.link-profile {
-  list-style: none;
-  text-decoration: none;
 }
 .admin-information-navigation {
   width: 20%;
@@ -530,7 +610,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   /* flex-direction: column; */
-  margin-left: 4rem;
+  /* margin-left: 4rem; */
   margin-top: 2rem;
 }
 .profile-all {
@@ -636,13 +716,7 @@ li {
   flex-direction: column;
   justify-content: center;
 }
-.price-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
+
 .product-name {
   font-family: "Dosis", sans-serif;
   color: white;
@@ -673,162 +747,13 @@ li {
 .add-to-cart:hover {
   background: transparent;
 }
-.category-container {
-  width: 80%;
-  margin-left: 8rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background: white;
-  gap: 2rem;
-  justify-content: space-evenly;
-  padding: 10px;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-}
-.category-container p {
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-}
+
 .active-category {
   background: orange;
   padding: 2px 10px;
   color: white;
   border-radius: 20px;
   transition: all 0.5s ease-in-out;
-}
-.view-img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-}
-.single-view-container {
-  width: 100%;
-  margin: 1rem;
-}
-.header-container {
-  width: 100%;
-  margin: 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #90cbc9;
-}
-.header-container h1 {
-  color: white;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.light-admin-panel .header-container h1 {
-  color: #90cbc9;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.header-container p {
-  color: white;
-  font-size: 0.9rem;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.light-admin-panel .header-container p {
-  color: #90cbc9;
-  font-size: 0.9rem;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.header-container p span {
-  color: white;
-  font-size: 0.9rem;
-  background: #90cbc9;
-  padding: 1px 9px;
-
-  font-family: "Mooli", sans-serif;
-  font-weight: 500;
-}
-.all-view-items-container {
-  width: 100%;
-  flex-wrap: wrap;
-   transition: all 1s ease-in-out ;
-}
-.view-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #90cbc9;
-}
-.view-img {
-  width: 150px;
-  height: 200px;
-  object-fit: contain;
-  background: white;
-}
-.name-description-container {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-left: -3rem;
-}
-.name-description-container h2 {
-  font-size: 1.4rem;
-  color: white;
-  text-transform: uppercase;
-}
-.name-description-container .brand,
-.price {
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: white;
-  max-width: 250px;
-}
-.price {
-  padding: 2px 10px;
-  background: orange;
-}
-.name-description-container .description {
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: rgb(196, 193, 193);
-  max-width: 250px;
-}
-.in-stock {
-  padding: 5px 10px;
-  background: #90cbc9;
-  border: 1px solid #90cbc9;
-  color: white;
-  font-size: 0.7rem;
-}
-.color,
-.category {
-  color: rgb(196, 193, 193);
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-.color span,
-.category span {
-  background: #000000;
-  color: white;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-}
-.price-delete-container button {
-  width: 100px;
-  padding: 5px;
-  background: rgb(192, 104, 104);
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  border: 1px solid rgb(192, 104, 104);
 }
 .profile-container .close-profile {
   display: none;
@@ -847,23 +772,33 @@ li {
     width: 1%;
   }
   .create-product-container {
-    /* align-items: center; */
-    justify-content: flex-start;
-    gap: 0rem;
-    position: relative;
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  gap: 0rem;
+  position: relative;
 
-    font-family: "Outfit", sans-serif;
-  }
-  .single-view-container {
-    width: 100%;
-    margin: 0;
-    margin-top: 2rem;
-  }
-  .all-view-items-container {
-    width: 100%;
-    flex-wrap: wrap;
-     transition: all 1s ease-in-out ;
-  }
+  font-family: "Outfit", sans-serif;
+}
+  .add-products-form-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 3rem;
+
+}
+.add-product-form {
+  width: 95%;
+/* margin-left: -1rem; */
+  padding: 20px;
+  border: 1px solid #90cbc9;
+  border-radius: 5px;
+  
+}
   .admin-bar {
     width: 30px;
     height: 30px;
@@ -879,21 +814,21 @@ li {
     border-radius: 50%;
   }
   .admin-pic-label {
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-    justify-content: space-between;
-    gap: 3rem;
-    margin: 0rem;
-
-    border-bottom: 1px solid rgb(184, 183, 183);
-    padding: 5px;
-  }
-  .admin-pic-label p {
-    font-weight: 600;
-    color: #064240;
-  }
+      width: 100%;
+      display: flex;
+      align-items: center;
+    
+      justify-content: space-between;
+      gap: 3rem;
+      margin: 0rem;
+    
+      border-bottom: 1px solid rgb(184, 183, 183);
+      padding: 5px;
+    }
+    .admin-pic-label p {
+      font-weight: 600;
+      color: #064240;
+    }
   .admin-information-navigation {
     width: 100%;
     z-index: 4;
@@ -927,27 +862,31 @@ li {
     width: 0%;
     font-size: 0;
     border: none;
+   
   }
-
+  
   .hide-admin-navigation .close-profile {
     display: none;
   }
   .hide-admin-navigation {
-    width: 0%;
-    height: 0;
-    /* background: transparent; */
-    /* height: 100vh; */
-    transition: all 0.5s ease-out;
-    /* display:none; */
-    font-size: 0;
-    background: #064240;
-    color: #064240;
-  }
-  .hide-admin-navigation * {
-    width: 0%;
-    height: 0%;
-    font-size: 0;
-    display: none;
-  }
+      width: 0%;
+      height:0;
+      /* background: transparent; */
+      /* height: 100vh; */
+      transition: all .5s ease-out;
+      /* display:none; */
+      font-size: 0;
+      background: #064240;
+      color:#064240;
+      
+    }
+  .hide-admin-navigation *{
+      width: 0%;
+      height: 0%;
+     font-size: 0;
+     display:none;
+      
+    }
+    
 }
 </style>

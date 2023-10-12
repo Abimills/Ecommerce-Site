@@ -142,7 +142,7 @@ const priceAfterDiscount = ref(totalPrice - discount || 0);
 const fetchProducts = async (store) => {
   const res = await Promise.all(
     store.state.cart?.map((item) =>
-      axios.get(`http://localhost:4040/products/${item?.id}`)
+      axios.get(`https://my-ecommerce-bkends.onrender.com/products/${item?.id}`)
     )
   );
 
