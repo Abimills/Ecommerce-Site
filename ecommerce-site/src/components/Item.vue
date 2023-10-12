@@ -166,7 +166,7 @@ const { id } = route.params;
 const data = reactive({ products: [] });
 const isInWishlist = ref(store.state.wishlist?.some((wish) => wish === id));
 // useRoute returns the current route
-console.log(store.state.wishlist?.some((wish) => wish === id));
+
 // Access the 'id' parameter fr om the route
 const navigate = (id) => {
   router.push({ name: "product", params: { id: id } });

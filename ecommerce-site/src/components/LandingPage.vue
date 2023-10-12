@@ -82,14 +82,14 @@ const store = useStore();
 
  
 }
-/* div {
+div {
   animation: fadeAn .3s ease-in-out both;
   animation-timeline: view();
 
-} */
+}
 @keyframes fadeAn {
  0% {
-    opacity: 0.5;
+    opacity: 1;
   }
 
   50% {
@@ -374,7 +374,7 @@ const store = useStore();
   }
   .girl-image {
     width: 100%;
-    height: 90vh;
+    /* height: 90vh; */
     object-fit: cover;
     /* margin-top: -3rem; */
     /* margin-right: -4rem; */

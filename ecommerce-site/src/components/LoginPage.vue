@@ -119,7 +119,7 @@ const handleSubmit = async () => {
       password: password.value,
     });
     if (res?.data) {
-      console.log(res.data);
+     
       store.commit("signedIn", { data: res.data.dataToClient });
       if (res.data.dataToClient.role === "admin") {
         router.push({ name: "profile" });

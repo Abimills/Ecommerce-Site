@@ -25,4 +25,21 @@ import Newsletter from "./Newsletter.vue";
      transition: all 1s ease-in-out ;
 
 }
+div {
+  animation: fadeAn .3s ease-in-out both;
+  animation-timeline: view();
+
+}
+@keyframes fadeAn {
+ 0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 </style>

@@ -227,7 +227,7 @@ const getCategories = (data) => {
     ...new Set(timeRangeCat),
   ];
 
-  console.log(productCategory.categories);
+
 };
 
 onMounted(() => {
@@ -263,7 +263,7 @@ const onSubmit = async () => {
       ...data,
       img: url,
     });
-    console.log(res);
+   
   } else {
     alert("Please provide stared fields");
   }
@@ -287,49 +287,6 @@ const filterProducts = (category) => {
   }
 };
 
-// export default {
-//   name: "Login",
-
-//   setup() {
-//     const data = ref("abel");
-
-//     return {
-//       data,
-//       productName: "",
-//       price: "",
-//       description: "",
-//       category: "",
-//       img: "",
-//       colors: "",
-//       timeRanges: "",
-//       discount: "",
-//     };
-//   },
-//   methods: {
-//     async submitProduct() {
-//       console.log(this.data.value);
-//       // if (
-//       //   this.productName == ""
-//       // ) {
-//       //   alert("please provide with all required fields");
-//       //   return;
-//       // } else {
-//       //   const data = {
-//       // //     name: this.productName,
-//       //     price: this.price,
-//       //     category: this.category,
-//       //     description: this.description,
-//       //     discount: this.discount,
-//       //     img: this.img,
-//       //     colors: this.colors,
-//       //     timeRanges: this.timeRanges,
-//       //   };
-//       //   const res = await axios.post(`http://localhost:4040/products/`, data);
-//       //   console.log(res);
-//       // }
-//     },
-//   },
-// };
 </script>
 
 <style scoped>

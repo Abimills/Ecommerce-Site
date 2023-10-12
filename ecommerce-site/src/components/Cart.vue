@@ -235,6 +235,7 @@ onMounted(() => {
   margin-bottom: 1rem;
   /* min-height: 100vh; */
 }
+
 .empty-data{
   width: 100%;
   height: 400px;

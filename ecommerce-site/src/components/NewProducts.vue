@@ -106,6 +106,23 @@ const setPagination = (value) => {
   margin-bottom: 1rem;
   cursor: pointer;
 }
+div {
+  animation: fadeAn .3s ease-in-out both;
+  animation-timeline: view();
+
+}
+@keyframes fadeAn {
+ 0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 .new-products-container {
   width: 100%;
   display: flex;

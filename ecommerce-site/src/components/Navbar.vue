@@ -23,7 +23,7 @@
       </svg>
 
       <li>
-        <router-link to="/" class="links" @click="toggleShow"
+        <router-link to="/" class="links logo" @click="toggleShow"
           >Famclog</router-link
         >
       </li>
@@ -247,6 +247,7 @@ li{
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 .shopping-bag {
   color: white;
@@ -286,6 +287,8 @@ li{
     justify-content: flex-end;
     align-items: flex-end;
     flex-direction: row-reverse;
+   /* z-index: 10;
+  background: red; */
   }
   .list-nav-container {
     flex-direction: column;
@@ -297,9 +300,14 @@ li{
     height: 100vh;
     transition: all 0.6s ease-in-out;
     padding: 28px 10px;
+    z-index: 99;
   }
   .links {
     color: #064240;
+    margin-top:-.5rem;
+  }
+  .logo{
+    display:none;
   }
   .close {
     display: block;
@@ -328,6 +336,10 @@ li{
     width: 0;
     height: 0;
   }
+  .hide-list .dark-mode-icon{
+    width: 0;
+    height: 0;
+  }
 
   .mother-cart-container {
     width: 100%;
@@ -347,8 +359,18 @@ li{
     height: 30px;
     display: block;
     /* margin-left:2rem; */
-    margin-top: 0.4rem;
+    margin-top: -0.4rem;
     color: white;
+    z-index: 98;
+  }
+  .light-nav .hamburger {
+    width: 30px;
+    height: 30px;
+    display: block;
+    /* margin-left:2rem; */
+    margin-top: -0.4rem;
+    color:#064240;
+    z-index: 98;
   }
 }
 </style>

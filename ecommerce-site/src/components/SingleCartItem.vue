@@ -95,6 +95,23 @@ onMounted(() => {
   gap: 2rem;
   margin-bottom: 2rem;
 }
+div {
+  animation: fadeAn .3s ease-in-out both;
+  animation-timeline: view();
+
+}
+@keyframes fadeAn {
+ 0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
 .lock {
   width: 20px;
   height: 20px;
