@@ -32,7 +32,7 @@
       </div>
       
     </div>
-  
+   <vue-element-loading :active="isLoading" spinner="bar-fade-scale" style="height: 100%"/>
 </template>
 
 <script setup>
@@ -41,6 +41,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import SingleProduct from "./SingleProduct.vue";
 const activeCategory = ref("Shoes");
+const isLoading = ref(false);
 
 // categories set of words from data
 const productCategory = reactive({ categories: [] });
@@ -70,8 +71,10 @@ const navigateBack = (id) => {
 
 onMounted(() => {
   const fetch = async () => {
-    const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
-    products.product = res.data.products?.sort(() => Math.random() - 0.5);
+     isLoading.value = true;
+     const res = await axios.get("https://my-ecommerce-bkends.onrender.com/products/");
+     products.product = res.data.products?.sort(() => Math.random() - 0.5);
+     isLoading.value = false;
     filterProducts("Shoes");
     getCategories(res.data);
   };

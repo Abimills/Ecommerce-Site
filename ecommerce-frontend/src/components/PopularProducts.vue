@@ -1,4 +1,5 @@
 <template>
+  
   <div class="new-products-container">
     <h1
       :class="
@@ -22,12 +23,13 @@
         y: 0,
       }"
     >
-      <SingleProduct
+    <SingleProduct
         v-for="product in products?.product"
         :key="product?._id"
         :product="product"
       />
     </div>
+    
     <div
       :class="
         store.state.mode === 'light'
@@ -51,27 +53,31 @@
       <p class="right-arrow" @click="incCurrentPage">{{ ">" }}</p>
     </div>
   </div>
+   <vue-element-loading :active="isLoading" spinner="bar-fade-scale" />
 </template>
 <script setup>
 import axios from "axios";
 import SingleProduct from "./SingleProduct.vue";
 import { computed, onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { useStore } from "vuex";
+import VueElementLoading from "vue-element-loading";
+
 
 const data = reactive({ product: [] });
 const products = reactive({ product: [] });
 const arrayPages = reactive({ array: [] });
 const currentPage = ref(1);
+const isLoading = ref(false);
 const store = useStore();
-// const isInWishlist = ref(store.state.wishlist?.some(wish => wish ===));
-
 const productsPerPage = 8;
 const fetchProducts = async () => {
+  isLoading.value = true;
   const res = await axios.get(
     "https://my-ecommerce-bkends.onrender.com/products/"
-  );
-  
-  data.product = res.data?.products?.sort(() => Math.random() - 0.5);
+    );
+    
+    data.product = res.data?.products?.sort(() => Math.random() - 0.5);
+    isLoading.value = false;
 };
 
 onMounted(() => {
