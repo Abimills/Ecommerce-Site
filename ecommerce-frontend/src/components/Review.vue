@@ -52,11 +52,11 @@ onMounted(() => {
   font-family: "Dosis", sans-serif;
   margin-bottom: 1rem;
 }
-div {
+/* div {
   animation: fadeAn .3s ease-in-out both;
   animation-timeline: view();
 
-}
+} */
 @keyframes fadeAn {
  0% {
     opacity: 1;

@@ -708,17 +708,21 @@ li {
     display: none;
   }
   .hide-admin-navigation {
-      width: 0%;
+    width: 0%;
       height:0;
       /* background: transparent; */
       /* height: 100vh; */
       transition: all .5s ease-out;
       /* display:none; */
       font-size: 0;
-      background: #064240;
+      background: transparent;
       color:#064240;
       
     }
+    .light-admin-panel .hide-admin-navigation{
+  background-color: transparent;
+  /* z-index: 99; */
+  }
   .hide-admin-navigation *{
       width: 0%;
       height: 0%;

@@ -463,22 +463,7 @@ onMounted(() => {
   
   padding: 10px;
 }
-.light-admin-panel .admin-information-navigation {
-  width: 20%;
-  height: 100vh;
-  left: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  /* background-color: rgb(0, 0, 0); */
-  color:#90cbc9;
-  /* margin-left: 3rem; */
-  border-top-right-radius: 90px;
-  position: fixed;
-  
-  padding: 10px;
-}
+
 
 
 .admin-pic-label {
@@ -814,7 +799,7 @@ li {
     transition: all 0.5s ease-out;
     /* display:none; */
     font-size: 0;
-    background: #064240;
+    background: transparent;
     color: #064240;
   }
   .hide-admin-navigation * {
@@ -823,6 +808,7 @@ li {
     font-size: 0;
     display: none;
   }
+
 }
 @media screen and (max-width: 480px) {
   .profile-all {

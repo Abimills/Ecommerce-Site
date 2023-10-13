@@ -876,10 +876,11 @@ li {
       transition: all .5s ease-out;
       /* display:none; */
       font-size: 0;
-      background: #064240;
+      background: transparent;
       color:#064240;
       
     }
+  
   .hide-admin-navigation *{
       width: 0%;
       height: 0%;

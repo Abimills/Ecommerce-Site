@@ -9,7 +9,7 @@ export default createStore({
     user :JSON.parse(localStorage.getItem("user")) || [],
     wishlist: JSON.parse(localStorage.getItem('wishlist')) || [],
     amount: JSON.parse(localStorage.getItem('amount')) || 0,
-    mode: JSON.parse(localStorage.getItem('mode')) || 'light'
+    mode: JSON.parse(localStorage.getItem('mode')) || 'dark'
 
   },
   getters: {
@@ -75,7 +75,7 @@ export default createStore({
       }else{
 
         state.cart = state.cart.filter(item => item.id !== id);
-        console.log(state.cart)
+        
            localStorage.setItem("products",JSON.stringify(state.cart))
          toast.success("Product removed from Cart", {
         timeout: 2000

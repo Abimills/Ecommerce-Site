@@ -131,9 +131,7 @@ const handleSubmit = async () => {
     }
   }
 };
-watch(data.value, (newValue, oldValue) => {
-  console.log(newValue);
-});
+
 </script>
 
 <style scoped>

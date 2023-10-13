@@ -70,7 +70,7 @@ const fetchProducts = async () => {
   const res = await axios.get(
     "https://my-ecommerce-bkends.onrender.com/products/"
   );
-  console.log(res.data);
+  
   data.product = res.data?.products?.sort(() => Math.random() - 0.5);
 };
 
@@ -134,10 +134,10 @@ const setPagination = (value) => {
   margin-bottom: 1rem;
   cursor: pointer;
 }
-div {
+/* div {
   animation: fadeAn 0.3s ease-in-out both;
   animation-timeline: view();
-}
+} */
 @keyframes fadeAn {
   0% {
     opacity: 1;
