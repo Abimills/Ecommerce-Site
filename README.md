@@ -1,5 +1,5 @@
 # Ecommerce Clothes Websites
-https://cloths-ecommerces.netlify.app/
+
  I've crafted a cutting-edge eCommerce site leveraging Vue.js for a responsive interface, MongoDB for robust data storage, and Express.js on 
 Node.js for a scalable backend. Harnessing the power of Vuex, our application boasts seamless state management for an unparalleled user experience.
 The UI is not just functional but visually striking, featuring captivating animations that elevate the overall shopping experience. With a strong emphasis on security 
